@@ -1,0 +1,22 @@
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\bin\Debug\Proyecto Cine.exe.config
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\bin\Debug\Proyecto Cine.exe
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\bin\Debug\Proyecto Cine.pdb
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Cine.csprojAssemblyReference.cache
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.AdminView.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Cines.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Ciudades.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.ClasificacionesYGeneros.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Formatos.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Funciones.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Login.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.MenuPeliculas.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Peliculas.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Precios.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Salas.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.SalasYCines.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Usuarios.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Properties.Resources.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Cine.csproj.GenerateResource.cache
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Cine.csproj.CoreCompileInputs.cache
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.exe
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.pdb

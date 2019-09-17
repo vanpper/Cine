@@ -205,38 +205,58 @@
             this.txtDescripcion.ReadOnly = true;
             this.txtDescripcion.Size = new System.Drawing.Size(321, 187);
             this.txtDescripcion.TabIndex = 0;
+            this.txtDescripcion.Text = "Descripcion";
+            this.txtDescripcion.Enter += new System.EventHandler(this.txtDescripcion_Enter);
+            this.txtDescripcion.Leave += new System.EventHandler(this.txtDescripcion_Leave);
             // 
             // txtDirectores
             // 
             this.txtDirectores.Location = new System.Drawing.Point(16, 92);
+            this.txtDirectores.MaxLength = 100;
             this.txtDirectores.Name = "txtDirectores";
             this.txtDirectores.ReadOnly = true;
             this.txtDirectores.Size = new System.Drawing.Size(272, 20);
             this.txtDirectores.TabIndex = 0;
+            this.txtDirectores.Text = "Directores";
+            this.txtDirectores.Enter += new System.EventHandler(this.txtDirectores_Enter);
+            this.txtDirectores.Leave += new System.EventHandler(this.txtDirectores_Leave);
             // 
             // txtActores
             // 
             this.txtActores.Location = new System.Drawing.Point(16, 66);
+            this.txtActores.MaxLength = 100;
             this.txtActores.Name = "txtActores";
             this.txtActores.ReadOnly = true;
             this.txtActores.Size = new System.Drawing.Size(272, 20);
             this.txtActores.TabIndex = 0;
+            this.txtActores.Text = "Actores";
+            this.txtActores.Enter += new System.EventHandler(this.txtActores_Enter);
+            this.txtActores.Leave += new System.EventHandler(this.txtActores_Leave);
             // 
             // txtDuracion
             // 
             this.txtDuracion.Location = new System.Drawing.Point(16, 40);
+            this.txtDuracion.MaxLength = 3;
             this.txtDuracion.Name = "txtDuracion";
             this.txtDuracion.ReadOnly = true;
-            this.txtDuracion.Size = new System.Drawing.Size(43, 20);
+            this.txtDuracion.Size = new System.Drawing.Size(59, 20);
             this.txtDuracion.TabIndex = 0;
+            this.txtDuracion.Text = "Duracion";
+            this.txtDuracion.Enter += new System.EventHandler(this.txtDuracion_Enter);
+            this.txtDuracion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDuracion_KeyPress);
+            this.txtDuracion.Leave += new System.EventHandler(this.txtDuracion_Leave);
             // 
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(16, 14);
+            this.txtNombre.MaxLength = 100;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.ReadOnly = true;
             this.txtNombre.Size = new System.Drawing.Size(272, 20);
             this.txtNombre.TabIndex = 0;
+            this.txtNombre.Text = "Nombre";
+            this.txtNombre.Enter += new System.EventHandler(this.txtNombre_Enter);
+            this.txtNombre.Leave += new System.EventHandler(this.txtNombre_Leave);
             // 
             // openFileDialog1
             // 

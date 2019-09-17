@@ -174,6 +174,7 @@
             // txtDireccion
             // 
             this.txtDireccion.Location = new System.Drawing.Point(561, 15);
+            this.txtDireccion.MaxLength = 100;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(202, 20);
             this.txtDireccion.TabIndex = 6;
@@ -236,6 +237,7 @@
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(166, 15);
+            this.txtNombre.MaxLength = 50;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(202, 20);
             this.txtNombre.TabIndex = 3;
