@@ -89,6 +89,7 @@
             // txtDescripcionFormato
             // 
             this.txtDescripcionFormato.Location = new System.Drawing.Point(37, 18);
+            this.txtDescripcionFormato.MaxLength = 30;
             this.txtDescripcionFormato.Name = "txtDescripcionFormato";
             this.txtDescripcionFormato.Size = new System.Drawing.Size(329, 20);
             this.txtDescripcionFormato.TabIndex = 1;

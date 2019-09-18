@@ -267,7 +267,7 @@ namespace Proyecto_Cine.Forms
                 {
                     if(dgvPeliculas.CurrentRow.Cells[11].Value.ToString() == "True" && cbEstado.Checked == false) //SI SE VA A DESHABILITAR LA PELICULA
                     {
-                        DialogResult resultado = MessageBox.Show("Al deshabilitar la pelicula \"" + txtNombre.Text + "\", si esta estuviere en varios formatos, tambien se deshabilitaran.\nPara volver a habilitar la pelicula en cada formato debera hacerlo manualmente.\n¿Desea continuar?", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        DialogResult resultado = MessageBox.Show("Al deshabilitar la pelicula, tambien sera deshabilitada en todos sus formatos.\nPara volver a habilitar cada formato debera hacerlo manualmente.\n¿Desea continuar?", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                         if(resultado == DialogResult.Yes) //SI SE ELIGIO "SI"
                         {

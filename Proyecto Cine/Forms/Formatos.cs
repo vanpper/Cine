@@ -26,6 +26,7 @@ namespace Proyecto_Cine.Forms
         DataTable DTFormatos2 = new DataTable();
         SqlDataAdapter adaptador;
         SqlCommand comando;
+        SqlDataReader reader;
 
         int OperacionFormatos = 0;  //INDICADOR DE OPERACION ACTUAL DE FORMATOS
         int OperacionPXF = 0; //INDICADOR DE OPERACION ACTUAL DE PELICULAS X FORMATOS
@@ -87,6 +88,8 @@ namespace Proyecto_Cine.Forms
             adaptador = new SqlDataAdapter("SELECT CodPelicula_Peli, Nombre_Peli FROM Peliculas", BD.conectarBD); //TRAER TODAS LAS PELICULAS
             DTPeliculas.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTPeliculas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+
+            DTPeliculas.DefaultView.Sort = "Nombre_Peli"; //ORDENAR PELICULAS ALFABETICAMENTE
 
             boxPeliculas.DisplayMember = "Nombre_Peli"; //EL BOX MOSTRARA LOS NOMBRES DE LAS PELICULAS
             boxPeliculas.ValueMember = "CodPelicula_Peli"; //EL VALOR DE CADA MIEMBRO SERA EL CODIGO DE LA PELICULA
@@ -152,6 +155,7 @@ namespace Proyecto_Cine.Forms
             dgvFormatos.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvFormatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvFormatos.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dgvFormatos.Sort(dgvFormatos.Columns[1], ListSortDirection.Ascending);
 
 
             dgvPXF.Columns[0].HeaderText = "Codigo";
@@ -172,6 +176,7 @@ namespace Proyecto_Cine.Forms
             dgvPXF.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPXF.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
             dgvPXF.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dgvPXF.Sort(dgvPXF.Columns[1], ListSortDirection.Ascending);
         }
 
         private void btnVolverFormato_Click(object sender, EventArgs e)
@@ -276,6 +281,10 @@ namespace Proyecto_Cine.Forms
                 OperacionPXF = NUEVO; //ASIGNAR "NUEVO" A OPERACION ACTUAL DE PELICULAS X FORMATO
                 AbrirPanelPXF(); //ABRIR EL PANEL
             }
+            else //SI NO LE QUEDAN REGISTROS. LA PELICULA YA ESTA EN TODOS LOS FORMATOS DISPONIBLES
+            {
+                MessageBox.Show("La pelicula se encuentra en todos los formatos disponibles.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnVolverPXF_Click(object sender, EventArgs e)
@@ -324,14 +333,28 @@ namespace Proyecto_Cine.Forms
 
             if (EstadoPXF == HABILITADO) //SI EL REGISRO ACTUAL ESTA HABILITADO
             {
-                comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'False' WHERE CodPelicula_PXF = "+boxPeliculas.SelectedValue+" AND CodFormato_PXF = "+dgvPXF.CurrentRow.Cells[0].Value, BD.conectarBD); //ACTUALIZARLO A DESHABILITADO
-                comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
+                DialogResult resultado= MessageBox.Show("Al deshabilitar " + boxPeliculas.Text + " " + dgvPXF.CurrentRow.Cells[1].Value.ToString() + ", tambien se deshabilitaran todas las funciones que proyecten la pelicula en dicho formato.\nPara volver a habilitar las funciones debera hacerlo manualmente.\n¿Desea continuar?", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if(resultado == DialogResult.Yes) //SI SE SELECCIONO "SI"
+                {
+                    comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'False' WHERE CodPelicula_PXF = " + boxPeliculas.SelectedValue + " AND CodFormato_PXF = " + dgvPXF.CurrentRow.Cells[0].Value, BD.conectarBD); //ACTUALIZARLO A DESHABILITADO
+                    comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
+
+                    deshabilitarFunciones(); //DESHABILTIAR LAS FUNCIONES QUE CONTENGAN LA PELICULA Y EL FORMATO 
+                }
             }
 
             if (EstadoPXF == DESHABILITADO) //SI EL REGISTRO ACTUAL ESTA DESHABILITADO
             {
-                comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'True' WHERE CodPelicula_PXF = " + boxPeliculas.SelectedValue + " AND CodFormato_PXF = " + dgvPXF.CurrentRow.Cells[0].Value, BD.conectarBD); //ACTUALIZARLO A HABILITADO
-                comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
+                if(getEstadoPelicula()) //SI LA PELICULA ESTA HABILITADA
+                {
+                    comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'True' WHERE CodPelicula_PXF = " + boxPeliculas.SelectedValue + " AND CodFormato_PXF = " + dgvPXF.CurrentRow.Cells[0].Value, BD.conectarBD); //ACTUALIZARLO A HABILITADO
+                    comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
+                }
+                else //SI LA PELICULA ESTA DESHABILITADA
+                {
+                    MessageBox.Show(boxPeliculas.Text + " esta deshabilitada, no se la puede habilitar en ningun formato.", "Pelicula deshabilitada", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                }
             }
 
             ActualizarDgvPXF(); //ACTUALIZAR DATAGRID PELICULAS X FORMATO
@@ -367,6 +390,29 @@ namespace Proyecto_Cine.Forms
             if (DTFormatos2.Rows.Count == 0) //SI EL BOX SE QUEDA VACIO...
             {
                 CerrarPanelPXF(); //CERRAR EL PANEL
+            }
+        }
+
+        private void deshabilitarFunciones()
+        {
+            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'False' WHERE CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + dgvPXF.CurrentRow.Cells[0].Value.ToString(), BD.conectarBD);
+            comando.ExecuteNonQuery();
+        }
+
+        private bool getEstadoPelicula()
+        {
+            comando = new SqlCommand("SELECT CodPelicula_Peli FROM Peliculas WHERE CodPelicula_Peli = " + boxPeliculas.SelectedValue + " AND Estado_Peli = 'True'", BD.conectarBD); //GENERAR CONSULTA
+            reader = comando.ExecuteReader(); //EJECUTAR CONSULTA
+
+            if(reader.HasRows) //SI SE ENCONTRO LA PELICULA CON ESTADO "TRUE"
+            {
+                reader.Close(); //CERRAR READER
+                return true; //DEVOLVER VERDADERO
+            }
+            else //SI ESTA CON ESTADO "FALSE"
+            {
+                reader.Close(); //CERRAR READER
+                return false; //DEVOLVER FALSO
             }
         }
     }

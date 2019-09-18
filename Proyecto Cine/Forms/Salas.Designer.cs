@@ -88,6 +88,7 @@
             // txtDescripcionTDS
             // 
             this.txtDescripcionTDS.Location = new System.Drawing.Point(109, 16);
+            this.txtDescripcionTDS.MaxLength = 100;
             this.txtDescripcionTDS.Name = "txtDescripcionTDS";
             this.txtDescripcionTDS.Size = new System.Drawing.Size(123, 20);
             this.txtDescripcionTDS.TabIndex = 0;
@@ -273,6 +274,7 @@
             // txtDescripcionSalas
             // 
             this.txtDescripcionSalas.Location = new System.Drawing.Point(78, 12);
+            this.txtDescripcionSalas.MaxLength = 50;
             this.txtDescripcionSalas.Name = "txtDescripcionSalas";
             this.txtDescripcionSalas.Size = new System.Drawing.Size(121, 20);
             this.txtDescripcionSalas.TabIndex = 1;

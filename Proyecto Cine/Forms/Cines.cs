@@ -201,7 +201,7 @@ namespace Proyecto_Cine.Forms
                             if (dgvCines.CurrentRow.Cells[8].Value.ToString() == "True" && checkActivo.Checked == false) //SI SE QUIERE DESHABILITAR UN CINE
                             {
                                 //MOSTRAR MENSAJE
-                                DialogResult result = MessageBox.Show("Al inhabilitar el cine \"" + txtNombre.Text + "\", tambien se deshabilitaran todas las salas y funciones asociadas a este.\nPara habilitarlas debera hacerlo manulamente.\n¿Desea continuar?", "Atencion", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                                DialogResult result = MessageBox.Show("Al deshabilitar el cine, tambien se deshabilitaran todas sus salas y funciones asociadas a este.\nPara habilitarlas debera hacerlo manulamente.\n¿Desea continuar?", "Atencion", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 
                                 if (result == DialogResult.Yes) //SI SE SELECCIONO "SI"
                                 {
