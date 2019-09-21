@@ -44,6 +44,8 @@
             this.btnGuardarGenero = new System.Windows.Forms.Button();
             this.btnVolverGenero = new System.Windows.Forms.Button();
             this.dgvGeneros = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelClasificacion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasificaciones)).BeginInit();
@@ -87,6 +89,7 @@
             // panelClasificacion
             // 
             this.panelClasificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelClasificacion.Controls.Add(this.label1);
             this.panelClasificacion.Controls.Add(this.txtDescripcionClasificacion);
             this.panelClasificacion.Controls.Add(this.btnGuardarClasificacion);
             this.panelClasificacion.Controls.Add(this.btnVolverClasificacion);
@@ -98,9 +101,10 @@
             // 
             // txtDescripcionClasificacion
             // 
-            this.txtDescripcionClasificacion.Location = new System.Drawing.Point(35, 19);
+            this.txtDescripcionClasificacion.Location = new System.Drawing.Point(121, 19);
+            this.txtDescripcionClasificacion.MaxLength = 30;
             this.txtDescripcionClasificacion.Name = "txtDescripcionClasificacion";
-            this.txtDescripcionClasificacion.Size = new System.Drawing.Size(331, 20);
+            this.txtDescripcionClasificacion.Size = new System.Drawing.Size(245, 20);
             this.txtDescripcionClasificacion.TabIndex = 0;
             // 
             // btnGuardarClasificacion
@@ -167,6 +171,7 @@
             // panelGenero
             // 
             this.panelGenero.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelGenero.Controls.Add(this.label2);
             this.panelGenero.Controls.Add(this.txtDescripcionGenero);
             this.panelGenero.Controls.Add(this.btnGuardarGenero);
             this.panelGenero.Controls.Add(this.btnVolverGenero);
@@ -178,9 +183,10 @@
             // 
             // txtDescripcionGenero
             // 
-            this.txtDescripcionGenero.Location = new System.Drawing.Point(33, 19);
+            this.txtDescripcionGenero.Location = new System.Drawing.Point(119, 19);
+            this.txtDescripcionGenero.MaxLength = 50;
             this.txtDescripcionGenero.Name = "txtDescripcionGenero";
-            this.txtDescripcionGenero.Size = new System.Drawing.Size(344, 20);
+            this.txtDescripcionGenero.Size = new System.Drawing.Size(258, 20);
             this.txtDescripcionGenero.TabIndex = 0;
             // 
             // btnGuardarGenero
@@ -211,6 +217,24 @@
             this.dgvGeneros.Size = new System.Drawing.Size(413, 277);
             this.dgvGeneros.TabIndex = 0;
             this.dgvGeneros.SelectionChanged += new System.EventHandler(this.dgvGeneros_SelectionChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "DESCRIPCION:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(30, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "DESCRIPCION:";
             // 
             // ClasificacionesYGeneros
             // 
@@ -252,5 +276,7 @@
         private System.Windows.Forms.Button btnGuardarGenero;
         private System.Windows.Forms.Button btnVolverGenero;
         private System.Windows.Forms.DataGridView dgvGeneros;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

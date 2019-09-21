@@ -32,14 +32,19 @@
             this.btnModificarTDE = new System.Windows.Forms.Button();
             this.btnNuevoTDE = new System.Windows.Forms.Button();
             this.panelTDE = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtDescripcionTDE = new System.Windows.Forms.TextBox();
             this.btnGuardarTDE = new System.Windows.Forms.Button();
             this.btnVolverTDE = new System.Windows.Forms.Button();
             this.dgvTDE = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnModificarPrecio = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnNuevoPrecio = new System.Windows.Forms.Button();
             this.panelPrecio = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnGuardarPrecio = new System.Windows.Forms.Button();
             this.btnVolverPrecio = new System.Windows.Forms.Button();
             this.txtPrecio = new System.Windows.Forms.TextBox();
@@ -47,11 +52,6 @@
             this.BoxTDS = new System.Windows.Forms.ComboBox();
             this.BoxCines = new System.Windows.Forms.ComboBox();
             this.dgvPrecios = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelTDE.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTDE)).BeginInit();
@@ -105,9 +105,19 @@
             this.panelTDE.TabIndex = 1;
             this.panelTDE.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "DESCRIPCION";
+            // 
             // txtDescripcionTDE
             // 
             this.txtDescripcionTDE.Location = new System.Drawing.Point(108, 15);
+            this.txtDescripcionTDE.MaxLength = 100;
             this.txtDescripcionTDE.Name = "txtDescripcionTDE";
             this.txtDescripcionTDE.Size = new System.Drawing.Size(169, 20);
             this.txtDescripcionTDE.TabIndex = 3;
@@ -167,6 +177,24 @@
             this.btnModificarPrecio.UseVisualStyleBackColor = true;
             this.btnModificarPrecio.Click += new System.EventHandler(this.btnModificarPrecio_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(383, 10);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "SALA";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(78, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "CINE";
+            // 
             // btnNuevoPrecio
             // 
             this.btnNuevoPrecio.Location = new System.Drawing.Point(103, 390);
@@ -192,6 +220,24 @@
             this.panelPrecio.TabIndex = 2;
             this.panelPrecio.Visible = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(404, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "PRECIO";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(27, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(32, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "TIPO";
+            // 
             // btnGuardarPrecio
             // 
             this.btnGuardarPrecio.Location = new System.Drawing.Point(367, 46);
@@ -215,9 +261,11 @@
             // txtPrecio
             // 
             this.txtPrecio.Location = new System.Drawing.Point(457, 11);
+            this.txtPrecio.MaxLength = 15;
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(100, 20);
             this.txtPrecio.TabIndex = 1;
+            this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecio_KeyPress);
             // 
             // boxTDE
             // 
@@ -256,51 +304,6 @@
             this.dgvPrecios.Size = new System.Drawing.Size(622, 259);
             this.dgvPrecios.TabIndex = 0;
             this.dgvPrecios.SelectionChanged += new System.EventHandler(this.dgvPrecios_SelectionChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "DESCRIPCION";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "TIPO";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(404, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "PRECIO";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(78, 10);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "CINE";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(383, 10);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "SALA";
             // 
             // Precios
             // 

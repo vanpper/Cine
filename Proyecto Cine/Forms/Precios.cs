@@ -108,6 +108,8 @@ namespace Proyecto_Cine.Forms
             DTTiposDeEntradas2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTTiposDeEntradas2); //LLENAR EL DATATABLE CON NUEVOS REGISTROS
 
+            DTTiposDeEntradas2.DefaultView.Sort = "Descripcion_TDE"; //ORDENAR REGISTROS ALFABETICAMENTE
+
             boxTDE.DisplayMember = "Descripcion_TDE"; //LO QUE MOSTRARA EL BOX SERA LA DESCRIPCION DE TIPOS DE ENTRADAS
             boxTDE.ValueMember = "CodTipoDeEntrada_TDE"; //ASIGNARA COMO VALOR, EL CODIGO DE LOS TIPOS DE ENTRADAS
         }
@@ -125,6 +127,8 @@ namespace Proyecto_Cine.Forms
             DTTiposDeSalas.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTTiposDeSalas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
+            DTTiposDeSalas.DefaultView.Sort = "Descripcion_TDS"; //ORDENAR REGISTROS ALFABETICAMENTE
+
             BoxTDS.DisplayMember = "Descripcion_TDS"; //LO QUE SE VERA EN EL BOX, SERA LA DESCRIPCION DEL TIPO DE SALA
             BoxTDS.ValueMember = "CodTipoDeSala_TDS"; //ASIGNAR COMO VALOR EL CODIGO DE TIPO DE SALA
         }
@@ -134,6 +138,8 @@ namespace Proyecto_Cine.Forms
             adaptador = new SqlDataAdapter("SELECT CodCine_Cine, Nombre_Cine FROM Cines", BD.conectarBD); //TRAER TODOS LOS CINES
             DTCines.Clear(); //LIMPIAR EL DATATABLE DE CINES DE VIEJOS REGISTROS
             adaptador.Fill(DTCines); //LLENAR EL DATATABLE DE CINES LOS NUEVOS REGISTROS
+
+            DTCines.DefaultView.Sort = "Nombre_Cine"; //ORDENAR REGISTROS ALFABETICAMENTE
 
             BoxCines.DisplayMember = "Nombre_Cine"; //LO QUE SE VERA EN EL BOX, SERA EL NOMBRE DE LOS CINES
             BoxCines.ValueMember = "CodCine_Cine"; //ASIGNAR COMO VALOR EL CODIGO DE CINE
@@ -175,6 +181,7 @@ namespace Proyecto_Cine.Forms
             dgvTDE.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvTDE.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvTDE.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dgvTDE.Sort(dgvTDE.Columns[1], ListSortDirection.Ascending);
 
             dgvPrecios.Columns[0].HeaderText = "Codigo Tipo de Entrada";
             dgvPrecios.Columns[1].HeaderText = "Tipo de Entrada";
@@ -194,6 +201,7 @@ namespace Proyecto_Cine.Forms
             dgvPrecios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPrecios.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
             dgvPrecios.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dgvPrecios.Sort(dgvPrecios.Columns[1], ListSortDirection.Ascending);
         }
 
         private void ActualizarDvgTiposDeEntradas()
@@ -284,6 +292,10 @@ namespace Proyecto_Cine.Forms
                 {
                     RemoverElementosBoxTDE(); //ELIMINAR DEL BOX LOS ELEMENTOS QUE YA ESTAN EN EL DATAGRID DE PRECIOS
                 }
+            }
+            else
+            {
+                //MENSAJE
             }
         }
 
@@ -419,6 +431,35 @@ namespace Proyecto_Cine.Forms
                     txtPrecio.Text = dgvPrecios.CurrentRow.Cells[2].Value.ToString(); //LLENAR EL TEXTBOX CON EL PRECIO SELECCIONADO
                     txtPrecio.Focus(); //DARLE FOCO AL TEXTBOX
                     txtPrecio.SelectAll(); //SELECCIONAR TODO EL TEXTO
+                }
+            }
+        }
+
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+        }
+
+        private void seleccionarPrecio(String codigo)
+        {
+            for(int i=0; i<dgvPrecios.RowCount; i++) //RECORRER TODOS LOS PRECIOS
+            {
+                if(dgvPrecios.Rows[i].Cells[0].Value.ToString() == codigo) //SI EL CODIGO DE LA FILA COINCIDE CON EL CODIGO BUSCADO
+                {
+                    dgvPrecios.CurrentCell = dgvPrecios.Rows[i].Cells[2]; //SELECCIONAR REGISTRO
+                    dgvPrecios.Rows[i].Selected = true; //SELECCIONAR REGISTRO
+                }
+            }
+        }
+
+        private void seleccionarTDE(String codigo)
+        {
+            for (int i = 0; i < dgvTDE.RowCount; i++) //RECORRER TODOS LOS TIPOS DE ENTRADAS
+            {
+                if (dgvTDE.Rows[i].Cells[0].Value.ToString() == codigo) //SI EL CODIGO DE LA FILA COINCIDE CON EL CODIGO BUSCADO
+                {
+                    dgvTDE.CurrentCell = dgvTDE.Rows[i].Cells[2]; //SELECCIONAR REGISTRO
+                    dgvTDE.Rows[i].Selected = true; //SELECCIONAR REGISTRO
                 }
             }
         }
