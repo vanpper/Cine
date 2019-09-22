@@ -257,30 +257,27 @@ namespace Proyecto_Cine.Forms
                     comando = new SqlCommand("INSERT INTO TiposDeEntradas (CodTipoDeEntrada_TDE, Descripcion_TDE) VALUES (" + NuevoCodigo + ", '" + txtDescripcionTDE.Text + "')", BD.conectarBD); //INSERTAR EL NUEVO REGISTRO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
                     ActualizarDvgTiposDeEntradas(); //ACTUALIZAR DATAGIRD TIPOS DE ENTRADAS
-                    dgvTDE.CurrentCell = dgvTDE.Rows[dgvTDE.RowCount - 1].Cells[1]; //SELECCIONAR EL NUEVO REGISTRO
-                    dgvTDE.Rows[dgvTDE.RowCount - 1].Selected = true; //SELECCIONAR EL NUEVO REGISTRO
+
+                    seleccionarTDE(NuevoCodigo.ToString()); //SELECCIONAR EL NUEVO REGISTRO
+
                     txtDescripcionTDE.Clear(); //LIMPIAR EL TEXTBOX
                     txtDescripcionTDE.Focus(); //DARLE FOCO AL TEXTBOX
                 }
 
                 if (OperacionTiposDeEntradas == MODIFICAR) //SI SE ESTA MODIFICANDO UN TIPO DE ENTRADA...
                 {
-                    int CurrentCode = Int32.Parse(dgvTDE.CurrentRow.Cells[0].Value.ToString()); //GUARDAR EL CODIGO ACTUAL
-                    int CurrentIndexTDE = dgvTDE.CurrentRow.Index; //GUARDAR EL INDEX SELECCIONADO DEL DATAGRID TIPO DE ENTRADAS
-                    int CurrentIndexPrecios = dgvPrecios.CurrentRow.Index; //GUARDAR EL INDEX SELECCIONADO DEL DATAGRID PRECIOS
+                    String CurrentCodeTDE = dgvTDE.CurrentRow.Cells[0].Value.ToString(); //GUARDAR EL CODIGO ACTUAL DE TDE
+                    String CurrentCodePrecios = dgvPrecios.CurrentRow.Cells[0].Value.ToString(); //GUARDAR EL CODIGO ACTUAL DE PRECIOS
 
-                    comando = new SqlCommand("UPDATE TiposDeEntradas SET Descripcion_TDE = '" + txtDescripcionTDE.Text + "' WHERE CodTipoDeEntrada_TDE = " + CurrentCode, BD.conectarBD); //MODIFICAR EL REGISTOR SELECCIONADO
+                    comando = new SqlCommand("UPDATE TiposDeEntradas SET Descripcion_TDE = '" + txtDescripcionTDE.Text + "' WHERE CodTipoDeEntrada_TDE = " + CurrentCodeTDE, BD.conectarBD); //MODIFICAR EL REGISTOR SELECCIONADO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDvgTiposDeEntradas(); //ACTUALIZAR DATAGRID TIPO DE ENTRADAS
                     ActualizarDgvPrecios(); //ACTUALIZAR DATAGRID DE PRECIOS
 
-                    dgvTDE.CurrentCell = dgvTDE.Rows[CurrentIndexTDE].Cells[1]; //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO EN TIPOS DE ENTRADAS
-                    dgvTDE.Rows[CurrentIndexTDE].Selected = true; //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO EN TIPO DE ENTRADAS
-
-                    dgvPrecios.CurrentCell = dgvPrecios.Rows[CurrentIndexPrecios].Cells[2]; //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO EN PRECIOS
-                    dgvPrecios.Rows[CurrentIndexPrecios].Selected = true; //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO EN PRECIOS
-
+                    seleccionarTDE(CurrentCodeTDE); //SELECCIONAR EL REGISTRO MODIFICADO
+                    seleccionarPrecio(CurrentCodePrecios);
+                   
                     txtDescripcionTDE.Text = dgvTDE.CurrentRow.Cells[1].Value.ToString(); //LLENAR EL TEXTBOX CON EL REGISTRO SELECCIONADO
                     txtDescripcionTDE.Focus(); //DARLE FOCO AL TEXTBOX
                     txtDescripcionTDE.SelectAll(); //SELECCIONAR TODO EL TEXTO
@@ -293,9 +290,10 @@ namespace Proyecto_Cine.Forms
                     RemoverElementosBoxTDE(); //ELIMINAR DEL BOX LOS ELEMENTOS QUE YA ESTAN EN EL DATAGRID DE PRECIOS
                 }
             }
-            else
+            else //SI EL TEXTBOX ESTA VACIO
             {
-                //MENSAJE
+                MessageBox.Show("La descripcion no puede quedar vacia", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescripcionTDE.Focus();
             }
         }
 
@@ -406,8 +404,7 @@ namespace Proyecto_Cine.Forms
                     txtPrecio.Clear(); //LIMPIAR EL TEXTBOX
                     txtPrecio.Focus(); //DARLE FOCO AL TEXTBOX
 
-                    dgvPrecios.CurrentCell = dgvPrecios.Rows[dgvPrecios.RowCount - 1].Cells[2]; //SELECCIONAR EL NUEVO REGISTRO 
-                    dgvPrecios.Rows[dgvPrecios.RowCount - 1].Selected = true; //SELECCIONAR EL NUEVO REGISTRO
+                    seleccionarPrecio(boxTDE.SelectedValue.ToString()); //SELECCIONAR EL NUEVO REGISTRO
 
                     RemoverElementosBoxTDE(); //REMOVER DEL BOX LOS TIPOS DE ENTRADAS YA AGREGADOS EN LOS PRECIOS. INCLUIDO EL NUEVO REGISTRO
 
@@ -419,19 +416,24 @@ namespace Proyecto_Cine.Forms
 
                 if (OperacionPrecios == MODIFICAR) //SI SE VA A MODIFICAR
                 {
-                    int SelectedIndex = dgvPrecios.CurrentRow.Index; //GUARDAR EL INDICE DEL ELEMENTO SELECCIONADO
+                    String CurrentCode = dgvPrecios.CurrentRow.Cells[0].Value.ToString();
 
-                    comando = new SqlCommand("UPDATE Precios SET Precio_Prec = "+txtPrecio.Text+" WHERE CodCine_Prec = "+BoxCines.SelectedValue+" AND CodTipoDeSala_Prec = "+BoxTDS.SelectedValue+" AND CodTipoDeEntrada_Prec = "+dgvPrecios.CurrentRow.Cells[0].Value, BD.conectarBD); //ACTUALIZAR REGISTRO
+                    comando = new SqlCommand("UPDATE Precios SET Precio_Prec = " + txtPrecio.Text + " WHERE CodCine_Prec = " + BoxCines.SelectedValue + " AND CodTipoDeSala_Prec = " + BoxTDS.SelectedValue + " AND CodTipoDeEntrada_Prec = " + CurrentCode, BD.conectarBD); //ACTUALIZAR REGISTRO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvPrecios(); //ACTUALIZAR DATAGRID DE PRECIO
-                    dgvPrecios.CurrentCell = dgvPrecios.Rows[SelectedIndex].Cells[2]; //SELECCIONAR EL ELEMENTO QUE ESTABA SELECCIONADO
-                    dgvPrecios.Rows[SelectedIndex].Selected = true; //SELECCIONAR EL ELEMENTO QUE ESTABA SELECCIONADO
+
+                    seleccionarPrecio(CurrentCode); //SELECCIONAR EL REGISTRO MODIFICADO
 
                     txtPrecio.Text = dgvPrecios.CurrentRow.Cells[2].Value.ToString(); //LLENAR EL TEXTBOX CON EL PRECIO SELECCIONADO
                     txtPrecio.Focus(); //DARLE FOCO AL TEXTBOX
                     txtPrecio.SelectAll(); //SELECCIONAR TODO EL TEXTO
                 }
+            }
+            else //SI EL TEXTBOX PRECIO ESTA VACIO
+            {
+                MessageBox.Show("El precio no puede quedar vacio", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPrecio.Focus();
             }
         }
 
@@ -454,11 +456,11 @@ namespace Proyecto_Cine.Forms
 
         private void seleccionarTDE(String codigo)
         {
-            for (int i = 0; i < dgvTDE.RowCount; i++) //RECORRER TODOS LOS TIPOS DE ENTRADAS
+            for (int i=0; i<dgvTDE.RowCount; i++) //RECORRER TODOS LOS TIPOS DE ENTRADAS
             {
                 if (dgvTDE.Rows[i].Cells[0].Value.ToString() == codigo) //SI EL CODIGO DE LA FILA COINCIDE CON EL CODIGO BUSCADO
                 {
-                    dgvTDE.CurrentCell = dgvTDE.Rows[i].Cells[2]; //SELECCIONAR REGISTRO
+                    dgvTDE.CurrentCell = dgvTDE.Rows[i].Cells[1]; //SELECCIONAR REGISTRO
                     dgvTDE.Rows[i].Selected = true; //SELECCIONAR REGISTRO
                 }
             }
