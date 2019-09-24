@@ -173,7 +173,7 @@ namespace Proyecto_Cine.Forms
             dgvUsuarios.Columns[15].HeaderText = "Contraseña";
             dgvUsuarios.Columns[16].HeaderText = "Estado";
 
-            //dgvUsuarios.Columns[0].Visible = false;
+            dgvUsuarios.Columns[0].Visible = false;
             dgvUsuarios.Columns[1].Visible = false;
             dgvUsuarios.Columns[8].Visible = false;
             dgvUsuarios.Columns[10].Visible = false;
@@ -232,7 +232,7 @@ namespace Proyecto_Cine.Forms
                 if(box.TextLength == 0) //SI EL TEXTBOX ESTA VACIO...
                 {
                     enBlanco++; //AUMENTAR EN 1 LA VARIABLE
-                    box.BackColor = Color.Tomato; //CAMBIAR COLOR DE TEXTBOX
+                    box.BackColor = Color.Red; //CAMBIAR COLOR DE TEXTBOX
                 }
             }
 
@@ -286,14 +286,67 @@ namespace Proyecto_Cine.Forms
         {
             for(int i=0; i<dgvUsuarios.RowCount; i++) //RECORRER TODO EL DATAGRID
             {
-                Console.WriteLine("CODIGO: " + codigo + " i: " + i + "CODIGOGRID: " + dgvUsuarios.Rows[i].Cells[0].Value.ToString());
-
                 if(dgvUsuarios.Rows[i].Cells[0].Value.ToString() == codigo) //SI EL CODIGO DE LA FILA COINCIDE CON EL CODIGO BUSCADO
                 {
                     dgvUsuarios.CurrentCell = dgvUsuarios.Rows[i].Cells[3]; //SELECCIONAR REGISTRO
-                    dgvUsuarios.Rows[3].Selected = true; //SELECCIONAR EL REGISTRO 
+                    dgvUsuarios.Rows[i].Selected = true; //SELECCIONAR EL REGISTRO
                 }
             }
+        }
+
+        private void txtNombre_Enter(object sender, EventArgs e)
+        {
+            if (txtNombre.BackColor != Color.White) txtNombre.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
+        }
+
+        private void txtApellido_Enter(object sender, EventArgs e)
+        {
+            if (txtApellido.BackColor != Color.White) txtApellido.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
+        }
+
+        private void txtDNI_Enter(object sender, EventArgs e)
+        {
+            if (txtDNI.BackColor != Color.White) txtDNI.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
+        }
+
+        private void txtEmail_Enter(object sender, EventArgs e)
+        {
+            if (txtEmail.BackColor != Color.White) txtEmail.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
+        }
+
+        private void txtContraseña_Enter(object sender, EventArgs e)
+        {
+            if (txtContraseña.BackColor != Color.White) txtContraseña.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
+        }
+
+        private void txtTelefono_Enter(object sender, EventArgs e)
+        {
+            if (txtTelefono.BackColor != Color.White) txtTelefono.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
+        }
+
+        private void txtDireccion_Enter(object sender, EventArgs e)
+        {
+            if (txtDireccion.BackColor != Color.White) txtDireccion.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
+        }
+
+        private void txtCP_Enter(object sender, EventArgs e)
+        {
+            if (txtCP.BackColor != Color.White) txtCP.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
+        }
+
+        private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+        }
+
+        private void txtCP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
         }
     }
 }

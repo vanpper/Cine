@@ -307,16 +307,19 @@
             // PtxtMinutos
             // 
             this.PtxtMinutos.Location = new System.Drawing.Point(621, 33);
+            this.PtxtMinutos.MaxLength = 2;
             this.PtxtMinutos.Name = "PtxtMinutos";
             this.PtxtMinutos.Size = new System.Drawing.Size(57, 20);
-            this.PtxtMinutos.TabIndex = 9;
+            this.PtxtMinutos.TabIndex = 16;
+            this.PtxtMinutos.Enter += new System.EventHandler(this.PtxtMinutos_Enter);
+            this.PtxtMinutos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PtxtMinutos_KeyPress);
             // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(621, 59);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 8;
+            this.btnGuardar.TabIndex = 20;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -326,7 +329,7 @@
             this.btnVolver.Location = new System.Drawing.Point(264, 59);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 8;
+            this.btnVolver.TabIndex = 19;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
@@ -339,7 +342,7 @@
             this.PcbEstado.Location = new System.Drawing.Point(790, 39);
             this.PcbEstado.Name = "PcbEstado";
             this.PcbEstado.Size = new System.Drawing.Size(15, 14);
-            this.PcbEstado.TabIndex = 7;
+            this.PcbEstado.TabIndex = 18;
             this.PcbEstado.UseVisualStyleBackColor = true;
             // 
             // PtxtStock
@@ -347,7 +350,9 @@
             this.PtxtStock.Location = new System.Drawing.Point(790, 6);
             this.PtxtStock.Name = "PtxtStock";
             this.PtxtStock.Size = new System.Drawing.Size(121, 20);
-            this.PtxtStock.TabIndex = 6;
+            this.PtxtStock.TabIndex = 17;
+            this.PtxtStock.Enter += new System.EventHandler(this.PtxtStock_Enter);
+            this.PtxtStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PtxtStock_KeyPress);
             // 
             // PboxFormatos
             // 
@@ -356,7 +361,7 @@
             this.PboxFormatos.Location = new System.Drawing.Point(319, 33);
             this.PboxFormatos.Name = "PboxFormatos";
             this.PboxFormatos.Size = new System.Drawing.Size(121, 21);
-            this.PboxFormatos.TabIndex = 5;
+            this.PboxFormatos.TabIndex = 13;
             // 
             // PboxPeliculas
             // 
@@ -365,15 +370,18 @@
             this.PboxPeliculas.Location = new System.Drawing.Point(319, 6);
             this.PboxPeliculas.Name = "PboxPeliculas";
             this.PboxPeliculas.Size = new System.Drawing.Size(121, 21);
-            this.PboxPeliculas.TabIndex = 4;
+            this.PboxPeliculas.TabIndex = 12;
             this.PboxPeliculas.SelectedIndexChanged += new System.EventHandler(this.PboxPeliculas_SelectedIndexChanged);
             // 
             // PtxtHora
             // 
             this.PtxtHora.Location = new System.Drawing.Point(557, 33);
+            this.PtxtHora.MaxLength = 2;
             this.PtxtHora.Name = "PtxtHora";
             this.PtxtHora.Size = new System.Drawing.Size(54, 20);
-            this.PtxtHora.TabIndex = 3;
+            this.PtxtHora.TabIndex = 15;
+            this.PtxtHora.Enter += new System.EventHandler(this.PtxtHora_Enter);
+            this.PtxtHora.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PtxtHora_KeyPress);
             // 
             // PdtpFecha
             // 
@@ -382,7 +390,7 @@
             this.PdtpFecha.Location = new System.Drawing.Point(557, 6);
             this.PdtpFecha.Name = "PdtpFecha";
             this.PdtpFecha.Size = new System.Drawing.Size(121, 20);
-            this.PdtpFecha.TabIndex = 2;
+            this.PdtpFecha.TabIndex = 14;
             // 
             // PboxSalas
             // 
@@ -391,7 +399,7 @@
             this.PboxSalas.Location = new System.Drawing.Point(65, 33);
             this.PboxSalas.Name = "PboxSalas";
             this.PboxSalas.Size = new System.Drawing.Size(121, 21);
-            this.PboxSalas.TabIndex = 1;
+            this.PboxSalas.TabIndex = 11;
             // 
             // PboxCines
             // 
@@ -400,7 +408,7 @@
             this.PboxCines.Location = new System.Drawing.Point(65, 6);
             this.PboxCines.Name = "PboxCines";
             this.PboxCines.Size = new System.Drawing.Size(121, 21);
-            this.PboxCines.TabIndex = 0;
+            this.PboxCines.TabIndex = 10;
             this.PboxCines.SelectedIndexChanged += new System.EventHandler(this.PboxCines_SelectedIndexChanged);
             // 
             // btnNuevo

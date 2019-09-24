@@ -155,9 +155,9 @@ namespace Proyecto_Cine.Forms
             dgvFunciones.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvFunciones.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvFunciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
             dgvFunciones.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
-            
+            dgvFunciones.Sort(dgvFunciones.Columns[1], ListSortDirection.Ascending);
+
         }
 
         private void ActualizarDgvFunciones()
@@ -173,6 +173,8 @@ namespace Proyecto_Cine.Forms
             DTFormatos.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTFormatos); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
+            DTFormatos.DefaultView.Sort = "Descripcion_Form"; //ORDENAR ALFABETICAMENTE
+
             boxFormatos.DisplayMember = "Descripcion_Form"; //EN EL BOX SE VERAN LAS DESCRIPCIONES DE LOS FORMATOS
             boxFormatos.ValueMember = "CodFormato_Form"; //CADA ITEM TENDRA COMO VALOR EL CODIGO FORMATO
         }
@@ -182,6 +184,8 @@ namespace Proyecto_Cine.Forms
             adaptador = new SqlDataAdapter("SELECT CodFormato_PXF, Descripcion_Form FROM PeliculasXFormato INNER JOIN Formatos ON CodFormato_PXF = CodFormato_Form WHERE CodPelicula_PXF = " + PboxPeliculas.SelectedValue + " AND Estado_PXF = 'True'", BD.conectarBD); //TRAER SOLAMENTE LOS FORMATOS QUE POSEA LA PELICULA SELECCIONADA EN EL PANEL 2. Y SI ESTA ESTA HABILITADA.
             DTFormatos2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTFormatos2); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+
+            DTFormatos2.DefaultView.Sort = "Descripcion_Form"; //ORDENAR ALFABETICAMENTE
 
             PboxFormatos.DisplayMember = "Descripcion_Form"; //EN EL BOX SE VERAN LAS DESCRIPCIONES DE LOS FORMATOS
             PboxFormatos.ValueMember = "CodFormato_PXF"; //CADA ITEMA TENDRA COMO VALOR EL CODIGO FORMATO
@@ -194,12 +198,14 @@ namespace Proyecto_Cine.Forms
             //PARA EL BOX PELICULAS DEL PANEL SUPERIOR
             DTPeliculas.Clear(); //LIMPIAR EL DATATBLE DE VIEJOS REGISTROS
             adaptador.Fill(DTPeliculas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+            DTPeliculas.DefaultView.Sort = "Nombre_Peli"; //ORDENAR ALFABETICAMENTE
             boxPeliculas.DisplayMember = "Nombre_Peli"; //EN EL BOX SE VERAN LOS NOMBRES DE LAS PELICULAS
             boxPeliculas.ValueMember = "CodPelicula_Peli"; //CADA ITEM TENDRA COMO VALOR EL CODIGO PELICULA
 
             //PARA EL BOX PELICULAS DEL PANEL INFERIOR
             DTPeliculas2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTPeliculas2); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+            DTPeliculas2.DefaultView.Sort = "Nombre_Peli"; //ORDENAR ALFABETICAMENTE
             PboxPeliculas.DisplayMember = "Nombre_Peli"; //EN EL BOX SE VERAN LOS NOMBRES DE LAS PELICULAS
             PboxPeliculas.ValueMember = "CodPelicula_Peli"; //CADA ITEM TENDRA COMO VALOR EL CODIGO PELICULA
         }
@@ -210,6 +216,7 @@ namespace Proyecto_Cine.Forms
 
             DTSalas.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTSalas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+            DTSalas.DefaultView.Sort = "Descripcion_SXC"; //ORDENAR ALFABETICAMENTE
             boxSalas.DisplayMember = "Descripcion_SXC"; //EN EL BOX SE VERAN LOS NOMBRES DE LAS SALAS
             boxSalas.ValueMember = "CodSala_SXC"; //CADA ITEM TENDRA COMO VALOR EL CODIGO SALA
         }
@@ -220,6 +227,7 @@ namespace Proyecto_Cine.Forms
 
             DTSalas2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTSalas2); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+            DTSalas2.DefaultView.Sort = "Descripcion_SXC"; //ORDENAR ALFABETICAMENTE
             PboxSalas.DisplayMember = "Descripcion_SXC"; //EN EL BOX SE VERNA LOS NOMBRES DE LAS SALAS
             PboxSalas.ValueMember = "CodSala_SXC"; //CADA ITEM TENDRA COMO VALOR EL CODIGO SALA
         }
@@ -231,12 +239,14 @@ namespace Proyecto_Cine.Forms
             //PARA EL BOX CINES DEL PANEL SUPERIOR
             DTCines.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTCines); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+            DTCines.DefaultView.Sort = "Nombre_Cine"; //ORDENAR ALFABETICAMENTE
             boxCines.DisplayMember = "Nombre_Cine"; //EN EL BOX SE VERAN LOS NOMBRES DE LOS CINES
             boxCines.ValueMember = "CodCine_Cine"; //CADA ITEM TENDRA COMO VALOR EL CODIGO CINE
 
             //PARA EL BOX CINES DEL PANEL INFERIOR
             DTCines2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTCines2); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+            DTCines2.DefaultView.Sort = "Nombre_Cine"; //ORDENAR ALFABETICAMENTE
             PboxCines.DisplayMember = "Nombre_Cine"; //EN EL BOX SE VERAN LOS NOMBRES DE LOS CINES
             PboxCines.ValueMember = "CodCine_Cine"; //CADA ITEM TENDRA COMO VALOR EL CODIGO CINE
         }
@@ -397,7 +407,7 @@ namespace Proyecto_Cine.Forms
             comando = new SqlCommand("SELECT * FROM Funciones WHERE CodCine_Func = " + PboxCines.SelectedValue + " AND CodSala_Func = " + PboxSalas.SelectedValue + " AND Dia_Func = '" + partesFechaPanel[1]+"/"+ partesFechaPanel[0]+"/"+ partesFechaPanel[2] + "' AND Horario_Func = '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "'", BD.conectarBD); //SELECCIONAR EL SUPUESTO REGISTRO EXISTENTE
             reader = comando.ExecuteReader(); //EJECUTAR COMANDO
 
-            if (reader.Read()) //SI EN EL CINE, LA SALA, Y EN EL DIA SELECCIONADO YA EXISTE UNA FUNCION
+            if (reader.Read()) //SI EN EL CINE, SALA, DIA Y HORARIO SELECCIONADO YA EXISTE UNA FUNCION
             {
                 reader.Close(); //CERRAR READER
                 return true; //RETORNAR VERDADERO
@@ -434,74 +444,100 @@ namespace Proyecto_Cine.Forms
         {
             if(PboxSalas.SelectedItem != null) //SI EL BOX DE SALAS NO ESTA VACIO
             {
-                if(PtxtHora.TextLength != 0) //SI EL TEXTBOX HORA NO ESTA VACIO
+                if(PboxFormatos.SelectedItem != null) //SI EL BOX DE FORMATOS NO ESTA VACIO
                 {
-                    if(PtxtMinutos.TextLength != 0) //SI EL TEXTBOX MINUTOS NO ESTA VACIO
+                    if (PtxtHora.TextLength != 0) //SI EL TEXTBOX HORA NO ESTA VACIO
                     {
-                        if (PtxtStock.TextLength != 0) //SI EL TEXTBOX STOCK NO ESTA VACIO
+                        if (PtxtMinutos.TextLength != 0) //SI EL TEXTBOX MINUTOS NO ESTA VACIO
                         {
-                            if(VerificarExistenciaDeRegistro() != true) //CORROBORAR QUE LOS DATOS ELEGIDOS NO EXISTAN EN LA BASE DE DATOS
+                            if (PtxtStock.TextLength != 0) //SI EL TEXTBOX STOCK NO ESTA VACIO
                             {
-                                if (OperacionActual == NUEVO) //SI SE ESTA AGREGANDO UNA NUEVA FUNCION
+                                if (VerificarExistenciaDeRegistro() != true) //CORROBORAR QUE LOS DATOS ELEGIDOS NO EXISTAN EN LA BASE DE DATOS
                                 {
-                                    string FechaPanel = PdtpFecha.Value.ToShortDateString(); //FECHA SELECCIONADA EN EL PANEL INFERIOR
-                                    string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
+                                    if (OperacionActual == NUEVO) //SI SE ESTA AGREGANDO UNA NUEVA FUNCION
+                                    {
+                                        string FechaPanel = PdtpFecha.Value.ToShortDateString(); //FECHA SELECCIONADA EN EL PANEL INFERIOR
+                                        string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
 
-                                    comando = new SqlCommand("INSERT INTO Funciones VALUES(" + PboxCines.SelectedValue + ", " + PboxSalas.SelectedValue + ", '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "', " + PboxPeliculas.SelectedValue + ", " + PboxFormatos.SelectedValue + ", " + PtxtStock.Text + ", '" + PcbEstado.Checked + "')", BD.conectarBD); //INSERTAR NUEVA FUNCION
-                                    comando.ExecuteNonQuery(); //EJECUTAR COMANDO
+                                        comando = new SqlCommand("INSERT INTO Funciones VALUES(" + PboxCines.SelectedValue + ", " + PboxSalas.SelectedValue + ", '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "', " + PboxPeliculas.SelectedValue + ", " + PboxFormatos.SelectedValue + ", " + PtxtStock.Text + ", '" + PcbEstado.Checked + "')", BD.conectarBD); //INSERTAR NUEVA FUNCION
+                                        comando.ExecuteNonQuery(); //EJECUTAR COMANDO
 
-                                    ActualizarDgvFunciones(); //ACTUALIZAR DATAGRID 
-                                    PtxtHora.Clear();
-                                    PtxtMinutos.Clear();      //LIMPIAR CONTENEDORES
-                                    PtxtStock.Clear();
-                                    PcbEstado.Checked = true;
+                                        ActualizarDgvFunciones(); //ACTUALIZAR DATAGRID 
+                                        PtxtHora.Clear();
+                                        PtxtMinutos.Clear();      //LIMPIAR CONTENEDORES
+                                        PtxtStock.Clear();
+                                        PcbEstado.Checked = true;
+                                    }
+
+                                    if (OperacionActual == MODIFICAR)
+                                    {
+                                        int SelectedIndex = dgvFunciones.CurrentRow.Index; //INDICE DEL REGISTRO SELECCIONADO EN EL DATAGRID
+                                        int CantidadFilas = dgvFunciones.RowCount; //CANTIDAD DE FILAS EN EL DATAGRID
+
+                                        string FechaDgv = DateTime.Parse(dgvFunciones.CurrentRow.Cells[4].Value.ToString()).ToShortDateString(); //FECHA DEL ELEMENTO SELECCIONADO EN EL DATAGRID
+                                        string[] partesFechaDgv = FechaDgv.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
+
+                                        string FechaPanel = PdtpFecha.Value.ToShortDateString(); //FECHA SELECCIONADA EN EL PANEL INFERIOR
+                                        string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
+
+                                        comando = new SqlCommand("UPDATE Funciones SET CodCine_Func = " + PboxCines.SelectedValue + ", CodSala_Func = " + PboxSalas.SelectedValue + ", Dia_Func = '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', Horario_Func = '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "', CodPelicula_Func = " + PboxPeliculas.SelectedValue + ", CodFormato_Func = " + PboxFormatos.SelectedValue + ", Stock_Func = " + PtxtStock.Text + ", Estado_Func = '" + PcbEstado.Checked + "' WHERE CodCine_Func = " + dgvFunciones.CurrentRow.Cells[0].Value + " AND CodSala_Func = " + dgvFunciones.CurrentRow.Cells[2].Value + " AND Dia_Func = '" + partesFechaDgv[1] + "/" + partesFechaDgv[0] + "/" + partesFechaDgv[2] + "' AND Horario_Func = '" + dgvFunciones.CurrentRow.Cells[5].Value + "'", BD.conectarBD); //MODIFICAR FUNCION
+                                        comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
+
+                                        ActualizarDgvFunciones(); //ACTUALIZAR DATAGRID
+
+                                        if (dgvFunciones.RowCount == 0) //SI AL MODIFICAR EL DATAGRID QUEDO VACIO...
+                                        {
+                                            CerrarPanel(); //CERRAR EL PANEL
+                                        }
+                                        else //SI AUN CONTIENE DATOS...
+                                        {
+                                            if (dgvFunciones.RowCount == CantidadFilas) //SI QUEDO LA MISMA CANTIDAD DE FILAS
+                                            {
+                                                dgvFunciones.CurrentCell = dgvFunciones.Rows[SelectedIndex].Cells[1]; //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO
+                                                dgvFunciones.Rows[SelectedIndex].Selected = true; //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO
+                                            }
+
+                                            if (dgvFunciones.RowCount < CantidadFilas && SelectedIndex != 0) //SI HAY MENOS CANTIDAD DE FILAS Y LA QUE ESTABA SELECCIONADA NO ERA LA PRIMERA
+                                            {
+                                                dgvFunciones.CurrentCell = dgvFunciones.Rows[SelectedIndex - 1].Cells[1]; //SELECCIONAR EL REGISTRO ANTERIOR
+                                                dgvFunciones.Rows[SelectedIndex - 1].Selected = true; //SELECCIONAR EL REGISTRO ANTERIOR
+                                            }
+
+                                            ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES CON LOS DATOS DEL DATAGRID
+                                        }
+                                    }
                                 }
-
-                                if (OperacionActual == MODIFICAR)
+                                else //SI YA EXISTE UNA PELICULA EN LOS DATOS ELEGIDOS
                                 {
-                                    int SelectedIndex = dgvFunciones.CurrentRow.Index; //INDICE DEL REGISTRO SELECCIONADO EN EL DATAGRID
-                                    int CantidadFilas = dgvFunciones.RowCount; //CANTIDAD DE FILAS EN EL DATAGRID
-
-                                    string FechaDgv = DateTime.Parse(dgvFunciones.CurrentRow.Cells[4].Value.ToString()).ToShortDateString(); //FECHA DEL ELEMENTO SELECCIONADO EN EL DATAGRID
-                                    string[] partesFechaDgv = FechaDgv.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
-
-                                    string FechaPanel = PdtpFecha.Value.ToShortDateString(); //FECHA SELECCIONADA EN EL PANEL INFERIOR
-                                    string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
-
-                                    comando = new SqlCommand("UPDATE Funciones SET CodCine_Func = " + PboxCines.SelectedValue + ", CodSala_Func = " + PboxSalas.SelectedValue + ", Dia_Func = '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', Horario_Func = '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "', CodPelicula_Func = " + PboxPeliculas.SelectedValue + ", CodFormato_Func = " + PboxFormatos.SelectedValue + ", Stock_Func = " + PtxtStock.Text + ", Estado_Func = '" + PcbEstado.Checked + "' WHERE CodCine_Func = " + dgvFunciones.CurrentRow.Cells[0].Value + " AND CodSala_Func = " + dgvFunciones.CurrentRow.Cells[2].Value + " AND Dia_Func = '" + partesFechaDgv[1] + "/" + partesFechaDgv[0] + "/" + partesFechaDgv[2] + "' AND Horario_Func = '" + dgvFunciones.CurrentRow.Cells[5].Value + "'", BD.conectarBD); //MODIFICAR FUNCION
-                                    comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-
-                                    ActualizarDgvFunciones(); //ACTUALIZAR DATAGRID
-
-                                    if (dgvFunciones.RowCount == 0) //SI AL MODIFICAR EL DATAGRID QUEDO VACIO...
-                                    {
-                                        CerrarPanel(); //CERRAR EL PANEL
-                                    }
-                                    else //SI AUN CONTIENE DATOS...
-                                    {
-                                        if (dgvFunciones.RowCount == CantidadFilas) //SI QUEDO LA MISMA CANTIDAD DE FILAS
-                                        {
-                                            dgvFunciones.CurrentCell = dgvFunciones.Rows[SelectedIndex].Cells[1]; //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO
-                                            dgvFunciones.Rows[SelectedIndex].Selected = true; //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO
-                                        }
-
-                                        if (dgvFunciones.RowCount < CantidadFilas && SelectedIndex != 0) //SI HAY MENOS CANTIDAD DE FILAS Y LA QUE ESTABA SELECCIONADA NO ERA LA PRIMERA
-                                        {
-                                            dgvFunciones.CurrentCell = dgvFunciones.Rows[SelectedIndex - 1].Cells[1]; //SELECCIONAR EL REGISTRO ANTERIOR
-                                            dgvFunciones.Rows[SelectedIndex - 1].Selected = true; //SELECCIONAR EL REGISTRO ANTERIOR
-                                        }
-
-                                        ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES CON LOS DATOS DEL DATAGRID
-                                    }
+                                    MessageBox.Show("En el cine elegido, sala, dia y horario, ya existe una funcion programada.", "Funcion existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
-                            else
+                            else //SI EL STOCK ESTA VACIO
                             {
-                                MessageBox.Show("DATOS EXISTENTES");
+                                MessageBox.Show("Por favor indique la cantidad de entradas en stock.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                PtxtStock.Focus();
                             }
                         }
+                        else //SI LOS MINUTOS ESTAN VACIOS
+                        {
+                            MessageBox.Show("Faltó completar los minutos.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            PtxtMinutos.Focus();
+                        }
+                    }
+                    else //SI LA HORA ESTA VACIA
+                    {
+                        MessageBox.Show("Faltó completar la hora.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        PtxtHora.Focus();
                     }
                 }
+                else //SI LA PELICULA TODAVIA NO TIENE FORMATOS
+                {
+                    MessageBox.Show("La pelicula seleccionada aun no posee formatos.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else //SI EL BOX DE SALAS ESTA VACIO
+            {
+                MessageBox.Show("El cine seleccionado aun no posee salas registradas.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -511,6 +547,36 @@ namespace Proyecto_Cine.Forms
             {
                 ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES CON LOS DATOS DEL DATAGRID
             }
+        }
+
+        private void PtxtHora_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+        }
+
+        private void PtxtMinutos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+        }
+
+        private void PtxtStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+        }
+
+        private void PtxtHora_Enter(object sender, EventArgs e)
+        {
+            if (PtxtHora.BackColor != Color.White) PtxtHora.BackColor = Color.White; //SI EL TEXTBOX NO ES DE COLOR BLANCO. PONER COLOR BLANCO
+        }
+
+        private void PtxtMinutos_Enter(object sender, EventArgs e)
+        {
+            if (PtxtMinutos.BackColor != Color.White) PtxtMinutos.BackColor = Color.White; //SI EL TEXTBOX NO ES DE COLOR BLANCO. PONER COLOR BLANCO
+        }
+
+        private void PtxtStock_Enter(object sender, EventArgs e)
+        {
+            if (PtxtStock.BackColor != Color.White) PtxtStock.BackColor = Color.White; //SI EL TEXTBOX NO ES DE COLOR BLANCO. PONER COLOR BLANCO
         }
     }
 }
