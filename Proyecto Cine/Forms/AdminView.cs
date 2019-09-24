@@ -13,12 +13,9 @@ namespace Proyecto_Cine
 {
     public partial class AdminView : Form
     {
-        string CodUsuario;
-
-        public AdminView(string _CodUsuario = "1")
+        public AdminView()
         {
             InitializeComponent();
-            CodUsuario = _CodUsuario;
         }
 
         private void AcoplarForm(object parametro)

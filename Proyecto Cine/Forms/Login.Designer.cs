@@ -37,7 +37,7 @@
             // 
             // txbEmail
             // 
-            this.txbEmail.Location = new System.Drawing.Point(56, 88);
+            this.txbEmail.Location = new System.Drawing.Point(420, 130);
             this.txbEmail.MaxLength = 100;
             this.txbEmail.Name = "txbEmail";
             this.txbEmail.Size = new System.Drawing.Size(226, 20);
@@ -45,7 +45,7 @@
             // 
             // txbContraseña
             // 
-            this.txbContraseña.Location = new System.Drawing.Point(56, 164);
+            this.txbContraseña.Location = new System.Drawing.Point(420, 217);
             this.txbContraseña.MaxLength = 20;
             this.txbContraseña.Name = "txbContraseña";
             this.txbContraseña.Size = new System.Drawing.Size(226, 20);
@@ -55,26 +55,29 @@
             // lbemail
             // 
             this.lbemail.AutoSize = true;
-            this.lbemail.Location = new System.Drawing.Point(157, 72);
+            this.lbemail.Font = new System.Drawing.Font("Arial", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbemail.Location = new System.Drawing.Point(509, 105);
             this.lbemail.Name = "lbemail";
-            this.lbemail.Size = new System.Drawing.Size(32, 13);
+            this.lbemail.Size = new System.Drawing.Size(45, 15);
             this.lbemail.TabIndex = 1;
-            this.lbemail.Text = "Email";
+            this.lbemail.Text = "EMAIL";
             // 
             // lbcontraseña
             // 
             this.lbcontraseña.AutoSize = true;
-            this.lbcontraseña.Location = new System.Drawing.Point(143, 148);
+            this.lbcontraseña.Font = new System.Drawing.Font("Arial", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbcontraseña.Location = new System.Drawing.Point(493, 192);
             this.lbcontraseña.Name = "lbcontraseña";
-            this.lbcontraseña.Size = new System.Drawing.Size(61, 13);
+            this.lbcontraseña.Size = new System.Drawing.Size(78, 15);
             this.lbcontraseña.TabIndex = 1;
-            this.lbcontraseña.Text = "Contraseña";
+            this.lbcontraseña.Text = "PASSWORD";
             // 
             // btnIngresar
             // 
-            this.btnIngresar.Location = new System.Drawing.Point(129, 269);
+            this.btnIngresar.Font = new System.Drawing.Font("Arial", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIngresar.Location = new System.Drawing.Point(420, 295);
             this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(75, 23);
+            this.btnIngresar.Size = new System.Drawing.Size(226, 23);
             this.btnIngresar.TabIndex = 2;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.UseVisualStyleBackColor = true;
@@ -84,12 +87,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 476);
             this.Controls.Add(this.btnIngresar);
             this.Controls.Add(this.lbcontraseña);
             this.Controls.Add(this.lbemail);
             this.Controls.Add(this.txbContraseña);
             this.Controls.Add(this.txbEmail);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.Login_Load);

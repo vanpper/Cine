@@ -20,3 +20,4 @@ C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Cine.csproj.GenerateR
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Cine.csproj.CoreCompileInputs.cache
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.exe
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.pdb
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Principal.resources

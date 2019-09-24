@@ -452,9 +452,9 @@ namespace Proyecto_Cine.Forms
                         {
                             if (PtxtStock.TextLength != 0) //SI EL TEXTBOX STOCK NO ESTA VACIO
                             {
-                                if (VerificarExistenciaDeRegistro() != true) //CORROBORAR QUE LOS DATOS ELEGIDOS NO EXISTAN EN LA BASE DE DATOS
+                                if (OperacionActual == NUEVO) //SI SE ESTA AGREGANDO UNA NUEVA FUNCION
                                 {
-                                    if (OperacionActual == NUEVO) //SI SE ESTA AGREGANDO UNA NUEVA FUNCION
+                                    if (VerificarExistenciaDeRegistro() != true) //CORROBORAR QUE LOS DATOS ELEGIDOS NO EXISTAN EN LA BASE DE DATOS
                                     {
                                         string FechaPanel = PdtpFecha.Value.ToShortDateString(); //FECHA SELECCIONADA EN EL PANEL INFERIOR
                                         string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
@@ -468,8 +468,15 @@ namespace Proyecto_Cine.Forms
                                         PtxtStock.Clear();
                                         PcbEstado.Checked = true;
                                     }
+                                    else //SI YA EXISTE UNA PELICULA EN LOS DATOS ELEGIDOS
+                                    {
+                                        MessageBox.Show("En el cine elegido, sala, dia y horario, ya existe una funcion programada.", "Funcion existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
 
-                                    if (OperacionActual == MODIFICAR)
+                                if (OperacionActual == MODIFICAR) //SI SE ESTA MODIFICANDO UNA FUNCION
+                                {
+                                    try
                                     {
                                         int SelectedIndex = dgvFunciones.CurrentRow.Index; //INDICE DEL REGISTRO SELECCIONADO EN EL DATAGRID
                                         int CantidadFilas = dgvFunciones.RowCount; //CANTIDAD DE FILAS EN EL DATAGRID
@@ -506,10 +513,10 @@ namespace Proyecto_Cine.Forms
                                             ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES CON LOS DATOS DEL DATAGRID
                                         }
                                     }
-                                }
-                                else //SI YA EXISTE UNA PELICULA EN LOS DATOS ELEGIDOS
-                                {
-                                    MessageBox.Show("En el cine elegido, sala, dia y horario, ya existe una funcion programada.", "Funcion existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    catch(Exception ex)
+                                    {
+                                        MessageBox.Show("Es probable que los datos seleccionados ya se encuentren registrados en una funcion.\nCorrobore la existencia de dicha funcion a traves del menu superior de busqueda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
                                 }
                             }
                             else //SI EL STOCK ESTA VACIO

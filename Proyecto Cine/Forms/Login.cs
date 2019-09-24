@@ -32,8 +32,7 @@ namespace Proyecto_Cine
                     //SI LOS DATOS INGRESADOS SON DE UN ADMINISTRADOR, ACA SE ABRE EL MENU ADMINISTRADOR
                     if(reader.GetValue(1).ToString() == "1")
                     {
-                        AdminView ventana = new AdminView(reader.GetValue(0).ToString());
-                        ventana.Show();
+                        
                     }
 
                     //SI LOS DATOS INGRESADOS SON DE UN OPERARIO, ACA SE ABRE EL MENU OPERARIO

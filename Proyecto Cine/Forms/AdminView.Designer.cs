@@ -42,7 +42,7 @@
             // 
             // Panel
             // 
-            this.Panel.Location = new System.Drawing.Point(94, 3);
+            this.Panel.Location = new System.Drawing.Point(93, 2);
             this.Panel.Name = "Panel";
             this.Panel.Size = new System.Drawing.Size(969, 426);
             this.Panel.TabIndex = 1;
@@ -57,7 +57,7 @@
             this.panel1.Controls.Add(this.btnUsuarios);
             this.panel1.Controls.Add(this.btnFunciones);
             this.panel1.Controls.Add(this.btnCiudades);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(85, 426);
             this.panel1.TabIndex = 2;
@@ -135,9 +135,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 433);
+            this.ClientSize = new System.Drawing.Size(1067, 432);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Panel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AdminView";
             this.Text = "AdminView";
             this.panel1.ResumeLayout(false);
