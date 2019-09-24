@@ -8,7 +8,6 @@ C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.C
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.ClasificacionesYGeneros.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Formatos.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Funciones.resources
-C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Login.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.MenuPeliculas.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Peliculas.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Precios.resources
@@ -21,3 +20,4 @@ C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Cine.csproj.CoreCompi
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.exe
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.pdb
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Principal.resources
+C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.AdminViewPrincipal.resources

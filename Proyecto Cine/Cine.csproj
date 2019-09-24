@@ -53,6 +53,12 @@
     <Compile Include="Forms\AdminView.Designer.cs">
       <DependentUpon>AdminView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AdminViewPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminViewPrincipal.Designer.cs">
+      <DependentUpon>AdminViewPrincipal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Cines.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,12 +89,6 @@
     </Compile>
     <Compile Include="Forms\Funciones.Designer.cs">
       <DependentUpon>Funciones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\Program.cs" />
     <Compile Include="Forms\MenuPeliculas.cs">
@@ -137,6 +137,9 @@
     <EmbeddedResource Include="Forms\AdminView.resx">
       <DependentUpon>AdminView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdminViewPrincipal.resx">
+      <DependentUpon>AdminViewPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Cines.resx">
       <DependentUpon>Cines.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,9 +154,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Funciones.resx">
       <DependentUpon>Funciones.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MenuPeliculas.resx">
       <DependentUpon>MenuPeliculas.cs</DependentUpon>

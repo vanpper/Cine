@@ -16,51 +16,106 @@ namespace Proyecto_Cine
         public AdminView()
         {
             InitializeComponent();
+            AcoplarForm(new AdminViewPrincipal());
         }
 
         private void AcoplarForm(object parametro)
         {
-            if (Panel.Controls.Count > 0)
+            if (panelPrincipal.Controls.Count > 0)
             {
-                Panel.Controls.RemoveAt(0);
+                panelPrincipal.Controls.RemoveAt(0);
             }
 
             Form Nuevoform = parametro as Form;
             Nuevoform.TopLevel = false;
             Nuevoform.Dock = DockStyle.Fill;
-            Panel.Controls.Add(Nuevoform);
-            Panel.Tag = Nuevoform;
+            panelPrincipal.Controls.Add(Nuevoform);
+            panelPrincipal.Tag = Nuevoform;
             Nuevoform.Show();
         }
 
         private void btnPeliculas_Click(object sender, EventArgs e)
         {
-            AcoplarForm(new MenuPeliculas());
+            Control control = panelPrincipal.Controls["MenuPeliculas"];  //CHECKEAR SI EL MENU YA ESTA PUESTO EN EL PANEL 
+
+            if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
+            {
+                AcoplarForm(new MenuPeliculas()); //ACOPLAR EL MENU SOLICITADO
+            }
+            else //SI EL MENU SOLICITADO YA ESTABA PUESTO
+            {
+                AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+            }
         }
 
         private void btnCiudades_Click(object sender, EventArgs e)
         {
-            AcoplarForm(new Ciudades());
+            Control control = panelPrincipal.Controls["Ciudades"];  //CHECKEAR SI EL MENU YA ESTA PUESTO EN EL PANEL 
+
+            if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
+            {
+                AcoplarForm(new Ciudades()); //ACOPLAR EL MENU SOLICITADO
+            }
+            else //SI EL MENU SOLICITADO YA ESTABA PUESTO
+            {
+                AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+            }
         }
 
         private void btnCines_Click(object sender, EventArgs e)
         {
-            AcoplarForm(new SalasYCines());
+            Control control = panelPrincipal.Controls["SalasYCines"];  //CHECKEAR SI EL MENU YA ESTA PUESTO EN EL PANEL 
+
+            if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
+            {
+                AcoplarForm(new SalasYCines()); //ACOPLAR EL MENU SOLICITADO
+            }
+            else //SI EL MENU SOLICITADO YA ESTABA PUESTO
+            {
+                AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+            }
         }
 
         private void btnFunciones_Click(object sender, EventArgs e)
         {
-            AcoplarForm(new Funciones());
+            Control control = panelPrincipal.Controls["Funciones"];  //CHECKEAR SI EL MENU YA ESTA PUESTO EN EL PANEL 
+
+            if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
+            {
+                AcoplarForm(new Funciones()); //ACOPLAR EL MENU SOLICITADO
+            }
+            else //SI EL MENU SOLICITADO YA ESTABA PUESTO
+            {
+                AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+            }
         }
 
         private void btnPrecios_Click(object sender, EventArgs e)
         {
-            AcoplarForm(new Precios());
+            Control control = panelPrincipal.Controls["Precios"];  //CHECKEAR SI EL MENU YA ESTA PUESTO EN EL PANEL 
+
+            if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
+            {
+                AcoplarForm(new Precios()); //ACOPLAR EL MENU SOLICITADO
+            }
+            else //SI EL MENU SOLICITADO YA ESTABA PUESTO
+            {
+                AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+            }
         }
 
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            AcoplarForm(new Usuarios());
+            Control control = panelPrincipal.Controls["Usuarios"];  //CHECKEAR SI EL MENU YA ESTA PUESTO EN EL PANEL 
+
+            if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
+            {
+                AcoplarForm(new Usuarios()); //ACOPLAR EL MENU SOLICITADO
+            }
+            else //SI EL MENU SOLICITADO YA ESTABA PUESTO
+            {
+                AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+            }
         }
     }
 }

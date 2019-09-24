@@ -82,6 +82,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(226, 20);
             this.txtEmail.TabIndex = 0;
+            this.txtEmail.Text = "admin";
             // 
             // lbcontraseña
             // 
@@ -100,6 +101,7 @@
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(226, 20);
             this.txtContraseña.TabIndex = 1;
+            this.txtContraseña.Text = "admin";
             this.txtContraseña.UseSystemPasswordChar = true;
             // 
             // lbemail

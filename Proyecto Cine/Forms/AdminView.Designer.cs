@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Panel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelPrincipal = new System.Windows.Forms.Panel();
+            this.panelLateral = new System.Windows.Forms.Panel();
             this.btnPeliculas = new System.Windows.Forms.Button();
             this.btnCines = new System.Windows.Forms.Button();
             this.btnPrecios = new System.Windows.Forms.Button();
@@ -37,30 +37,30 @@
             this.btnUsuarios = new System.Windows.Forms.Button();
             this.btnFunciones = new System.Windows.Forms.Button();
             this.btnCiudades = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.panelLateral.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Panel
+            // panelPrincipal
             // 
-            this.Panel.Location = new System.Drawing.Point(93, 2);
-            this.Panel.Name = "Panel";
-            this.Panel.Size = new System.Drawing.Size(969, 426);
-            this.Panel.TabIndex = 1;
+            this.panelPrincipal.Location = new System.Drawing.Point(93, 2);
+            this.panelPrincipal.Name = "panelPrincipal";
+            this.panelPrincipal.Size = new System.Drawing.Size(969, 426);
+            this.panelPrincipal.TabIndex = 1;
             // 
-            // panel1
+            // panelLateral
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.btnPeliculas);
-            this.panel1.Controls.Add(this.btnCines);
-            this.panel1.Controls.Add(this.btnPrecios);
-            this.panel1.Controls.Add(this.btnVentas);
-            this.panel1.Controls.Add(this.btnUsuarios);
-            this.panel1.Controls.Add(this.btnFunciones);
-            this.panel1.Controls.Add(this.btnCiudades);
-            this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(85, 426);
-            this.panel1.TabIndex = 2;
+            this.panelLateral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLateral.Controls.Add(this.btnPeliculas);
+            this.panelLateral.Controls.Add(this.btnCines);
+            this.panelLateral.Controls.Add(this.btnPrecios);
+            this.panelLateral.Controls.Add(this.btnVentas);
+            this.panelLateral.Controls.Add(this.btnUsuarios);
+            this.panelLateral.Controls.Add(this.btnFunciones);
+            this.panelLateral.Controls.Add(this.btnCiudades);
+            this.panelLateral.Location = new System.Drawing.Point(2, 2);
+            this.panelLateral.Name = "panelLateral";
+            this.panelLateral.Size = new System.Drawing.Size(85, 426);
+            this.panelLateral.TabIndex = 2;
             // 
             // btnPeliculas
             // 
@@ -136,20 +136,20 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 432);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.Panel);
+            this.Controls.Add(this.panelLateral);
+            this.Controls.Add(this.panelPrincipal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AdminView";
             this.Text = "AdminView";
-            this.panel1.ResumeLayout(false);
+            this.panelLateral.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel Panel;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelPrincipal;
+        private System.Windows.Forms.Panel panelLateral;
         private System.Windows.Forms.Button btnPeliculas;
         private System.Windows.Forms.Button btnCines;
         private System.Windows.Forms.Button btnPrecios;
