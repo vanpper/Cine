@@ -38,6 +38,7 @@
             this.panelSuperior = new System.Windows.Forms.Panel();
             this.labelBienvenvida = new System.Windows.Forms.Label();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
+            this.linkRestaurarContraseña = new System.Windows.Forms.LinkLabel();
             this.panelPrincipal.SuspendLayout();
             this.panelLogin.SuspendLayout();
             this.panelSuperior.SuspendLayout();
@@ -54,20 +55,21 @@
             // panelLogin
             // 
             this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLogin.Controls.Add(this.linkRestaurarContraseña);
             this.panelLogin.Controls.Add(this.btnIngresar);
             this.panelLogin.Controls.Add(this.txtEmail);
             this.panelLogin.Controls.Add(this.lbcontraseña);
             this.panelLogin.Controls.Add(this.txtContraseña);
             this.panelLogin.Controls.Add(this.lbemail);
-            this.panelLogin.Location = new System.Drawing.Point(320, 45);
+            this.panelLogin.Location = new System.Drawing.Point(388, 22);
             this.panelLogin.Name = "panelLogin";
-            this.panelLogin.Size = new System.Drawing.Size(418, 281);
+            this.panelLogin.Size = new System.Drawing.Size(281, 345);
             this.panelLogin.TabIndex = 4;
             // 
             // btnIngresar
             // 
             this.btnIngresar.Font = new System.Drawing.Font("Arial", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIngresar.Location = new System.Drawing.Point(100, 201);
+            this.btnIngresar.Location = new System.Drawing.Point(29, 230);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(226, 23);
             this.btnIngresar.TabIndex = 2;
@@ -77,7 +79,7 @@
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(100, 57);
+            this.txtEmail.Location = new System.Drawing.Point(29, 86);
             this.txtEmail.MaxLength = 100;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(226, 20);
@@ -88,7 +90,7 @@
             // 
             this.lbcontraseña.AutoSize = true;
             this.lbcontraseña.Font = new System.Drawing.Font("Arial", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbcontraseña.Location = new System.Drawing.Point(173, 109);
+            this.lbcontraseña.Location = new System.Drawing.Point(26, 145);
             this.lbcontraseña.Name = "lbcontraseña";
             this.lbcontraseña.Size = new System.Drawing.Size(78, 15);
             this.lbcontraseña.TabIndex = 1;
@@ -96,7 +98,7 @@
             // 
             // txtContraseña
             // 
-            this.txtContraseña.Location = new System.Drawing.Point(100, 134);
+            this.txtContraseña.Location = new System.Drawing.Point(29, 163);
             this.txtContraseña.MaxLength = 20;
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(226, 20);
@@ -108,7 +110,7 @@
             // 
             this.lbemail.AutoSize = true;
             this.lbemail.Font = new System.Drawing.Font("Arial", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbemail.Location = new System.Drawing.Point(189, 32);
+            this.lbemail.Location = new System.Drawing.Point(26, 68);
             this.lbemail.Name = "lbemail";
             this.lbemail.Size = new System.Drawing.Size(45, 15);
             this.lbemail.TabIndex = 1;
@@ -145,6 +147,17 @@
             this.btnCerrarSesion.UseVisualStyleBackColor = true;
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             // 
+            // linkRestaurarContraseña
+            // 
+            this.linkRestaurarContraseña.AutoSize = true;
+            this.linkRestaurarContraseña.Location = new System.Drawing.Point(142, 324);
+            this.linkRestaurarContraseña.Name = "linkRestaurarContraseña";
+            this.linkRestaurarContraseña.Size = new System.Drawing.Size(131, 13);
+            this.linkRestaurarContraseña.TabIndex = 3;
+            this.linkRestaurarContraseña.TabStop = true;
+            this.linkRestaurarContraseña.Text = "¿Olvidaste tu contraseña?";
+            this.linkRestaurarContraseña.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRestaurarContraseña_LinkClicked);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -153,6 +166,7 @@
             this.Controls.Add(this.panelSuperior);
             this.Controls.Add(this.panelPrincipal);
             this.Name = "Principal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Principal";
             this.panelPrincipal.ResumeLayout(false);
             this.panelLogin.ResumeLayout(false);
@@ -175,5 +189,6 @@
         private System.Windows.Forms.Panel panelSuperior;
         private System.Windows.Forms.Label labelBienvenvida;
         private System.Windows.Forms.Button btnCerrarSesion;
+        private System.Windows.Forms.LinkLabel linkRestaurarContraseña;
     }
 }

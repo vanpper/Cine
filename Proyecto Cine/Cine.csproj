@@ -115,6 +115,12 @@
     <Compile Include="Forms\Principalcs.Designer.cs">
       <DependentUpon>Principalcs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RestaurarContraseña.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RestaurarContraseña.Designer.cs">
+      <DependentUpon>RestaurarContraseña.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Salas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Principalcs.resx">
       <DependentUpon>Principalcs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RestaurarContraseña.resx">
+      <DependentUpon>RestaurarContraseña.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Salas.resx">
       <DependentUpon>Salas.cs</DependentUpon>

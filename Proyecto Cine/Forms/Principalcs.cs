@@ -90,5 +90,11 @@ namespace Proyecto_Cine.Forms
                 txtEmail.Focus();
             }
         }
+
+        private void linkRestaurarContraseña_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RestaurarContraseña ventana = new RestaurarContraseña();
+            ventana.Show();
+        }
     }
 }
