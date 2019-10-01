@@ -69,7 +69,7 @@ namespace Proyecto_Cine.Forms
                 mmsg.From = new System.Net.Mail.MailAddress("movixcinema@hotmail.com");
 
                 System.Net.Mail.SmtpClient cliente = new System.Net.Mail.SmtpClient();
-                cliente.Credentials = new System.Net.NetworkCredential("movixcinema@hotmail.com", "XXXXXXX");
+                cliente.Credentials = new System.Net.NetworkCredential("movixcinema@hotmail.com", "XXXXXXXX");
 
                 cliente.Port = 587;
                 cliente.EnableSsl = true;
