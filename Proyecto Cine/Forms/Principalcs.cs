@@ -93,6 +93,11 @@ namespace Proyecto_Cine.Forms
 
         private void linkRestaurarContraseña_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
             RestaurarContraseña ventana = new RestaurarContraseña();
             ventana.Show();
         }
