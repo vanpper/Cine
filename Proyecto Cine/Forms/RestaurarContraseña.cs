@@ -16,36 +16,10 @@ namespace Proyecto_Cine.Forms
         String contraseña;
         Random random = new Random();
 
-        public RestaurarContraseña()
+        public RestaurarContraseña(int x, int y)
         {
             InitializeComponent();
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            generarContraseñaAleatoria();
-
-            if(actualizarContraseñaBD())
-            {
-                if (enviarEmail())
-                {
-                    MessageBox.Show("Se ha enviado un correo de recuperacion a la casilla de email indicada.", "Enviado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Ha ocurrido un error al intentar enviar el correo.\nVerifique su conexion a internet o intentelo nuevamente mas tarde.", "No enviado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Se ha enviado un correo de recuperacion a la casilla de email indicada.", "Enviado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            
+            this.Location = new Point(x + 398, y + 94);
         }
 
         private bool enviarEmail()
@@ -115,6 +89,32 @@ namespace Proyecto_Cine.Forms
             contraseña = null;
 
             for (int i = 0; i < 6; i++) contraseña += random.Next(0, 9).ToString();
+        }
+
+        private void btnCancelar_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAceptar_Click_1(object sender, EventArgs e)
+        {
+            generarContraseñaAleatoria();
+
+            if (actualizarContraseñaBD())
+            {
+                if (enviarEmail())
+                {
+                    MessageBox.Show("Se ha enviado un correo de recuperacion a la casilla de email indicada.", "Enviado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Ha ocurrido un error al intentar enviar el correo.\nVerifique su conexion a internet o intentelo nuevamente mas tarde.", "No enviado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Se ha enviado un correo de recuperacion a la casilla de email indicada.", "Enviado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

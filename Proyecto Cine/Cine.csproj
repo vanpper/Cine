@@ -214,5 +214,59 @@
   <ItemGroup>
     <None Include="img\inicio_panel_superior.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="img\login.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\login2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\botoningresar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\logito.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\btncerrarSesion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\fondo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ciudades_unselected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ciudades_selected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\cines_unselected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\cines_selected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\peliculas_unselected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\peliculas_selected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\funciones_unselected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\funciones_selected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\precios_unselected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\precios_selected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\usuarios_unselected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\usuarios_selected.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

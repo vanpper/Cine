@@ -30,17 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.panelSuperior = new System.Windows.Forms.Panel();
-            this.labelBienvenvida = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.panelPrincipal = new System.Windows.Forms.Panel();
             this.panelLogin = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lbcontraseña = new System.Windows.Forms.Label();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.lbemail = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelSuperior.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelPrincipal.SuspendLayout();
             this.panelLogin.SuspendLayout();
             this.SuspendLayout();
@@ -48,33 +49,38 @@
             // panelSuperior
             // 
             this.panelSuperior.BackgroundImage = global::Proyecto_Cine.Properties.Resources.inicio_panel_superior;
-            this.panelSuperior.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelSuperior.Controls.Add(this.labelBienvenvida);
+            this.panelSuperior.Controls.Add(this.pictureBox1);
             this.panelSuperior.Controls.Add(this.btnCerrarSesion);
             this.panelSuperior.Location = new System.Drawing.Point(2, 2);
             this.panelSuperior.Name = "panelSuperior";
             this.panelSuperior.Size = new System.Drawing.Size(1067, 38);
             this.panelSuperior.TabIndex = 2;
             // 
-            // labelBienvenvida
+            // pictureBox1
             // 
-            this.labelBienvenvida.AutoSize = true;
-            this.labelBienvenvida.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBienvenvida.Location = new System.Drawing.Point(451, 9);
-            this.labelBienvenvida.Name = "labelBienvenvida";
-            this.labelBienvenvida.Size = new System.Drawing.Size(162, 20);
-            this.labelBienvenvida.TabIndex = 1;
-            this.labelBienvenvida.Text = "Bienvenido nombre";
-            this.labelBienvenvida.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Proyecto_Cine.Properties.Resources.logito;
+            this.pictureBox1.Location = new System.Drawing.Point(3, -1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(114, 38);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // btnCerrarSesion
             // 
-            this.btnCerrarSesion.Location = new System.Drawing.Point(973, 6);
+            this.btnCerrarSesion.BackColor = System.Drawing.Color.Maroon;
+            this.btnCerrarSesion.BackgroundImage = global::Proyecto_Cine.Properties.Resources.btncerrarSesion;
+            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCerrarSesion.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrarSesion.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnCerrarSesion.Location = new System.Drawing.Point(957, 2);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
-            this.btnCerrarSesion.Size = new System.Drawing.Size(84, 23);
+            this.btnCerrarSesion.Size = new System.Drawing.Size(107, 32);
             this.btnCerrarSesion.TabIndex = 0;
             this.btnCerrarSesion.Text = "Cerrar sesion";
-            this.btnCerrarSesion.UseVisualStyleBackColor = true;
+            this.btnCerrarSesion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCerrarSesion.UseVisualStyleBackColor = false;
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             // 
             // panelPrincipal
@@ -88,7 +94,7 @@
             // 
             // panelLogin
             // 
-            this.panelLogin.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelLogin.BackgroundImage")));
+            this.panelLogin.BackgroundImage = global::Proyecto_Cine.Properties.Resources.login2;
             this.panelLogin.Controls.Add(this.button1);
             this.panelLogin.Controls.Add(this.btnIngresar);
             this.panelLogin.Controls.Add(this.txtEmail);
@@ -100,8 +106,24 @@
             this.panelLogin.Size = new System.Drawing.Size(280, 343);
             this.panelLogin.TabIndex = 4;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.Control;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button1.Location = new System.Drawing.Point(17, 285);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(247, 35);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Olvidé mi clave";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // btnIngresar
             // 
+            this.btnIngresar.BackgroundImage = global::Proyecto_Cine.Properties.Resources.botoningresar;
+            this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIngresar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIngresar.Location = new System.Drawing.Point(17, 233);
             this.btnIngresar.Name = "btnIngresar";
@@ -113,11 +135,13 @@
             // 
             // txtEmail
             // 
-            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(17, 70);
+            this.txtEmail.BackColor = System.Drawing.SystemColors.Control;
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(21, 68);
             this.txtEmail.MaxLength = 100;
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(247, 26);
+            this.txtEmail.Size = new System.Drawing.Size(237, 22);
             this.txtEmail.TabIndex = 0;
             this.txtEmail.Text = "admin";
             // 
@@ -125,19 +149,22 @@
             // 
             this.lbcontraseña.AutoSize = true;
             this.lbcontraseña.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbcontraseña.Location = new System.Drawing.Point(14, 130);
+            this.lbcontraseña.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lbcontraseña.Location = new System.Drawing.Point(18, 127);
             this.lbcontraseña.Name = "lbcontraseña";
-            this.lbcontraseña.Size = new System.Drawing.Size(75, 15);
+            this.lbcontraseña.Size = new System.Drawing.Size(65, 15);
             this.lbcontraseña.TabIndex = 1;
-            this.lbcontraseña.Text = "PASSWORD";
+            this.lbcontraseña.Text = "Password";
             // 
             // txtContraseña
             // 
-            this.txtContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraseña.Location = new System.Drawing.Point(17, 148);
+            this.txtContraseña.BackColor = System.Drawing.SystemColors.Control;
+            this.txtContraseña.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContraseña.Location = new System.Drawing.Point(20, 145);
             this.txtContraseña.MaxLength = 20;
             this.txtContraseña.Name = "txtContraseña";
-            this.txtContraseña.Size = new System.Drawing.Size(247, 26);
+            this.txtContraseña.Size = new System.Drawing.Size(237, 22);
             this.txtContraseña.TabIndex = 1;
             this.txtContraseña.Text = "admin";
             this.txtContraseña.UseSystemPasswordChar = true;
@@ -146,22 +173,12 @@
             // 
             this.lbemail.AutoSize = true;
             this.lbemail.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbemail.Location = new System.Drawing.Point(14, 52);
+            this.lbemail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lbemail.Location = new System.Drawing.Point(18, 50);
             this.lbemail.Name = "lbemail";
-            this.lbemail.Size = new System.Drawing.Size(42, 15);
+            this.lbemail.Size = new System.Drawing.Size(38, 15);
             this.lbemail.TabIndex = 1;
-            this.lbemail.Text = "EMAIL";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(17, 285);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(247, 35);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Olvidé mi clave";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.lbemail.Text = "Email";
             // 
             // Principal
             // 
@@ -178,7 +195,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bienvenido a Movix";
             this.panelSuperior.ResumeLayout(false);
-            this.panelSuperior.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelPrincipal.ResumeLayout(false);
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
@@ -192,12 +209,12 @@
         private System.Windows.Forms.Panel panelLogin;
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Label lbcontraseña;
         private System.Windows.Forms.TextBox txtContraseña;
-        private System.Windows.Forms.Label lbemail;
         private System.Windows.Forms.Panel panelSuperior;
-        private System.Windows.Forms.Label labelBienvenvida;
         private System.Windows.Forms.Button btnCerrarSesion;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lbcontraseña;
+        private System.Windows.Forms.Label lbemail;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

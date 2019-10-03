@@ -51,7 +51,6 @@ namespace Proyecto_Cine.Forms
                     {
                         //panelLogin.Visible = false;
                         panelSuperior.Visible = true;
-                        labelBienvenvida.Text = "Bienvenido/a " + reader.GetValue(1).ToString() + " " + reader.GetValue(2).ToString();
                         AcoplarForm(new AdminView());
                         
                     }
@@ -98,7 +97,7 @@ namespace Proyecto_Cine.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RestaurarContraseña ventana = new RestaurarContraseña();
+            RestaurarContraseña ventana = new RestaurarContraseña(this.Location.X, this.Location.Y);
             ventana.Show();
         }
     }

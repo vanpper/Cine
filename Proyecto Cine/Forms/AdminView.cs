@@ -13,6 +13,8 @@ namespace Proyecto_Cine
 {
     public partial class AdminView : Form
     {
+        bool ciudades = false;
+
         public AdminView()
         {
             InitializeComponent();
@@ -41,10 +43,17 @@ namespace Proyecto_Cine
             if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
             {
                 AcoplarForm(new MenuPeliculas()); //ACOPLAR EL MENU SOLICITADO
+                btnPeliculas.BackgroundImage = Properties.Resources.peliculas_selected;
+                btnCiudades.BackgroundImage = Properties.Resources.ciudades_unselected;
+                btnCines.BackgroundImage = Properties.Resources.cines_unselected;
+                btnFunciones.BackgroundImage = Properties.Resources.funciones_unselected;
+                btnPrecios.BackgroundImage = Properties.Resources.precios_unselected;
+                btnUsuarios.BackgroundImage = Properties.Resources.usuarios_unselected;
             }
             else //SI EL MENU SOLICITADO YA ESTABA PUESTO
             {
                 AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+                btnPeliculas.BackgroundImage = Properties.Resources.peliculas_unselected;
             }
         }
 
@@ -55,10 +64,17 @@ namespace Proyecto_Cine
             if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
             {
                 AcoplarForm(new Ciudades()); //ACOPLAR EL MENU SOLICITADO
+                btnCiudades.BackgroundImage = Properties.Resources.ciudades_selected;
+                btnCines.BackgroundImage = Properties.Resources.cines_unselected;
+                btnPeliculas.BackgroundImage = Properties.Resources.peliculas_unselected;
+                btnFunciones.BackgroundImage = Properties.Resources.funciones_unselected;
+                btnPrecios.BackgroundImage = Properties.Resources.precios_unselected;
+                btnUsuarios.BackgroundImage = Properties.Resources.usuarios_unselected;
             }
             else //SI EL MENU SOLICITADO YA ESTABA PUESTO
             {
                 AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+                btnCiudades.BackgroundImage = Properties.Resources.ciudades_unselected;
             }
         }
 
@@ -69,10 +85,17 @@ namespace Proyecto_Cine
             if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
             {
                 AcoplarForm(new SalasYCines()); //ACOPLAR EL MENU SOLICITADO
+                btnCines.BackgroundImage = Properties.Resources.cines_selected;
+                btnCiudades.BackgroundImage = Properties.Resources.ciudades_unselected;
+                btnPeliculas.BackgroundImage = Properties.Resources.peliculas_unselected;
+                btnFunciones.BackgroundImage = Properties.Resources.funciones_unselected;
+                btnPrecios.BackgroundImage = Properties.Resources.precios_unselected;
+                btnUsuarios.BackgroundImage = Properties.Resources.usuarios_unselected;
             }
             else //SI EL MENU SOLICITADO YA ESTABA PUESTO
             {
                 AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+                btnCines.BackgroundImage = Properties.Resources.cines_unselected;
             }
         }
 
@@ -83,10 +106,17 @@ namespace Proyecto_Cine
             if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
             {
                 AcoplarForm(new Funciones()); //ACOPLAR EL MENU SOLICITADO
+                btnFunciones.BackgroundImage = Properties.Resources.funciones_selected;
+                btnCiudades.BackgroundImage = Properties.Resources.ciudades_unselected;
+                btnCines.BackgroundImage = Properties.Resources.cines_unselected;
+                btnPeliculas.BackgroundImage = Properties.Resources.peliculas_unselected;
+                btnPrecios.BackgroundImage = Properties.Resources.precios_unselected;
+                btnUsuarios.BackgroundImage = Properties.Resources.usuarios_unselected;
             }
             else //SI EL MENU SOLICITADO YA ESTABA PUESTO
             {
                 AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+                btnFunciones.BackgroundImage = Properties.Resources.funciones_unselected;
             }
         }
 
@@ -97,10 +127,17 @@ namespace Proyecto_Cine
             if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
             {
                 AcoplarForm(new Precios()); //ACOPLAR EL MENU SOLICITADO
+                btnPrecios.BackgroundImage = Properties.Resources.precios_selected;
+                btnCiudades.BackgroundImage = Properties.Resources.ciudades_unselected;
+                btnCines.BackgroundImage = Properties.Resources.cines_unselected;
+                btnFunciones.BackgroundImage = Properties.Resources.funciones_unselected;
+                btnPeliculas.BackgroundImage = Properties.Resources.peliculas_unselected;
+                btnUsuarios.BackgroundImage = Properties.Resources.usuarios_unselected;
             }
             else //SI EL MENU SOLICITADO YA ESTABA PUESTO
             {
                 AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+                btnPrecios.BackgroundImage = Properties.Resources.precios_unselected;
             }
         }
 
@@ -111,11 +148,23 @@ namespace Proyecto_Cine
             if (control == null) //SI EL CONTROL ES NULL, ES DECIR, EL MENU SOLICITADO NO ESTABA PUESTO
             {
                 AcoplarForm(new Usuarios()); //ACOPLAR EL MENU SOLICITADO
+                btnUsuarios.BackgroundImage = Properties.Resources.usuarios_selected;
+                btnCiudades.BackgroundImage = Properties.Resources.ciudades_unselected;
+                btnCines.BackgroundImage = Properties.Resources.cines_unselected;
+                btnFunciones.BackgroundImage = Properties.Resources.funciones_unselected;
+                btnPrecios.BackgroundImage = Properties.Resources.precios_unselected;
+                btnPeliculas.BackgroundImage = Properties.Resources.peliculas_unselected;
             }
             else //SI EL MENU SOLICITADO YA ESTABA PUESTO
             {
                 AcoplarForm(new AdminViewPrincipal()); //CERRAR MENU, ACOPLANDO EL FORM PRINCIPAL DEL ADMINVIEW NUEVAMENTE
+                btnUsuarios.BackgroundImage = Properties.Resources.usuarios_unselected;
             }
+        }
+
+        private void desactivarBotones()
+        {
+
         }
     }
 }
