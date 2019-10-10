@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvProvincias = new System.Windows.Forms.DataGridView();
             this.dgvCiudades = new System.Windows.Forms.DataGridView();
             this.btnNuevaProvincia = new System.Windows.Forms.Button();
@@ -47,9 +50,37 @@
             // 
             // dgvProvincias
             // 
+            this.dgvProvincias.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.dgvProvincias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkOrange;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProvincias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvProvincias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProvincias.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvProvincias.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.dgvProvincias.Location = new System.Drawing.Point(31, 2);
             this.dgvProvincias.Name = "dgvProvincias";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProvincias.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvProvincias.RowHeadersWidth = 60;
             this.dgvProvincias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProvincias.Size = new System.Drawing.Size(299, 422);
             this.dgvProvincias.TabIndex = 0;
@@ -58,7 +89,9 @@
             // 
             // dgvCiudades
             // 
+            this.dgvCiudades.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.dgvCiudades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCiudades.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.dgvCiudades.Location = new System.Drawing.Point(636, 2);
             this.dgvCiudades.Name = "dgvCiudades";
             this.dgvCiudades.Size = new System.Drawing.Size(300, 422);
@@ -68,27 +101,34 @@
             // 
             // btnNuevaProvincia
             // 
+            this.btnNuevaProvincia.BackgroundImage = global::Proyecto_Cine.Properties.Resources.boton_agregar;
+            this.btnNuevaProvincia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnNuevaProvincia.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNuevaProvincia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaProvincia.Location = new System.Drawing.Point(1, 1);
             this.btnNuevaProvincia.Name = "btnNuevaProvincia";
             this.btnNuevaProvincia.Size = new System.Drawing.Size(28, 28);
             this.btnNuevaProvincia.TabIndex = 1;
-            this.btnNuevaProvincia.Text = "+";
             this.btnNuevaProvincia.UseVisualStyleBackColor = true;
             this.btnNuevaProvincia.Click += new System.EventHandler(this.btnNuevaProvincia_Click);
             // 
             // btnNuevaCiudad
             // 
+            this.btnNuevaCiudad.BackgroundImage = global::Proyecto_Cine.Properties.Resources.boton_agregar;
+            this.btnNuevaCiudad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnNuevaCiudad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNuevaCiudad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaCiudad.Location = new System.Drawing.Point(939, 2);
             this.btnNuevaCiudad.Name = "btnNuevaCiudad";
             this.btnNuevaCiudad.Size = new System.Drawing.Size(28, 28);
             this.btnNuevaCiudad.TabIndex = 4;
-            this.btnNuevaCiudad.Text = "+";
             this.btnNuevaCiudad.UseVisualStyleBackColor = true;
             this.btnNuevaCiudad.Click += new System.EventHandler(this.btnNuevaCiudad_Click);
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.BackgroundImage = global::Proyecto_Cine.Properties.Resources.vidrio;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnVolver);
@@ -103,40 +143,52 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(113, 175);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(34, 178);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.Size = new System.Drawing.Size(49, 15);
             this.label1.TabIndex = 4;
             this.label1.Text = "NOMBRE";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(113, 77);
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(118, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 20);
+            this.label2.Size = new System.Drawing.Size(43, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "TEXT";
             // 
             // btnVolver
             // 
-            this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Location = new System.Drawing.Point(21, 327);
+            this.btnVolver.BackColor = System.Drawing.Color.Transparent;
+            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVolver.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.ForeColor = System.Drawing.Color.White;
+            this.btnVolver.Location = new System.Drawing.Point(19, 357);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.Size = new System.Drawing.Size(257, 38);
             this.btnVolver.TabIndex = 7;
             this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.UseVisualStyleBackColor = false;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(199, 327);
+            this.btnGuardar.BackgroundImage = global::Proyecto_Cine.Properties.Resources.botoningresar;
+            this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnGuardar.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.ForeColor = System.Drawing.Color.White;
+            this.btnGuardar.Location = new System.Drawing.Point(19, 313);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.Size = new System.Drawing.Size(257, 38);
             this.btnGuardar.TabIndex = 8;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
@@ -144,31 +196,38 @@
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescripcion.BackColor = System.Drawing.SystemColors.Window;
+            this.txtDescripcion.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcion.Location = new System.Drawing.Point(37, 196);
             this.txtDescripcion.MaxLength = 50;
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(215, 20);
+            this.txtDescripcion.Size = new System.Drawing.Size(215, 26);
             this.txtDescripcion.TabIndex = 6;
             this.txtDescripcion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescripcion_KeyPress);
             // 
             // btnModificarProvincia
             // 
+            this.btnModificarProvincia.BackgroundImage = global::Proyecto_Cine.Properties.Resources.boton_modificar;
+            this.btnModificarProvincia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnModificarProvincia.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnModificarProvincia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModificarProvincia.Location = new System.Drawing.Point(1, 30);
             this.btnModificarProvincia.Name = "btnModificarProvincia";
             this.btnModificarProvincia.Size = new System.Drawing.Size(28, 28);
             this.btnModificarProvincia.TabIndex = 2;
-            this.btnModificarProvincia.Text = "M";
             this.btnModificarProvincia.UseVisualStyleBackColor = true;
             this.btnModificarProvincia.Click += new System.EventHandler(this.btnModificarProvincia_Click);
             // 
             // btnModificarCiudad
             // 
+            this.btnModificarCiudad.BackgroundImage = global::Proyecto_Cine.Properties.Resources.boton_modificar;
+            this.btnModificarCiudad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnModificarCiudad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnModificarCiudad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModificarCiudad.Location = new System.Drawing.Point(939, 31);
             this.btnModificarCiudad.Name = "btnModificarCiudad";
             this.btnModificarCiudad.Size = new System.Drawing.Size(28, 28);
             this.btnModificarCiudad.TabIndex = 5;
-            this.btnModificarCiudad.Text = "M";
             this.btnModificarCiudad.UseVisualStyleBackColor = true;
             this.btnModificarCiudad.Click += new System.EventHandler(this.btnModificarCiudad_Click);
             // 
@@ -176,7 +235,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(969, 426);
+            this.BackgroundImage = global::Proyecto_Cine.Properties.Resources.fondo_ciudades;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ClientSize = new System.Drawing.Size(965, 430);
             this.Controls.Add(this.btnModificarCiudad);
             this.Controls.Add(this.btnModificarProvincia);
             this.Controls.Add(this.panel1);

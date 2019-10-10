@@ -185,7 +185,7 @@ namespace Proyecto_Cine.Forms
             {
                 AbrirPanel(); //ABRIR EL PANEL
                 label2.Text = "AGREGAR NUEVA PROVINCIA"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                label2.Location = new Point(25,label2.Location.Y); //REACOMODAR LABEL
+                label2.Location = new Point(45,label2.Location.Y); //REACOMODAR LABEL
                 txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
                 Entidad = PROVINCIAS; //LA ENTIDAD QUE OPERA ES PROVINCIAS
                 Operacion = NUEVO; //LA OPERACION EN CURSO ES AGREGAR UN NUEVO REGISTRO
@@ -198,7 +198,7 @@ namespace Proyecto_Cine.Forms
             {
                 AbrirPanel(); //ABRIR EL PANEL
                 label2.Text = "AGREGAR NUEVA CIUDAD"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                label2.Location = new Point(35, label2.Location.Y); //REACOMODAR LABEL
+                label2.Location = new Point(60, label2.Location.Y); //REACOMODAR LABEL
                 txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
                 Entidad = CIUDADES; //LA ENTIDAD QUE OPERA ES CIUDADES
                 Operacion = NUEVO; //LA OPERACION EN CURSO ES AGREGAR UN NUEVO REGISTRO
@@ -213,7 +213,7 @@ namespace Proyecto_Cine.Forms
                 {
                     AbrirPanel(); //ABRIR EL PANEL
                     label2.Text = "MODIFICAR PROVINCIA"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                    label2.Location = new Point(50, label2.Location.Y); //UBICAR LABEL
+                    label2.Location = new Point(60, label2.Location.Y); //UBICAR LABEL
                     txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString(); //CARGAR EN EL TEXTBOX LA PROVINCIA SELECCIONADA
                     txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
                     Entidad = PROVINCIAS; //LA ENTIDAD QUE OPERA ES PROVINCIAS
@@ -230,7 +230,7 @@ namespace Proyecto_Cine.Forms
                 {
                     AbrirPanel(); //ABRIR EL PANEL
                     label2.Text = "MODIFICAR CIUDAD"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                    label2.Location = new Point(65, label2.Location.Y); //REACOMODAR LABEL
+                    label2.Location = new Point(75, label2.Location.Y); //REACOMODAR LABEL
                     txtDescripcion.Text = dgvCiudades.CurrentRow.Cells[2].Value.ToString(); //CARGAR EN EL TEXTBOX LA CIUDAD SELECCIONADA
                     txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
                     Entidad = CIUDADES; //LA ENTIDAD QUE OPERA ES CIUDADES

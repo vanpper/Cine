@@ -139,6 +139,12 @@
     <Compile Include="Forms\Usuarios.Designer.cs">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Ventas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Ventas.Designer.cs">
+      <DependentUpon>Ventas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AdminView.resx">
       <DependentUpon>AdminView.cs</DependentUpon>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Ventas.resx">
+      <DependentUpon>Ventas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -267,6 +276,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\usuarios_selected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ventas_unselected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ventas_selected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ciudades\fondo_ciudades.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ciudades\boton_agregar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ciudades\boton_modificar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ciudades\vidrio.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

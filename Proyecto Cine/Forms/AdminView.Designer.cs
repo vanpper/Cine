@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelPrincipal = new System.Windows.Forms.Panel();
             this.panelLateral = new System.Windows.Forms.Panel();
             this.btnPeliculas = new System.Windows.Forms.Button();
             this.btnCines = new System.Windows.Forms.Button();
@@ -37,15 +36,9 @@
             this.btnUsuarios = new System.Windows.Forms.Button();
             this.btnFunciones = new System.Windows.Forms.Button();
             this.btnCiudades = new System.Windows.Forms.Button();
+            this.panelPrincipal = new System.Windows.Forms.Panel();
             this.panelLateral.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panelPrincipal
-            // 
-            this.panelPrincipal.Location = new System.Drawing.Point(93, 2);
-            this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(969, 426);
-            this.panelPrincipal.TabIndex = 1;
             // 
             // panelLateral
             // 
@@ -112,6 +105,11 @@
             // 
             // btnVentas
             // 
+            this.btnVentas.BackgroundImage = global::Proyecto_Cine.Properties.Resources.ventas_unselected;
+            this.btnVentas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnVentas.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVentas.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnVentas.Location = new System.Drawing.Point(3, 362);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Size = new System.Drawing.Size(77, 59);
@@ -119,6 +117,7 @@
             this.btnVentas.Text = "Ventas";
             this.btnVentas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnVentas.UseVisualStyleBackColor = true;
+            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
             // 
             // btnUsuarios
             // 
@@ -168,11 +167,19 @@
             this.btnCiudades.UseVisualStyleBackColor = true;
             this.btnCiudades.Click += new System.EventHandler(this.btnCiudades_Click);
             // 
+            // panelPrincipal
+            // 
+            this.panelPrincipal.Location = new System.Drawing.Point(93, 2);
+            this.panelPrincipal.Name = "panelPrincipal";
+            this.panelPrincipal.Size = new System.Drawing.Size(969, 426);
+            this.panelPrincipal.TabIndex = 1;
+            // 
             // AdminView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto_Cine.Properties.Resources.fondo;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1067, 432);
             this.Controls.Add(this.panelLateral);
             this.Controls.Add(this.panelPrincipal);
@@ -185,8 +192,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelPrincipal;
         private System.Windows.Forms.Panel panelLateral;
         private System.Windows.Forms.Button btnPeliculas;
         private System.Windows.Forms.Button btnCines;
@@ -195,5 +200,6 @@
         private System.Windows.Forms.Button btnUsuarios;
         private System.Windows.Forms.Button btnFunciones;
         private System.Windows.Forms.Button btnCiudades;
+        private System.Windows.Forms.Panel panelPrincipal;
     }
 }
