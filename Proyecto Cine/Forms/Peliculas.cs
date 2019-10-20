@@ -73,7 +73,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxClasificaciones()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Clasificaciones", BD.conectarBD); //TRAER TODAS LAS CLASIFICACIONES
+            adaptador = new SqlDataAdapter("SELECT * FROM Clasificaciones", BD.getSqlCn()); //TRAER TODAS LAS CLASIFICACIONES
             DTClasificaciones.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTClasificaciones); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -85,7 +85,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxGeneros()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Generos", BD.conectarBD); //TRAER TODOS LOS GENEROS
+            adaptador = new SqlDataAdapter("SELECT * FROM Generos", BD.getSqlCn()); //TRAER TODOS LOS GENEROS
             DTGeneros.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTGeneros);  //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -138,7 +138,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDgvPeliculas()
         {
-            adaptador = new SqlDataAdapter("SELECT CodPelicula_Peli, Nombre_Peli, Duracion_Peli, Actores_Peli, Director_Peli, CodGenero_Peli, Descripcion_Gene, CodClasificacion_Peli, Descripcion_Clas, Descripcion_Peli, Portada_Peli, Estado_Peli FROM Peliculas INNER JOIN Generos ON CodGenero_Peli = CodGenero_Gene INNER JOIN Clasificaciones ON CodClasificacion_Clas = CodClasificacion_Peli", BD.conectarBD); //TRAER TODAS LAS PELICULAS
+            adaptador = new SqlDataAdapter("SELECT CodPelicula_Peli, Nombre_Peli, Duracion_Peli, Actores_Peli, Director_Peli, CodGenero_Peli, Descripcion_Gene, CodClasificacion_Peli, Descripcion_Clas, Descripcion_Peli, Portada_Peli, Estado_Peli FROM Peliculas INNER JOIN Generos ON CodGenero_Peli = CodGenero_Gene INNER JOIN Clasificaciones ON CodClasificacion_Clas = CodClasificacion_Peli", BD.getSqlCn()); //TRAER TODAS LAS PELICULAS
             DTPeliculas.Clear(); //LIMPIAR EL DATATBLE DE VIEJOS REGISTROS
             adaptador.Fill(DTPeliculas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
@@ -478,13 +478,13 @@ namespace Proyecto_Cine.Forms
                 MemoryStream buffer = new MemoryStream(); //BUFFER EN MEMORIA QUE VA A GUARDAR LA IMAGEN
                 pictureBox1.Image.Save(buffer, System.Drawing.Imaging.ImageFormat.Jpeg); //PASAR LA IMAGEN AL BUFFER 
 
-                comando = new SqlCommand(consulta + ", Portada_Peli = @imagen WHERE CodPelicula_Peli = " + CodPelicula, BD.conectarBD); //CARGAR CONSULTA
+                comando = new SqlCommand(consulta + ", Portada_Peli = @imagen WHERE CodPelicula_Peli = " + CodPelicula, BD.getSqlCn()); //CARGAR CONSULTA
                 comando.Parameters.Add("@imagen", System.Data.SqlDbType.Image); //PARAMETRO QUE REFERENCIA LA IMAGEN
                 comando.Parameters["@imagen"].Value = buffer.GetBuffer(); //ASIGNAR LA IMAGEN AL PARAMETRO A TRAVES DEL BUFFER
             }
             else //SI EL PICTURE BOX NO TIENE UNA IMAGEN CARGADA
             {
-                comando = new SqlCommand(consulta + ", Portada_Peli = NULL WHERE CodPelicula_Peli = " + CodPelicula, BD.conectarBD); //CARGAR CONSULTA
+                comando = new SqlCommand(consulta + ", Portada_Peli = NULL WHERE CodPelicula_Peli = " + CodPelicula, BD.getSqlCn()); //CARGAR CONSULTA
             }
 
             comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
@@ -547,13 +547,13 @@ namespace Proyecto_Cine.Forms
                 MemoryStream buffer = new MemoryStream(); //BUFFER EN MEMORIA QUE VA A GUARDAR LA IMAGEN
                 pictureBox1.Image.Save(buffer, System.Drawing.Imaging.ImageFormat.Jpeg); //PASAR LA IMAGEN AL BUFFER 
 
-                comando = new SqlCommand(consulta + ", @imagen)", BD.conectarBD); //CARGAR CONSULTA
+                comando = new SqlCommand(consulta + ", @imagen)", BD.getSqlCn()); //CARGAR CONSULTA
                 comando.Parameters.Add("@imagen", System.Data.SqlDbType.Image); //PARAMETRO QUE REFERENCIA LA IMAGEN
                 comando.Parameters["@imagen"].Value = buffer.GetBuffer(); //ASIGNAR LA IMAGEN AL PARAMETRO A TRAVES DEL BUFFER
             }
             else //SI EL PICTURE BOX NO TIENE UNA IMAGEN CARGADA
             {
-                comando = new SqlCommand(consulta + ", NULL)", BD.conectarBD); //CARGAR CONSULTA
+                comando = new SqlCommand(consulta + ", NULL)", BD.getSqlCn()); //CARGAR CONSULTA
             }
 
             comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
@@ -576,7 +576,7 @@ namespace Proyecto_Cine.Forms
 
         private void deshabilitarPeliculasXFormato()
         {
-            comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'False' WHERE CodPelicula_PXF = " + dgvPeliculas.CurrentRow.Cells[0].Value.ToString(), BD.conectarBD);
+            comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'False' WHERE CodPelicula_PXF = " + dgvPeliculas.CurrentRow.Cells[0].Value.ToString(), BD.getSqlCn());
             comando.ExecuteNonQuery();
         }
 

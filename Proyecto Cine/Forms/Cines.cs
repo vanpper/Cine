@@ -45,19 +45,19 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDataGrid()
         {
-            adaptador = new SqlDataAdapter("Select CodCine_Cine, Nombre_Cine, Descripcion_Prov, Descripcion_Ciud, Direccion_Cine, Descripcion_Cine, CodProvincia_Cine, CodCiudad_Cine, Estado_Cine from Cines inner join Provincias on CodProvincia_Prov = CodProvincia_Cine inner join Ciudades on CodProvincia_Cine = CodProvincia_Ciud AND CodCiudad_Cine = CodCiudad_Ciud", BD.conectarBD); //CONSULTA PARA TRAER TODOS LOS CINES
+            adaptador = new SqlDataAdapter("Select CodCine_Cine, Nombre_Cine, Descripcion_Prov, Descripcion_Ciud, Direccion_Cine, Descripcion_Cine, CodProvincia_Cine, CodCiudad_Cine, Estado_Cine from Cines inner join Provincias on CodProvincia_Prov = CodProvincia_Cine inner join Ciudades on CodProvincia_Cine = CodProvincia_Ciud AND CodCiudad_Cine = CodCiudad_Ciud", BD.getSqlCn()); //CONSULTA PARA TRAER TODOS LOS CINES
             DTCines.Clear(); //LIMPIAR EL DATATABLE DE CINES DE VIEJOS REGISTROS
             adaptador.Fill(DTCines); //LLENAR EL DATATABLE DE CINES CON NUEVOS REGISTROS
         }
 
         private void ActualizarBoxs()
         {
-            adaptador = new SqlDataAdapter("Select * from Provincias", BD.conectarBD); //CONSULTA PARA TRAER TODAS LAS PROVINCIAS
+            adaptador = new SqlDataAdapter("Select * from Provincias", BD.getSqlCn()); //CONSULTA PARA TRAER TODAS LAS PROVINCIAS
             DTProvincias.Clear(); //LIMPIAR EL DATATABLE DE PROVINCIAS DE VIEJOS REGISTROS
             adaptador.Fill(DTProvincias); //LENAR EL DATATABLE DE PROVINCIAS CON NUEVOS REGISTROS
             DTProvincias.DefaultView.Sort = "Descripcion_Prov"; //ORDENAR EL DATATABLE ALFABETICAMENTE
 
-            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = 1", BD.conectarBD); //TRAER TODAS LAS CIUDADES, INICIALMENTE DE LA PRIMERA PROVINCIA
+            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = 1", BD.getSqlCn()); //TRAER TODAS LAS CIUDADES, INICIALMENTE DE LA PRIMERA PROVINCIA
             DTCiudades.Clear(); //LIMPIAR EL DATATABLE DE CIUDADES DE VIEJOS REGISTROS
             adaptador.Fill(DTCiudades); //LLENAR EL DATATABLE DE CIUDADES CON NUEVOS
             DTCiudades.DefaultView.Sort = "Descripcion_Ciud"; //ORDENAR EL DATATABLE ALFABETICAMENTE
@@ -157,7 +157,7 @@ namespace Proyecto_Cine.Forms
                         {
                             int NuevoCodigo = Int32.Parse(DTCines.Compute("MAX(CodCine_Cine)", "").ToString()) + 1; //OBTENER ULTIMO CODIGO DE CINE REGISTRADO Y SUMARLE 1
 
-                            comando = new SqlCommand("INSERT INTO Cines(CodCine_Cine, Nombre_Cine, CodProvincia_Cine, CodCiudad_Cine, Direccion_Cine, Descripcion_Cine, Estado_Cine) VALUES(" + NuevoCodigo + ", '" + txtNombre.Text + "', " + boxProvincia.SelectedValue + ", " + boxCiudad.SelectedValue + ", '" + txtDireccion.Text + "', '" + txtDescripcion.Text + "', '" + checkActivo.Checked + "')", BD.conectarBD); //INSERTAR EN LA BASE DE DATOS EL NUEVO CINE
+                            comando = new SqlCommand("INSERT INTO Cines(CodCine_Cine, Nombre_Cine, CodProvincia_Cine, CodCiudad_Cine, Direccion_Cine, Descripcion_Cine, Estado_Cine) VALUES(" + NuevoCodigo + ", '" + txtNombre.Text + "', " + boxProvincia.SelectedValue + ", " + boxCiudad.SelectedValue + ", '" + txtDireccion.Text + "', '" + txtDescripcion.Text + "', '" + checkActivo.Checked + "')", BD.getSqlCn()); //INSERTAR EN LA BASE DE DATOS EL NUEVO CINE
                             comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
                             ActualizarDataGrid(); //ACTUALIZAR EL DATATABLE DE CINES
 
@@ -254,7 +254,7 @@ namespace Proyecto_Cine.Forms
 
         private void boxProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = " + boxProvincia.SelectedValue, BD.conectarBD); //TRAER LAS CIUDADES DE LA PROVINCIA SELECCIONADA
+            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = " + boxProvincia.SelectedValue, BD.getSqlCn()); //TRAER LAS CIUDADES DE LA PROVINCIA SELECCIONADA
             DTCiudades.Clear(); //LIMPIAR EL DATATABLE DE CIUDADES DE VIEJOS REGISTROS
             adaptador.Fill(DTCiudades); //LLENAR EL DATATABLE DE CIUDADES CON NUEVOS REGISTROS
 
@@ -283,7 +283,7 @@ namespace Proyecto_Cine.Forms
         {
             int CodCine = Int32.Parse(txtCodigo.Text);
 
-            comando = new SqlCommand("UPDATE Cines SET Nombre_Cine = '" + txtNombre.Text + "', CodProvincia_Cine = " + boxProvincia.SelectedValue + ", CodCiudad_Cine = " + boxCiudad.SelectedValue + ", Direccion_Cine = '" + txtDireccion.Text + "', Descripcion_Cine = '" + txtDescripcion.Text + "', Estado_Cine = '" + checkActivo.Checked + "' WHERE CodCine_Cine = " + CodCine, BD.conectarBD); //GENERAR CONSULTA
+            comando = new SqlCommand("UPDATE Cines SET Nombre_Cine = '" + txtNombre.Text + "', CodProvincia_Cine = " + boxProvincia.SelectedValue + ", CodCiudad_Cine = " + boxCiudad.SelectedValue + ", Direccion_Cine = '" + txtDireccion.Text + "', Descripcion_Cine = '" + txtDescripcion.Text + "', Estado_Cine = '" + checkActivo.Checked + "' WHERE CodCine_Cine = " + CodCine, BD.getSqlCn()); //GENERAR CONSULTA
             comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
             ActualizarDataGrid(); //ACTUALIZAR DATAGRIDVIEW
 
@@ -300,13 +300,13 @@ namespace Proyecto_Cine.Forms
 
         private void deshabilitarSalas(String CodCine)
         {
-            comando = new SqlCommand("UPDATE SalasXCine SET Estado_SXC = 'False' WHERE CodCine_SXC = " + CodCine, BD.conectarBD);
+            comando = new SqlCommand("UPDATE SalasXCine SET Estado_SXC = 'False' WHERE CodCine_SXC = " + CodCine, BD.getSqlCn());
             comando.ExecuteNonQuery();
         }
 
         private void deshabilitarFunciones(String CodCine)
         {
-            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'False' WHERE CodCine_Func = " + CodCine, BD.conectarBD);
+            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'False' WHERE CodCine_Func = " + CodCine, BD.getSqlCn());
             comando.ExecuteNonQuery();
         }
     }

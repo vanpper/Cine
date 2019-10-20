@@ -104,7 +104,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxTDE()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeEntradas", BD.conectarBD); //TRAER TODOS LOS TIPOS DE ENTRADAS
+            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeEntradas", BD.getSqlCn()); //TRAER TODOS LOS TIPOS DE ENTRADAS
             DTTiposDeEntradas2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTTiposDeEntradas2); //LLENAR EL DATATABLE CON NUEVOS REGISTROS
 
@@ -116,14 +116,14 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDgvPrecios()
         {
-            adaptador = new SqlDataAdapter("SELECT CodTipoDeEntrada_Prec, Descripcion_TDE, Precio_Prec FROM Precios INNER JOIN TiposDeEntradas ON CodTipoDeEntrada_Prec = CodTipoDeEntrada_TDE WHERE CodCine_Prec = "+BoxCines.SelectedValue+" AND CodTipoDeSala_Prec = "+BoxTDS.SelectedValue, BD.conectarBD); //TRAER LOS DATOS DEL CINE Y SALA SELECCIONADOS
+            adaptador = new SqlDataAdapter("SELECT CodTipoDeEntrada_Prec, Descripcion_TDE, Precio_Prec FROM Precios INNER JOIN TiposDeEntradas ON CodTipoDeEntrada_Prec = CodTipoDeEntrada_TDE WHERE CodCine_Prec = "+BoxCines.SelectedValue+" AND CodTipoDeSala_Prec = "+BoxTDS.SelectedValue, BD.getSqlCn()); //TRAER LOS DATOS DEL CINE Y SALA SELECCIONADOS
             DTPrecios.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTPrecios); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
 
         private void ActualizarBoxTDS()
         {
-            adaptador = new SqlDataAdapter("SELECT CodTipoDeSala_TDS, Descripcion_TDS FROM TiposDeSalas", BD.conectarBD); //TRAER TODOS LOS TIPOS DE SALAS
+            adaptador = new SqlDataAdapter("SELECT CodTipoDeSala_TDS, Descripcion_TDS FROM TiposDeSalas", BD.getSqlCn()); //TRAER TODOS LOS TIPOS DE SALAS
             DTTiposDeSalas.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTTiposDeSalas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -135,7 +135,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxCines()
         {
-            adaptador = new SqlDataAdapter("SELECT CodCine_Cine, Nombre_Cine FROM Cines", BD.conectarBD); //TRAER TODOS LOS CINES
+            adaptador = new SqlDataAdapter("SELECT CodCine_Cine, Nombre_Cine FROM Cines", BD.getSqlCn()); //TRAER TODOS LOS CINES
             DTCines.Clear(); //LIMPIAR EL DATATABLE DE CINES DE VIEJOS REGISTROS
             adaptador.Fill(DTCines); //LLENAR EL DATATABLE DE CINES LOS NUEVOS REGISTROS
 
@@ -206,7 +206,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDvgTiposDeEntradas()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeEntradas", BD.conectarBD); // TRAER TODOS LOS TIPOS DE ENTRADAS
+            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeEntradas", BD.getSqlCn()); // TRAER TODOS LOS TIPOS DE ENTRADAS
             DTTiposDeEntradas.Clear(); //LIMPIAR EL DATATALE DE VIEJOS REGISTROS
             adaptador.Fill(DTTiposDeEntradas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
@@ -254,7 +254,7 @@ namespace Proyecto_Cine.Forms
                 {
                     int NuevoCodigo = Int32.Parse(DTTiposDeEntradas.Compute("MAX(CodTipoDeEntrada_TDE)", "").ToString()) + 1; //OBTENER EL ULTIMO CODIGO Y SUMARLE 1
 
-                    comando = new SqlCommand("INSERT INTO TiposDeEntradas (CodTipoDeEntrada_TDE, Descripcion_TDE) VALUES (" + NuevoCodigo + ", '" + txtDescripcionTDE.Text + "')", BD.conectarBD); //INSERTAR EL NUEVO REGISTRO
+                    comando = new SqlCommand("INSERT INTO TiposDeEntradas (CodTipoDeEntrada_TDE, Descripcion_TDE) VALUES (" + NuevoCodigo + ", '" + txtDescripcionTDE.Text + "')", BD.getSqlCn()); //INSERTAR EL NUEVO REGISTRO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
                     ActualizarDvgTiposDeEntradas(); //ACTUALIZAR DATAGIRD TIPOS DE ENTRADAS
 
@@ -269,7 +269,7 @@ namespace Proyecto_Cine.Forms
                     String CurrentCodeTDE = dgvTDE.CurrentRow.Cells[0].Value.ToString(); //GUARDAR EL CODIGO ACTUAL DE TDE
                     String CurrentCodePrecios = dgvPrecios.CurrentRow.Cells[0].Value.ToString(); //GUARDAR EL CODIGO ACTUAL DE PRECIOS
 
-                    comando = new SqlCommand("UPDATE TiposDeEntradas SET Descripcion_TDE = '" + txtDescripcionTDE.Text + "' WHERE CodTipoDeEntrada_TDE = " + CurrentCodeTDE, BD.conectarBD); //MODIFICAR EL REGISTOR SELECCIONADO
+                    comando = new SqlCommand("UPDATE TiposDeEntradas SET Descripcion_TDE = '" + txtDescripcionTDE.Text + "' WHERE CodTipoDeEntrada_TDE = " + CurrentCodeTDE, BD.getSqlCn()); //MODIFICAR EL REGISTOR SELECCIONADO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDvgTiposDeEntradas(); //ACTUALIZAR DATAGRID TIPO DE ENTRADAS
@@ -397,7 +397,7 @@ namespace Proyecto_Cine.Forms
             {
                 if (OperacionPrecios == NUEVO) //SI LA OPERACION ES "NUEVO"
                 {
-                    comando = new SqlCommand("INSERT INTO Precios (CodCine_Prec, CodTipoDeSala_Prec, CodTipoDeEntrada_Prec, Precio_Prec) VALUES ("+BoxCines.SelectedValue+", "+BoxTDS.SelectedValue+", "+boxTDE.SelectedValue+", "+txtPrecio.Text+")", BD.conectarBD); //INSERTAR EL NUEVO REGISTRO
+                    comando = new SqlCommand("INSERT INTO Precios (CodCine_Prec, CodTipoDeSala_Prec, CodTipoDeEntrada_Prec, Precio_Prec) VALUES ("+BoxCines.SelectedValue+", "+BoxTDS.SelectedValue+", "+boxTDE.SelectedValue+", "+txtPrecio.Text+")", BD.getSqlCn()); //INSERTAR EL NUEVO REGISTRO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvPrecios(); //ACTUALIZAR EL DATAGRID DE PRECIOS
@@ -418,7 +418,7 @@ namespace Proyecto_Cine.Forms
                 {
                     String CurrentCode = dgvPrecios.CurrentRow.Cells[0].Value.ToString();
 
-                    comando = new SqlCommand("UPDATE Precios SET Precio_Prec = " + txtPrecio.Text + " WHERE CodCine_Prec = " + BoxCines.SelectedValue + " AND CodTipoDeSala_Prec = " + BoxTDS.SelectedValue + " AND CodTipoDeEntrada_Prec = " + CurrentCode, BD.conectarBD); //ACTUALIZAR REGISTRO
+                    comando = new SqlCommand("UPDATE Precios SET Precio_Prec = " + txtPrecio.Text + " WHERE CodCine_Prec = " + BoxCines.SelectedValue + " AND CodTipoDeSala_Prec = " + BoxTDS.SelectedValue + " AND CodTipoDeEntrada_Prec = " + CurrentCode, BD.getSqlCn()); //ACTUALIZAR REGISTRO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvPrecios(); //ACTUALIZAR DATAGRID DE PRECIO

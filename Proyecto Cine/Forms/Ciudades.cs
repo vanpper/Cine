@@ -113,25 +113,25 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDgvProvincias()
         {
-            adaptador = new SqlDataAdapter("Select * from Provincias", BD.conectarBD); //CARGAR AL ADAPTADOR TODAS LAS PROVINCIAS
+            adaptador = new SqlDataAdapter("Select * from Provincias", BD.getSqlCn()); //CARGAR AL ADAPTADOR TODAS LAS PROVINCIAS
             DTProvincias.Clear(); //LIMPIAR EL DATATABLE DE PROVINCIAS DE VIEJOS REGISTROS
             adaptador.Fill(DTProvincias); //LLENAR EL DATATABLE DE PROVINCIAS CON LOS NUEVOS REGISTROS
         }
 
         private void ActualizarDgvCiudades()
         {
-            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = " + dgvProvincias.CurrentRow.Cells[0].Value, BD.conectarBD); //CARGAR AL ADAPTADOR TODAS LAS CIUDADES DE LA PROVINCIA SELECCIONADA
+            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = " + dgvProvincias.CurrentRow.Cells[0].Value, BD.getSqlCn()); //CARGAR AL ADAPTADOR TODAS LAS CIUDADES DE LA PROVINCIA SELECCIONADA
             DTCiudades.Clear(); //LIMPIAR EL DATATABLE DE CIUDADES DE VIEJOS REGISTROS
             adaptador.Fill(DTCiudades); //LLENAR EL DATATABLE DE CIUDADES CON LOS NUEVOS REGISTROS
         }
 
         private void ActualizarGrids()
         {
-            adaptador = new SqlDataAdapter("Select * from Provincias", BD.conectarBD); //CARGAR AL ADAPTADOR TODAS LAS PROVINCIAS
+            adaptador = new SqlDataAdapter("Select * from Provincias", BD.getSqlCn()); //CARGAR AL ADAPTADOR TODAS LAS PROVINCIAS
             DTProvincias.Clear(); //LIMPIAR EL DATATABLE DE PROVINCIAS DE VIEJOS REGISTROS
             adaptador.Fill(DTProvincias); //LLENAR EL DATATABLE DE PROVINCIAS CON LOS NUEVOS REGISTROS
 
-            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = " + dgvProvincias.CurrentRow.Cells[0].Value, BD.conectarBD); //CARGAR AL ADAPTADOR TODAS LAS CIUDADES DE LA PROVINCIA SELECCIONADA
+            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = " + dgvProvincias.CurrentRow.Cells[0].Value, BD.getSqlCn()); //CARGAR AL ADAPTADOR TODAS LAS CIUDADES DE LA PROVINCIA SELECCIONADA
             DTCiudades.Clear(); //LIMPIAR EL DATATABLE DE CIUDADES DE VIEJOS REGISTROS
             adaptador.Fill(DTCiudades); //LLENAR EL DATATABLE DE CIUDADES CON LOS NUEVOS REGISTROS
         }
@@ -256,7 +256,7 @@ namespace Proyecto_Cine.Forms
                     {
                         NuevoCodigo = Int32.Parse(DTProvincias.Compute("MAX(CodProvincia_Prov)", "").ToString()) + 1; //OBTENER ULTIMO CODIGO DE PROVINCIA REGISTRADO Y SUMARLE 1
 
-                        comando = new SqlCommand("INSERT INTO Provincias (CodProvincia_Prov, Descripcion_Prov) VALUES (" + NuevoCodigo + ", '" + txtDescripcion.Text + "')", BD.conectarBD); //INSERTAR EN PROVINCIAS EL NUEVO REGISTRO
+                        comando = new SqlCommand("INSERT INTO Provincias (CodProvincia_Prov, Descripcion_Prov) VALUES (" + NuevoCodigo + ", '" + txtDescripcion.Text + "')", BD.getSqlCn()); //INSERTAR EN PROVINCIAS EL NUEVO REGISTRO
                         comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                         ActualizarDgvProvincias(); //ACTUALIZAR DATAGRID PROVINCIAS
@@ -280,7 +280,7 @@ namespace Proyecto_Cine.Forms
                             NuevoCodigo = 1; //SI LA PROVINCIA NO TIENE CIUDADES CARGADAS, EMPEZAR POR EL CODIGO DE CIUDAD 1
                         }
 
-                        comando = new SqlCommand("INSERT INTO Ciudades (CodProvincia_Ciud, CodCiudad_Ciud, Descripcion_Ciud) VALUES (" + dgvProvincias.CurrentRow.Cells[0].Value + ", " + NuevoCodigo + ", '" + txtDescripcion.Text + "')", BD.conectarBD); //INSERTAR EN CIUDADES EL NUEVO REGISTRO
+                        comando = new SqlCommand("INSERT INTO Ciudades (CodProvincia_Ciud, CodCiudad_Ciud, Descripcion_Ciud) VALUES (" + dgvProvincias.CurrentRow.Cells[0].Value + ", " + NuevoCodigo + ", '" + txtDescripcion.Text + "')", BD.getSqlCn()); //INSERTAR EN CIUDADES EL NUEVO REGISTRO
                         comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                         ActualizarDgvCiudades(); //ACTUALIZAR DATAGRID CIUDADES
@@ -299,7 +299,7 @@ namespace Proyecto_Cine.Forms
                         int ProvSelectedIndex = dgvProvincias.CurrentRow.Index; //GUARDAR EL INDEX DEL REGISTRO SELECCIONADO EN PROVINCIAS
                         int CodProvincia = Int32.Parse(dgvProvincias.CurrentRow.Cells[0].Value.ToString());
 
-                        comando = new SqlCommand("UPDATE Provincias SET Descripcion_Prov = '" + txtDescripcion.Text + "' WHERE CodProvincia_Prov = " + CodProvincia, BD.conectarBD); //CONSULTA PARA ACTUALIZAR EL NOMBRE DE LA PROVINCIA
+                        comando = new SqlCommand("UPDATE Provincias SET Descripcion_Prov = '" + txtDescripcion.Text + "' WHERE CodProvincia_Prov = " + CodProvincia, BD.getSqlCn()); //CONSULTA PARA ACTUALIZAR EL NOMBRE DE LA PROVINCIA
                         comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                         ActualizarDgvProvincias(); //ACTUALIZAR DATAGRID PROVINCIAS
@@ -319,7 +319,7 @@ namespace Proyecto_Cine.Forms
                         string CodCiudad = dgvCiudades.CurrentRow.Cells[1].Value.ToString(); //GUARDAR EL CODIGO DE LA CIUDAD SELECCIONADA
                         int CiudSelectedIndex = dgvCiudades.CurrentRow.Index; //GUARDAR EL INDEX DEL REGISTRO SELECCIONADO EN CIUDADES
 
-                        comando = new SqlCommand("UPDATE Ciudades SET Descripcion_Ciud = '" + txtDescripcion.Text + "' WHERE CodProvincia_Ciud = " + CodProvincia + " AND CodCiudad_Ciud = " + CodCiudad, BD.conectarBD); //ACTUALIZAR LA CIUDAD
+                        comando = new SqlCommand("UPDATE Ciudades SET Descripcion_Ciud = '" + txtDescripcion.Text + "' WHERE CodProvincia_Ciud = " + CodProvincia + " AND CodCiudad_Ciud = " + CodCiudad, BD.getSqlCn()); //ACTUALIZAR LA CIUDAD
                         comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                         ActualizarDgvCiudades(); //ACTUALIZAR DATAGRID CIUDADES

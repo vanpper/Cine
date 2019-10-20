@@ -66,7 +66,7 @@ namespace Proyecto_Cine.Forms
             
             if(BD.Abrir())
             {
-                SqlCommand comando = new SqlCommand("UPDATE Usuarios SET Contraseña_Usua = '" + contraseña + "' WHERE Email_Usua = '" + txtEmail.Text + "'", BD.conectarBD);
+                SqlCommand comando = new SqlCommand("UPDATE Usuarios SET Contraseña_Usua = '" + contraseña + "' WHERE Email_Usua = '" + txtEmail.Text + "'", BD.getSqlCn());
 
                 if (comando.ExecuteNonQuery() == 1)
                 {

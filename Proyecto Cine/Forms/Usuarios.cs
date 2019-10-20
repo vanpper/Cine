@@ -49,7 +49,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxTDU()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeUsuarios", BD.conectarBD); //TRAER TODOS LOS TIPOS DE USUARIO
+            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeUsuarios", BD.getSqlCn()); //TRAER TODOS LOS TIPOS DE USUARIO
             DTTiposDeUsuarios.Clear(); //LIMPIAR DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTTiposDeUsuarios); //LLENAR DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -61,7 +61,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxProvincias()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Provincias", BD.conectarBD); //TRAER TODAS LAS PROVINCIAS
+            adaptador = new SqlDataAdapter("SELECT * FROM Provincias", BD.getSqlCn()); //TRAER TODAS LAS PROVINCIAS
             DTProvincias.Clear(); //LIMPIAR DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTProvincias); //LLENAR DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -73,7 +73,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxCiudades()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Ciudades WHERE CodProvincia_Ciud = " + BoxProvincia.SelectedValue, BD.conectarBD); //TRAER TODAS LAS CIUDADES
+            adaptador = new SqlDataAdapter("SELECT * FROM Ciudades WHERE CodProvincia_Ciud = " + BoxProvincia.SelectedValue, BD.getSqlCn()); //TRAER TODAS LAS CIUDADES
             DTCiudades.Clear(); //LIMPIAR DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTCiudades); //LLENAR DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -128,7 +128,7 @@ namespace Proyecto_Cine.Forms
         private void ActualizarDgvUsuarios()
         {
             //TRAER TODOS LOS USUARIOS
-            adaptador = new SqlDataAdapter("SELECT CodUsuario_Usua, CodTipoDeUsuario_Usua, Descripcion_TDU, Nombre_Usua, Apellido_Usua, DNI_Usua, Cumpleaños_Usua, Telefono_Usua, CodProvincia_Usua, Descripcion_Prov, CodCiudad_Usua, Descripcion_Ciud, Direccion_Usua, CodigoPostal_Usua, Email_Usua, Contraseña_Usua, Estado_Usua FROM Usuarios INNER JOIN TiposDeUsuarios ON CodTipoDeUsuario_Usua = CodTipoDeUsuario_TDU INNER JOIN Provincias ON CodProvincia_Usua = CodProvincia_Prov INNER JOIN Ciudades ON CodProvincia_Usua = CodProvincia_Ciud AND CodCiudad_Usua = CodCiudad_Ciud", BD.conectarBD);
+            adaptador = new SqlDataAdapter("SELECT CodUsuario_Usua, CodTipoDeUsuario_Usua, Descripcion_TDU, Nombre_Usua, Apellido_Usua, DNI_Usua, Cumpleaños_Usua, Telefono_Usua, CodProvincia_Usua, Descripcion_Prov, CodCiudad_Usua, Descripcion_Ciud, Direccion_Usua, CodigoPostal_Usua, Email_Usua, Contraseña_Usua, Estado_Usua FROM Usuarios INNER JOIN TiposDeUsuarios ON CodTipoDeUsuario_Usua = CodTipoDeUsuario_TDU INNER JOIN Provincias ON CodProvincia_Usua = CodProvincia_Prov INNER JOIN Ciudades ON CodProvincia_Usua = CodProvincia_Ciud AND CodCiudad_Usua = CodCiudad_Ciud", BD.getSqlCn());
             DTUsuarios.Clear(); //LIMPIAR DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTUsuarios); //LLENAR DATATABLE CON LOS NUEVOS REGISTROS
         }
@@ -247,7 +247,7 @@ namespace Proyecto_Cine.Forms
                         string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
 
                         //GENERAR CONSULTA
-                        comando = new SqlCommand("INSERT INTO Usuarios VALUES (" + NuevoCodigo + ", " + boxTipoDeUsuario.SelectedValue + ", '" + txtNombre.Text + "', '" + txtApellido.Text + "', '" + txtDNI.Text + "', '" + partesFechaPanel[1]+"/"+ partesFechaPanel[0]+"/"+ partesFechaPanel[2] + "', '" + txtTelefono.Text + "', " + BoxProvincia.SelectedValue + ", " + BoxCiudad.SelectedValue + ", '" + txtDireccion.Text + "', '" + txtCP.Text + "', '" + txtEmail.Text + "', '" + txtContraseña.Text + "', '" + cbEstado.Checked + "')", BD.conectarBD);
+                        comando = new SqlCommand("INSERT INTO Usuarios VALUES (" + NuevoCodigo + ", " + boxTipoDeUsuario.SelectedValue + ", '" + txtNombre.Text + "', '" + txtApellido.Text + "', '" + txtDNI.Text + "', '" + partesFechaPanel[1]+"/"+ partesFechaPanel[0]+"/"+ partesFechaPanel[2] + "', '" + txtTelefono.Text + "', " + BoxProvincia.SelectedValue + ", " + BoxCiudad.SelectedValue + ", '" + txtDireccion.Text + "', '" + txtCP.Text + "', '" + txtEmail.Text + "', '" + txtContraseña.Text + "', '" + cbEstado.Checked + "')", BD.getSqlCn());
                         comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                         ActualizarDgvUsuarios(); //ACTUALIZAR DATAGRID
@@ -263,7 +263,7 @@ namespace Proyecto_Cine.Forms
                         string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
 
                         //GENERAR COMANDO
-                        comando = new SqlCommand("UPDATE Usuarios SET CodTipoDeUsuario_Usua = " + boxTipoDeUsuario.SelectedValue + ", Nombre_Usua = '" + txtNombre.Text + "', Apellido_Usua = '" + txtApellido.Text + "', DNI_Usua = '" + txtDNI.Text + "', Cumpleaños_Usua = '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', Telefono_Usua = '" + txtTelefono.Text + "', CodProvincia_Usua = " + BoxProvincia.SelectedValue + ", CodCiudad_Usua = " + BoxCiudad.SelectedValue + ", Direccion_Usua = '" + txtDireccion.Text + "', CodigoPostal_Usua = '" + txtCP.Text + "', Email_Usua = '" + txtEmail.Text + "', Contraseña_Usua = '" + txtContraseña.Text + "', Estado_Usua = '" + cbEstado.Checked + "' WHERE CodUsuario_Usua = " + CurrentCode, BD.conectarBD);
+                        comando = new SqlCommand("UPDATE Usuarios SET CodTipoDeUsuario_Usua = " + boxTipoDeUsuario.SelectedValue + ", Nombre_Usua = '" + txtNombre.Text + "', Apellido_Usua = '" + txtApellido.Text + "', DNI_Usua = '" + txtDNI.Text + "', Cumpleaños_Usua = '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', Telefono_Usua = '" + txtTelefono.Text + "', CodProvincia_Usua = " + BoxProvincia.SelectedValue + ", CodCiudad_Usua = " + BoxCiudad.SelectedValue + ", Direccion_Usua = '" + txtDireccion.Text + "', CodigoPostal_Usua = '" + txtCP.Text + "', Email_Usua = '" + txtEmail.Text + "', Contraseña_Usua = '" + txtContraseña.Text + "', Estado_Usua = '" + cbEstado.Checked + "' WHERE CodUsuario_Usua = " + CurrentCode, BD.getSqlCn());
                         comando.ExecuteNonQuery(); //EJECUTAR COMANDO
 
                         ActualizarDgvUsuarios(); //ACTUALIZAR DATAGRID

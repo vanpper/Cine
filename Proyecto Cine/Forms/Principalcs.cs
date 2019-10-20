@@ -41,7 +41,7 @@ namespace Proyecto_Cine.Forms
 
             if (BD.Abrir())
             {
-                SqlCommand comando = new SqlCommand("SELECT CodTipoDeUsuario_Usua, Nombre_Usua, Apellido_Usua FROM Usuarios WHERE Email_Usua = '" + txtEmail.Text + "' AND Contraseña_Usua = '" + txtContraseña.Text + "'", BD.conectarBD);
+                SqlCommand comando = new SqlCommand("SELECT CodTipoDeUsuario_Usua, Nombre_Usua, Apellido_Usua FROM Usuarios WHERE Email_Usua = '" + txtEmail.Text + "' AND Contraseña_Usua = '" + txtContraseña.Text + "'", BD.getSqlCn());
                 SqlDataReader reader = comando.ExecuteReader();
 
                 if (reader.Read())

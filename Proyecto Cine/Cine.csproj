@@ -47,6 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\Entidades\Cine.cs" />
+    <Compile Include="Clases\Entidades\Ciudad.cs" />
+    <Compile Include="Clases\Entidades\Clasificacion.cs" />
+    <Compile Include="Clases\Entidades\Fecha.cs" />
+    <Compile Include="Clases\Entidades\Formato.cs" />
+    <Compile Include="Clases\Entidades\Funcion.cs" />
+    <Compile Include="Clases\Entidades\Genero.cs" />
+    <Compile Include="Clases\Entidades\Horario.cs" />
+    <Compile Include="Clases\Entidades\Pelicula.cs" />
+    <Compile Include="Clases\Entidades\Precio.cs" />
+    <Compile Include="Clases\Entidades\Provincia.cs" />
+    <Compile Include="Clases\Entidades\Sala.cs" />
+    <Compile Include="Clases\Entidades\TipoDeEntrada.cs" />
+    <Compile Include="Clases\Entidades\TipoDeSala.cs" />
+    <Compile Include="Clases\Entidades\TipoDeUsuario.cs" />
+    <Compile Include="Clases\Entidades\Usuario.cs" />
     <Compile Include="Forms\AdminView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,7 +81,7 @@
     <Compile Include="Forms\Cines.Designer.cs">
       <DependentUpon>Cines.cs</DependentUpon>
     </Compile>
-    <Compile Include="Clases\Conexion.cs" />
+    <Compile Include="Clases\Entidades\Conexion.cs" />
     <Compile Include="Forms\Ciudades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -294,6 +310,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\ciudades\vidrio.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rutaBD.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rutaBD.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

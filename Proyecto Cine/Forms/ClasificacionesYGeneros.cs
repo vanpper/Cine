@@ -83,14 +83,14 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDgvClasificaciones()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Clasificaciones", BD.conectarBD); //TRAER TODAS LAS CLASFICACIONES
+            adaptador = new SqlDataAdapter("SELECT * FROM Clasificaciones", BD.getSqlCn()); //TRAER TODAS LAS CLASFICACIONES
             DTClasificaciones.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTClasificaciones); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
 
         private void ActualizarDgvGeneros()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Generos", BD.conectarBD); //TRAER TODOS LOS GENEROS
+            adaptador = new SqlDataAdapter("SELECT * FROM Generos", BD.getSqlCn()); //TRAER TODOS LOS GENEROS
             DTGeneros.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTGeneros); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
@@ -174,7 +174,7 @@ namespace Proyecto_Cine.Forms
                 {
                     int NuevoCodigo = Int32.Parse(DTClasificaciones.Compute("MAX(CodClasificacion_Clas)", "").ToString()) + 1; //GENERAR NUEVO CODIGO OBTENIENDO EL ULTIMO REGISTRADO + 1
 
-                    comando = new SqlCommand("INSERT INTO Clasificaciones (CodClasificacion_Clas, Descripcion_Clas) VALUES ("+NuevoCodigo+", '"+txtDescripcionClasificacion.Text+"')", BD.conectarBD); //GENERAR CONSULTA
+                    comando = new SqlCommand("INSERT INTO Clasificaciones (CodClasificacion_Clas, Descripcion_Clas) VALUES ("+NuevoCodigo+", '"+txtDescripcionClasificacion.Text+"')", BD.getSqlCn()); //GENERAR CONSULTA
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvClasificaciones(); //ACTUALIZAR DATAGRID CLASIFICACIONES
@@ -189,7 +189,7 @@ namespace Proyecto_Cine.Forms
                 {
                     String CurrentCode = dgvClasificaciones.CurrentRow.Cells[0].Value.ToString(); //OBTENER EL CODIGO DE LA FILA SELECCIONADA
 
-                    comando = new SqlCommand("UPDATE Clasificaciones SET Descripcion_Clas = '" + txtDescripcionClasificacion.Text + "' WHERE CodClasificacion_Clas = " + CurrentCode, BD.conectarBD); //GENERAR CONSULTA
+                    comando = new SqlCommand("UPDATE Clasificaciones SET Descripcion_Clas = '" + txtDescripcionClasificacion.Text + "' WHERE CodClasificacion_Clas = " + CurrentCode, BD.getSqlCn()); //GENERAR CONSULTA
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvClasificaciones(); //ACTUALIZAR DATAGRID CLASIFICACIONES
@@ -250,7 +250,7 @@ namespace Proyecto_Cine.Forms
                 {
                     int NuevoCodigo = Int32.Parse(DTGeneros.Compute("MAX(CodGenero_Gene)", "").ToString()) + 1; //GENERAR NUEVO CODIGO OBTENIENDO EL ULTIMO REGISTRADO + 1
 
-                    comando = new SqlCommand("INSERT INTO Generos (CodGenero_Gene, Descripcion_Gene) VALUES (" + NuevoCodigo + ", '" + txtDescripcionGenero.Text + "')", BD.conectarBD); //GENERAR CONSULTA
+                    comando = new SqlCommand("INSERT INTO Generos (CodGenero_Gene, Descripcion_Gene) VALUES (" + NuevoCodigo + ", '" + txtDescripcionGenero.Text + "')", BD.getSqlCn()); //GENERAR CONSULTA
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvGeneros(); //ACTUALIZAR DATAGRID GENEROS
@@ -265,7 +265,7 @@ namespace Proyecto_Cine.Forms
                 {
                     String CurrentCode = dgvGeneros.CurrentRow.Cells[0].Value.ToString(); //GUARDAR EL CODIGO DE LA FILA ACTUAL
 
-                    comando = new SqlCommand("UPDATE Generos SET Descripcion_Gene = '" + txtDescripcionGenero.Text + "' WHERE CodGenero_Gene = " + CurrentCode, BD.conectarBD); //GENERAR CONSULTA
+                    comando = new SqlCommand("UPDATE Generos SET Descripcion_Gene = '" + txtDescripcionGenero.Text + "' WHERE CodGenero_Gene = " + CurrentCode, BD.getSqlCn()); //GENERAR CONSULTA
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvGeneros(); //ACTUALIZAR DATAGIRD GENEROS
