@@ -1,1 +1,1 @@
-Data Source=VAN-PC;Initial Catalog=CINE;Integrated Security=True
+Data Source=VAN-PC;Initial Catalog=CINE;Integrated Security=Truee
