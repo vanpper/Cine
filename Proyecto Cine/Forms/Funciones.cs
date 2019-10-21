@@ -51,7 +51,7 @@ namespace Proyecto_Cine.Forms
             PboxPeliculas.DataSource = DTPeliculas2; //LA FUENTE DE DATOS DEL BOX PELICULAS DEL PANEL2, SERA EL DATATABLE PELICULAS 2
             PboxFormatos.DataSource = DTFormatos2; //LA FUENTE DE DATOS DEL BOX FORMATOS DEL PANEL2, SERA EL DATATABLE FORMATOS 2
 
-            if (BD.Abrir()) //SI LA CONEXION CON LA BASE DE DATOS SE PUEDE ABRIR...
+            if (BD.abrir()) //SI LA CONEXION CON LA BASE DE DATOS SE PUEDE ABRIR...
             {
                 ActualizarBoxsCines(); //ACTUALIZA EL BOX CINES DE AMBOS PANELES
                 ActualizarBoxSalasBusqueda(); //ACTUALIZA EL BOX SALAS DEL PANEL 1
@@ -162,14 +162,14 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDgvFunciones()
         {
-            adaptador = new SqlDataAdapter("SELECT CodCine_Func, Nombre_Cine, CodSala_Func, Descripcion_SXC, Dia_Func, Horario_Func, CodPelicula_Func, Nombre_Peli, CodFormato_Func, Descripcion_Form, Stock_Func, Estado_Func from funciones inner join Cines on CodCine_Func = CodCine_Cine inner join SalasXCine on CodCine_Func = CodCine_SXC and CodSala_Func = CodSala_SXC inner join Peliculas on CodPelicula_Func = CodPelicula_Peli inner join Formatos on CodFormato_Func = CodFormato_Form", BD.getSqlCn()); //TRAER TODAS LAS FUNCIONES
+            adaptador = new SqlDataAdapter("SELECT CodCine_Func, Nombre_Cine, CodSala_Func, Descripcion_SXC, Dia_Func, Horario_Func, CodPelicula_Func, Nombre_Peli, CodFormato_Func, Descripcion_Form, Stock_Func, Estado_Func from funciones inner join Cines on CodCine_Func = CodCine_Cine inner join SalasXCine on CodCine_Func = CodCine_SXC and CodSala_Func = CodSala_SXC inner join Peliculas on CodPelicula_Func = CodPelicula_Peli inner join Formatos on CodFormato_Func = CodFormato_Form", BD.getSqlConnection()); //TRAER TODAS LAS FUNCIONES
             DTFunciones.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTFunciones); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
 
         private void ActualizarBoxFormatosBusqueda()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Formatos", BD.getSqlCn()); //TRAER TODOS LOS FORMATOS
+            adaptador = new SqlDataAdapter("SELECT * FROM Formatos", BD.getSqlConnection()); //TRAER TODOS LOS FORMATOS
             DTFormatos.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTFormatos); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -181,7 +181,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxFormatoPanel()
         {
-            adaptador = new SqlDataAdapter("SELECT CodFormato_PXF, Descripcion_Form FROM PeliculasXFormato INNER JOIN Formatos ON CodFormato_PXF = CodFormato_Form WHERE CodPelicula_PXF = " + PboxPeliculas.SelectedValue + " AND Estado_PXF = 'True'", BD.getSqlCn()); //TRAER SOLAMENTE LOS FORMATOS QUE POSEA LA PELICULA SELECCIONADA EN EL PANEL 2. Y SI ESTA ESTA HABILITADA.
+            adaptador = new SqlDataAdapter("SELECT CodFormato_PXF, Descripcion_Form FROM PeliculasXFormato INNER JOIN Formatos ON CodFormato_PXF = CodFormato_Form WHERE CodPelicula_PXF = " + PboxPeliculas.SelectedValue + " AND Estado_PXF = 'True'", BD.getSqlConnection()); //TRAER SOLAMENTE LOS FORMATOS QUE POSEA LA PELICULA SELECCIONADA EN EL PANEL 2. Y SI ESTA ESTA HABILITADA.
             DTFormatos2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTFormatos2); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -193,7 +193,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxsPeliculas()
         {
-            adaptador = new SqlDataAdapter("SELECT CodPelicula_Peli, Nombre_Peli FROM Peliculas", BD.getSqlCn()); //TRAER TODAS LAS PELICULAS
+            adaptador = new SqlDataAdapter("SELECT CodPelicula_Peli, Nombre_Peli FROM Peliculas", BD.getSqlConnection()); //TRAER TODAS LAS PELICULAS
 
             //PARA EL BOX PELICULAS DEL PANEL SUPERIOR
             DTPeliculas.Clear(); //LIMPIAR EL DATATBLE DE VIEJOS REGISTROS
@@ -212,7 +212,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxSalasBusqueda()
         {
-            adaptador = new SqlDataAdapter("SELECT CodSala_SXC, Descripcion_SXC FROM SalasXCine WHERE CodCine_SXC = " + boxCines.SelectedValue, BD.getSqlCn()); //TRAER TODAS LAS SALAS DEL CINE SELECCIONADO EN EL PANEL SUPERIOR
+            adaptador = new SqlDataAdapter("SELECT CodSala_SXC, Descripcion_SXC FROM SalasXCine WHERE CodCine_SXC = " + boxCines.SelectedValue, BD.getSqlConnection()); //TRAER TODAS LAS SALAS DEL CINE SELECCIONADO EN EL PANEL SUPERIOR
 
             DTSalas.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTSalas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
@@ -223,7 +223,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxSalasPanel()
         {
-            adaptador = new SqlDataAdapter("SELECT CodSala_SXC, Descripcion_SXC FROM SalasXCine WHERE CodCine_SXC = " + PboxCines.SelectedValue, BD.getSqlCn()); //TRAER TODAS LAS SALAS DEL CINE SELECCIONADO EN EL PANEL INFERIOR
+            adaptador = new SqlDataAdapter("SELECT CodSala_SXC, Descripcion_SXC FROM SalasXCine WHERE CodCine_SXC = " + PboxCines.SelectedValue, BD.getSqlConnection()); //TRAER TODAS LAS SALAS DEL CINE SELECCIONADO EN EL PANEL INFERIOR
 
             DTSalas2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTSalas2); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
@@ -234,7 +234,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxsCines()
         {
-            adaptador = new SqlDataAdapter("SELECT CodCine_Cine, Nombre_Cine FROM Cines", BD.getSqlCn()); //TRAER TODOS LOS CINES
+            adaptador = new SqlDataAdapter("SELECT CodCine_Cine, Nombre_Cine FROM Cines", BD.getSqlConnection()); //TRAER TODOS LOS CINES
 
             //PARA EL BOX CINES DEL PANEL SUPERIOR
             DTCines.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
@@ -404,7 +404,7 @@ namespace Proyecto_Cine.Forms
             string FechaPanel = PdtpFecha.Value.ToShortDateString(); //FECHA SELECCIONADA EN EL PANEL INFERIOR
             string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
 
-            comando = new SqlCommand("SELECT * FROM Funciones WHERE CodCine_Func = " + PboxCines.SelectedValue + " AND CodSala_Func = " + PboxSalas.SelectedValue + " AND Dia_Func = '" + partesFechaPanel[1]+"/"+ partesFechaPanel[0]+"/"+ partesFechaPanel[2] + "' AND Horario_Func = '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "'", BD.getSqlCn()); //SELECCIONAR EL SUPUESTO REGISTRO EXISTENTE
+            comando = new SqlCommand("SELECT * FROM Funciones WHERE CodCine_Func = " + PboxCines.SelectedValue + " AND CodSala_Func = " + PboxSalas.SelectedValue + " AND Dia_Func = '" + partesFechaPanel[1]+"/"+ partesFechaPanel[0]+"/"+ partesFechaPanel[2] + "' AND Horario_Func = '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "'", BD.getSqlConnection()); //SELECCIONAR EL SUPUESTO REGISTRO EXISTENTE
             reader = comando.ExecuteReader(); //EJECUTAR COMANDO
 
             if (reader.Read()) //SI EN EL CINE, SALA, DIA Y HORARIO SELECCIONADO YA EXISTE UNA FUNCION
@@ -459,7 +459,7 @@ namespace Proyecto_Cine.Forms
                                         string FechaPanel = PdtpFecha.Value.ToShortDateString(); //FECHA SELECCIONADA EN EL PANEL INFERIOR
                                         string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
 
-                                        comando = new SqlCommand("INSERT INTO Funciones VALUES(" + PboxCines.SelectedValue + ", " + PboxSalas.SelectedValue + ", '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "', " + PboxPeliculas.SelectedValue + ", " + PboxFormatos.SelectedValue + ", " + PtxtStock.Text + ", '" + PcbEstado.Checked + "')", BD.getSqlCn()); //INSERTAR NUEVA FUNCION
+                                        comando = new SqlCommand("INSERT INTO Funciones VALUES(" + PboxCines.SelectedValue + ", " + PboxSalas.SelectedValue + ", '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "', " + PboxPeliculas.SelectedValue + ", " + PboxFormatos.SelectedValue + ", " + PtxtStock.Text + ", '" + PcbEstado.Checked + "')", BD.getSqlConnection()); //INSERTAR NUEVA FUNCION
                                         comando.ExecuteNonQuery(); //EJECUTAR COMANDO
 
                                         ActualizarDgvFunciones(); //ACTUALIZAR DATAGRID 
@@ -487,7 +487,7 @@ namespace Proyecto_Cine.Forms
                                         string FechaPanel = PdtpFecha.Value.ToShortDateString(); //FECHA SELECCIONADA EN EL PANEL INFERIOR
                                         string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
 
-                                        comando = new SqlCommand("UPDATE Funciones SET CodCine_Func = " + PboxCines.SelectedValue + ", CodSala_Func = " + PboxSalas.SelectedValue + ", Dia_Func = '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', Horario_Func = '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "', CodPelicula_Func = " + PboxPeliculas.SelectedValue + ", CodFormato_Func = " + PboxFormatos.SelectedValue + ", Stock_Func = " + PtxtStock.Text + ", Estado_Func = '" + PcbEstado.Checked + "' WHERE CodCine_Func = " + dgvFunciones.CurrentRow.Cells[0].Value + " AND CodSala_Func = " + dgvFunciones.CurrentRow.Cells[2].Value + " AND Dia_Func = '" + partesFechaDgv[1] + "/" + partesFechaDgv[0] + "/" + partesFechaDgv[2] + "' AND Horario_Func = '" + dgvFunciones.CurrentRow.Cells[5].Value + "'", BD.getSqlCn()); //MODIFICAR FUNCION
+                                        comando = new SqlCommand("UPDATE Funciones SET CodCine_Func = " + PboxCines.SelectedValue + ", CodSala_Func = " + PboxSalas.SelectedValue + ", Dia_Func = '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', Horario_Func = '" + PtxtHora.Text + ":" + PtxtMinutos.Text + "', CodPelicula_Func = " + PboxPeliculas.SelectedValue + ", CodFormato_Func = " + PboxFormatos.SelectedValue + ", Stock_Func = " + PtxtStock.Text + ", Estado_Func = '" + PcbEstado.Checked + "' WHERE CodCine_Func = " + dgvFunciones.CurrentRow.Cells[0].Value + " AND CodSala_Func = " + dgvFunciones.CurrentRow.Cells[2].Value + " AND Dia_Func = '" + partesFechaDgv[1] + "/" + partesFechaDgv[0] + "/" + partesFechaDgv[2] + "' AND Horario_Func = '" + dgvFunciones.CurrentRow.Cells[5].Value + "'", BD.getSqlConnection()); //MODIFICAR FUNCION
                                         comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                                         ActualizarDgvFunciones(); //ACTUALIZAR DATAGRID

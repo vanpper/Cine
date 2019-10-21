@@ -12,33 +12,33 @@ namespace Proyecto_Cine
     class Conexion
     {
         private string rutaBD;
-        private SqlConnection sqlCn;
+        private SqlConnection sqlConnection;
 
         public Conexion()
         {
             try
             {
-                rutaBD = File.ReadAllText("\\rutaBD.txt");
+                rutaBD = File.ReadAllText(@"..\..\BD\rutaBD.txt");
             }
             catch(Exception ex)
             {
                 MessageBox.Show("No se encontró el archivo que contiene la ruta de la base de datos", "Archivo perdido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            sqlCn = new SqlConnection();
-            sqlCn.ConnectionString = rutaBD;
+            sqlConnection = new SqlConnection();
+            sqlConnection.ConnectionString = rutaBD;
         }
 
-        public SqlConnection getSqlCn()
+        public SqlConnection getSqlConnection()
         {
-            return this.sqlCn; 
+            return this.sqlConnection; 
         }
 
-        public bool Abrir()
+        public bool abrir()
         {
             try
             {
-                sqlCn.Open();
+                sqlConnection.Open();
                 return true;
             }
             catch (Exception ex)
@@ -48,11 +48,11 @@ namespace Proyecto_Cine
             }
         }
 
-        public bool Cerrar()
+        public bool cerrar()
         {
             try
             {
-                sqlCn.Close();
+                sqlConnection.Close();
                 return true;
             }
             catch (Exception ex)

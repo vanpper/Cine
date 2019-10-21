@@ -33,7 +33,7 @@ namespace Proyecto_Cine.Forms
         {
             InitializeComponent();
 
-            if (BD.Abrir()) //SI LA CONEXION CON LA BASE DE DATOS SE PUEDE ABRIR...
+            if (BD.abrir()) //SI LA CONEXION CON LA BASE DE DATOS SE PUEDE ABRIR...
             {
                 dgvTDS.DataSource = DT_TDS; //INDICARLE AL DATAGRID DE TIPO DE SALAS QUE SU FUENTE DE DATOS SERA EL DATATABLE DE TIPO DE SALAS
                 boxTDS.DataSource = DT_TDS2; //INDICARLE AL BOX DE TIPO DE SALAS QUE FUENTE DE DATOS SERA EL DATATABLE DE TIPO DE SALAS 2
@@ -51,7 +51,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxTDS()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeSalas", BD.getSqlCn()); //TRAER TODOS LOS TIPOS DE SALAS
+            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeSalas", BD.getSqlConnection()); //TRAER TODOS LOS TIPOS DE SALAS
             DT_TDS2.Clear(); //LIMPIAR EL DATATABLE DEL BOX
             adaptador.Fill(DT_TDS2); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -63,7 +63,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxCine()
         {
-            adaptador = new SqlDataAdapter("Select CodCine_Cine, Nombre_Cine from Cines", BD.getSqlCn()); //TRAER LOS CINES
+            adaptador = new SqlDataAdapter("Select CodCine_Cine, Nombre_Cine from Cines", BD.getSqlConnection()); //TRAER LOS CINES
             DTCines.Clear(); //LIMPIAR EL DATATABLE DE CINES DE VIEJOS REGISTROS
             adaptador.Fill(DTCines); //LLENAR EL DATATABLE DE CINES CON NUEVOS 
 
@@ -75,14 +75,14 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDgvSalas()
         {
-            adaptador = new SqlDataAdapter("SELECT CodSala_SXC, CodTipoDeSala_SXC, Descripcion_SXC, Descripcion_TDS, Estado_SXC FROM SalasXCine INNER JOIN TiposDeSalas ON CodTipoDeSala_SXC = CodTipoDeSala_TDS WHERE CodCine_SXC = " + boxCines.SelectedValue, BD.getSqlCn()); //TRAER TODAS LAS SALAS DEL CINE SELECCIONADO
+            adaptador = new SqlDataAdapter("SELECT CodSala_SXC, CodTipoDeSala_SXC, Descripcion_SXC, Descripcion_TDS, Estado_SXC FROM SalasXCine INNER JOIN TiposDeSalas ON CodTipoDeSala_SXC = CodTipoDeSala_TDS WHERE CodCine_SXC = " + boxCines.SelectedValue, BD.getSqlConnection()); //TRAER TODAS LAS SALAS DEL CINE SELECCIONADO
             DTSalas.Clear(); //LIMPIAR EL DATATABLE DE SALAS DE VIEJOS REGISTROS
             adaptador.Fill(DTSalas); //LLENAR EL DATATABLE DE SALAS CON LOS NUEVOS REGISTROS
         }
 
         private void ActualizarDgvTDS()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeSalas", BD.getSqlCn()); //TRAER TODOS LOS TIPOS DE SALAS
+            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeSalas", BD.getSqlConnection()); //TRAER TODOS LOS TIPOS DE SALAS
             DT_TDS.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DT_TDS); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
@@ -271,7 +271,7 @@ namespace Proyecto_Cine.Forms
                 {
                     int NuevoCodigo = Int32.Parse(DT_TDS.Compute("MAX(CodTipoDeSala_TDS)", "").ToString()) + 1; //OBTENER EL ULTIMO CODIGO REGISTRADO Y SUMARLE 1
 
-                    comando = new SqlCommand("INSERT INTO TiposDeSalas (CodTipoDeSala_TDS, Descripcion_TDS) VALUES(" + NuevoCodigo + ", '" + txtDescripcionTDS.Text + "')", BD.getSqlCn()); //INSERTAR EL NUEVO REGISTRO
+                    comando = new SqlCommand("INSERT INTO TiposDeSalas (CodTipoDeSala_TDS, Descripcion_TDS) VALUES(" + NuevoCodigo + ", '" + txtDescripcionTDS.Text + "')", BD.getSqlConnection()); //INSERTAR EL NUEVO REGISTRO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvTDS(); //ACTUALIZAR EL DATAGRID DE TIPO DE SALAS
@@ -289,7 +289,7 @@ namespace Proyecto_Cine.Forms
                     int SelectedIndexTDS = dgvTDS.CurrentRow.Index; //VARIABLE QUE GUARDA EL REGISTRO QUE ESTABA SELECCIONADO EN DATAGRID TIPO DE SALAS
                     int SelectedIndexSalas = dgvSalas.CurrentRow.Index; //VARIABLE QUE GUARDA EL REGISTRO QUE ESTABA SELECCIONADO EN DATAGRID SALAS
 
-                    comando = new SqlCommand("UPDATE TiposDeSalas SET Descripcion_TDS = '" + txtDescripcionTDS.Text + "' WHERE CodTipoDeSala_TDS = " + CodigoSeleccionadoTDS, BD.getSqlCn()); //ACTUALIZAR REGISTRO
+                    comando = new SqlCommand("UPDATE TiposDeSalas SET Descripcion_TDS = '" + txtDescripcionTDS.Text + "' WHERE CodTipoDeSala_TDS = " + CodigoSeleccionadoTDS, BD.getSqlConnection()); //ACTUALIZAR REGISTRO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvTDS();
@@ -332,7 +332,7 @@ namespace Proyecto_Cine.Forms
                             NuevoCodigo = 1; //QUE LA PRIMER SALA TENGA EL CODIGO 1
                         }
 
-                        comando = new SqlCommand("INSERT INTO SalasXCine (CodCine_SXC, CodSala_SXC, CodTipoDeSala_SXC, Descripcion_SXC, Estado_SXC) VALUES (" + boxCines.SelectedValue + ", " + NuevoCodigo + ", " + boxTDS.SelectedValue + ", '" + txtDescripcionSalas.Text + "', '" + checkSala.Checked + "')", BD.getSqlCn()); //INSERTAR EL NUEVO REGISTRO
+                        comando = new SqlCommand("INSERT INTO SalasXCine (CodCine_SXC, CodSala_SXC, CodTipoDeSala_SXC, Descripcion_SXC, Estado_SXC) VALUES (" + boxCines.SelectedValue + ", " + NuevoCodigo + ", " + boxTDS.SelectedValue + ", '" + txtDescripcionSalas.Text + "', '" + checkSala.Checked + "')", BD.getSqlConnection()); //INSERTAR EL NUEVO REGISTRO
                         comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                         ActualizarDgvSalas(); //ACTUALIZAR EL DATAGRID DE SALAS
@@ -419,7 +419,7 @@ namespace Proyecto_Cine.Forms
             int SelectedCode = Int32.Parse(dgvSalas.CurrentRow.Cells[0].Value.ToString()); //OBTENER EL CODIGO DE SALA SELECCIONADO
             int SelectedIndex = dgvSalas.CurrentRow.Index; //OBTENER EL REGISTRO QUE ESTABA SELECCIONADO EN EL DATAGRID DE SALAS
 
-            comando = new SqlCommand("UPDATE SalasXCine SET CodTipoDeSala_SXC = " + boxTDS.SelectedValue + ", Descripcion_SXC = '" + txtDescripcionSalas.Text + "', Estado_SXC = '" + checkSala.Checked + "' WHERE CodCine_SXC = " + boxCines.SelectedValue + " AND CodSala_SXC = " + SelectedCode, BD.getSqlCn()); //ACTUALIZAR LA SALA
+            comando = new SqlCommand("UPDATE SalasXCine SET CodTipoDeSala_SXC = " + boxTDS.SelectedValue + ", Descripcion_SXC = '" + txtDescripcionSalas.Text + "', Estado_SXC = '" + checkSala.Checked + "' WHERE CodCine_SXC = " + boxCines.SelectedValue + " AND CodSala_SXC = " + SelectedCode, BD.getSqlConnection()); //ACTUALIZAR LA SALA
             comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
             ActualizarDgvSalas(); //ACTUALIZAR DATA GRID DE SALA
@@ -429,19 +429,19 @@ namespace Proyecto_Cine.Forms
 
         private void deshabilitarFunciones()
         {
-            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'False' WHERE CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + dgvSalas.CurrentRow.Cells[0].Value.ToString(), BD.getSqlCn());
+            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'False' WHERE CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + dgvSalas.CurrentRow.Cells[0].Value.ToString(), BD.getSqlConnection());
             comando.ExecuteNonQuery();
         }
 
         private void habilitarFunciones()
         {
-            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'True' WHERE CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + dgvSalas.CurrentRow.Cells[0].Value.ToString(), BD.getSqlCn());
+            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'True' WHERE CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + dgvSalas.CurrentRow.Cells[0].Value.ToString(), BD.getSqlConnection());
             comando.ExecuteNonQuery();
         }
 
         private bool verificarEstadoCine()
         {
-            comando = new SqlCommand("SELECT CodCine_Cine FROM Cines WHERE CodCine_Cine = " + boxCines.SelectedValue + " AND Estado_Cine = 'True'", BD.getSqlCn()); //BUSCAR SI EL CINE SELECIONADO ESTA HABILITADO
+            comando = new SqlCommand("SELECT CodCine_Cine FROM Cines WHERE CodCine_Cine = " + boxCines.SelectedValue + " AND Estado_Cine = 'True'", BD.getSqlConnection()); //BUSCAR SI EL CINE SELECIONADO ESTA HABILITADO
             reader = comando.ExecuteReader(); //EJECUTAR COMANDO
 
             if (reader.HasRows) //SI SE ENCONTRO EL CINE CON ESTADO TRUE

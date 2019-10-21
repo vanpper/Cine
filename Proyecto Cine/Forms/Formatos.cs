@@ -36,7 +36,7 @@ namespace Proyecto_Cine.Forms
         {
             InitializeComponent();
 
-            if (BD.Abrir()) //SI LA CONEXION CON LA BASE DE DATOS SE PUEDE ABRIR...
+            if (BD.abrir()) //SI LA CONEXION CON LA BASE DE DATOS SE PUEDE ABRIR...
             {
                 dgvFormatos.DataSource = DTFormatos; //INDICARLE AL DATAGRID DE FORMATOS QUE SU FUENTE DE DATOS SERA EL DATATABLE FORMATOS
                 boxPeliculas.DataSource = DTPeliculas; //INDICARLE AL BOX DE PELICULAS QUE SU FUENTE DE DATOS SERA EL DATATABLE PELICULAS
@@ -68,7 +68,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarBoxFormatos()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Formatos", BD.getSqlCn()); //TRAER TODOS LOS FORMATOS
+            adaptador = new SqlDataAdapter("SELECT * FROM Formatos", BD.getSqlConnection()); //TRAER TODOS LOS FORMATOS
             DTFormatos2.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTFormatos2); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -78,14 +78,14 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDgvPXF()
         {
-            adaptador = new SqlDataAdapter("SELECT CodFormato_PXF, Descripcion_Form, Estado_PXF FROM PeliculasXFormato INNER JOIN Formatos ON CodFormato_Form = CodFormato_PXF WHERE CodPelicula_PXF = "+boxPeliculas.SelectedValue, BD.getSqlCn()); //TRAER TODOS LAS PELICULAS X FORMATO
+            adaptador = new SqlDataAdapter("SELECT CodFormato_PXF, Descripcion_Form, Estado_PXF FROM PeliculasXFormato INNER JOIN Formatos ON CodFormato_Form = CodFormato_PXF WHERE CodPelicula_PXF = "+boxPeliculas.SelectedValue, BD.getSqlConnection()); //TRAER TODOS LAS PELICULAS X FORMATO
             DTPXF.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTPXF); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
 
         private void ActualizarBoxPeliculas()
         {
-            adaptador = new SqlDataAdapter("SELECT CodPelicula_Peli, Nombre_Peli FROM Peliculas", BD.getSqlCn()); //TRAER TODAS LAS PELICULAS
+            adaptador = new SqlDataAdapter("SELECT CodPelicula_Peli, Nombre_Peli FROM Peliculas", BD.getSqlConnection()); //TRAER TODAS LAS PELICULAS
             DTPeliculas.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTPeliculas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
 
@@ -114,7 +114,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarDgvFormatos()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Formatos", BD.getSqlCn()); //TRAER TODOS LOS FORMATOS
+            adaptador = new SqlDataAdapter("SELECT * FROM Formatos", BD.getSqlConnection()); //TRAER TODOS LOS FORMATOS
             DTFormatos.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
             adaptador.Fill(DTFormatos); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
@@ -222,7 +222,7 @@ namespace Proyecto_Cine.Forms
                 {
                     int NuevoCodigo = Int32.Parse(DTFormatos.Compute("MAX(CodFormato_Form)", "").ToString()) + 1; //TOMAR EL ULTIMO CODIGO DE FORMATO Y SUMARLE 1
 
-                    comando = new SqlCommand("INSERT INTO Formatos (CodFormato_Form, Descripcion_Form) VALUES (" + NuevoCodigo + ", '" + txtDescripcionFormato.Text + "')", BD.getSqlCn()); //INSERTAR NUEVO REGISTRO
+                    comando = new SqlCommand("INSERT INTO Formatos (CodFormato_Form, Descripcion_Form) VALUES (" + NuevoCodigo + ", '" + txtDescripcionFormato.Text + "')", BD.getSqlConnection()); //INSERTAR NUEVO REGISTRO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvFormatos(); //ACTUALIZAR DATAGRID FORMATOS
@@ -245,7 +245,7 @@ namespace Proyecto_Cine.Forms
                     int CurrentIndexFormatos = dgvFormatos.CurrentRow.Index; //GUARDAR EL INDEX DEL REGISTRO ACUTAL DEL DATAGRID FORMATOS
                     int CurrentIndexPXF = dgvPXF.CurrentRow.Index; //GUARDAR EL INDEX DEL REGISTRO ACTUAL DEL DATAGRID PELICULAS X FORMATOS
 
-                    comando = new SqlCommand("UPDATE Formatos SET Descripcion_Form = '"+txtDescripcionFormato.Text+"' WHERE CodFormato_Form = "+dgvFormatos.CurrentRow.Cells[0].Value, BD.getSqlCn()); //ACTUALIZAR FORMATO
+                    comando = new SqlCommand("UPDATE Formatos SET Descripcion_Form = '"+txtDescripcionFormato.Text+"' WHERE CodFormato_Form = "+dgvFormatos.CurrentRow.Cells[0].Value, BD.getSqlConnection()); //ACTUALIZAR FORMATO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     ActualizarDgvFormatos(); //ACTUALIZAR DATAGRID FORMATOS
@@ -337,7 +337,7 @@ namespace Proyecto_Cine.Forms
 
                 if(resultado == DialogResult.Yes) //SI SE SELECCIONO "SI"
                 {
-                    comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'False' WHERE CodPelicula_PXF = " + boxPeliculas.SelectedValue + " AND CodFormato_PXF = " + dgvPXF.CurrentRow.Cells[0].Value, BD.getSqlCn()); //ACTUALIZARLO A DESHABILITADO
+                    comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'False' WHERE CodPelicula_PXF = " + boxPeliculas.SelectedValue + " AND CodFormato_PXF = " + dgvPXF.CurrentRow.Cells[0].Value, BD.getSqlConnection()); //ACTUALIZARLO A DESHABILITADO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
                     deshabilitarFunciones(); //DESHABILTIAR LAS FUNCIONES QUE CONTENGAN LA PELICULA Y EL FORMATO 
@@ -348,7 +348,7 @@ namespace Proyecto_Cine.Forms
             {
                 if(getEstadoPelicula()) //SI LA PELICULA ESTA HABILITADA
                 {
-                    comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'True' WHERE CodPelicula_PXF = " + boxPeliculas.SelectedValue + " AND CodFormato_PXF = " + dgvPXF.CurrentRow.Cells[0].Value, BD.getSqlCn()); //ACTUALIZARLO A HABILITADO
+                    comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'True' WHERE CodPelicula_PXF = " + boxPeliculas.SelectedValue + " AND CodFormato_PXF = " + dgvPXF.CurrentRow.Cells[0].Value, BD.getSqlConnection()); //ACTUALIZARLO A HABILITADO
                     comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
                 }
                 else //SI LA PELICULA ESTA DESHABILITADA
@@ -381,7 +381,7 @@ namespace Proyecto_Cine.Forms
 
         private void btnGuardarPXF_Click(object sender, EventArgs e)
         {
-            comando = new SqlCommand("INSERT INTO PeliculasXFormato (CodPelicula_PXF, CodFormato_PXF, Estado_PXF) VALUES ("+boxPeliculas.SelectedValue+", "+boxFormatos.SelectedValue+", 'True')", BD.getSqlCn()); //INSERTAR NUEVO REGISTRO
+            comando = new SqlCommand("INSERT INTO PeliculasXFormato (CodPelicula_PXF, CodFormato_PXF, Estado_PXF) VALUES ("+boxPeliculas.SelectedValue+", "+boxFormatos.SelectedValue+", 'True')", BD.getSqlConnection()); //INSERTAR NUEVO REGISTRO
             comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
 
             ActualizarDgvPXF(); //ACTUALIZAR DATAGRID
@@ -395,13 +395,13 @@ namespace Proyecto_Cine.Forms
 
         private void deshabilitarFunciones()
         {
-            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'False' WHERE CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + dgvPXF.CurrentRow.Cells[0].Value.ToString(), BD.getSqlCn());
+            comando = new SqlCommand("UPDATE Funciones SET Estado_Func = 'False' WHERE CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + dgvPXF.CurrentRow.Cells[0].Value.ToString(), BD.getSqlConnection());
             comando.ExecuteNonQuery();
         }
 
         private bool getEstadoPelicula()
         {
-            comando = new SqlCommand("SELECT CodPelicula_Peli FROM Peliculas WHERE CodPelicula_Peli = " + boxPeliculas.SelectedValue + " AND Estado_Peli = 'True'", BD.getSqlCn()); //GENERAR CONSULTA
+            comando = new SqlCommand("SELECT CodPelicula_Peli FROM Peliculas WHERE CodPelicula_Peli = " + boxPeliculas.SelectedValue + " AND Estado_Peli = 'True'", BD.getSqlConnection()); //GENERAR CONSULTA
             reader = comando.ExecuteReader(); //EJECUTAR CONSULTA
 
             if(reader.HasRows) //SI SE ENCONTRO LA PELICULA CON ESTADO "TRUE"

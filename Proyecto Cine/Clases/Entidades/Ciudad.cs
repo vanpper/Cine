@@ -56,7 +56,7 @@ namespace Proyecto_Cine.Clases.Entidades
 
         public String toString()
         {
-            return "id = " + id + ", descripcion = " + descripcion + ", provincia = [" + provincia.toString() + "]";
+            return "id = " + id + ", descripcion = " + descripcion + ", provincia = [" + provincia.ToString() + "]";
         }
     }
 }
