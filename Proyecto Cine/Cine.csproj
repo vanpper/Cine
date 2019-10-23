@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\Dao\CineDao.cs" />
+    <Compile Include="Clases\Dao\CiudadDao.cs" />
     <Compile Include="Clases\Dao\ProvinciaDao.cs" />
     <Compile Include="Clases\Entidades\Cine.cs" />
     <Compile Include="Clases\Entidades\Ciudad.cs" />
@@ -64,6 +66,8 @@
     <Compile Include="Clases\Entidades\TipoDeSala.cs" />
     <Compile Include="Clases\Entidades\TipoDeUsuario.cs" />
     <Compile Include="Clases\Entidades\Usuario.cs" />
+    <Compile Include="Clases\IDao\ICineDao.cs" />
+    <Compile Include="Clases\IDao\ICiudadDao.cs" />
     <Compile Include="Clases\IDao\IProvinciaDao.cs" />
     <Compile Include="Forms\AdminView.cs">
       <SubType>Form</SubType>

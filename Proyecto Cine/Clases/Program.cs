@@ -22,18 +22,6 @@ namespace Proyecto_Cine
             //Application.Run(new Forms.Principal());
 
             
-            
-
-            IProvinciaDao provDao = new ProvinciaDao();
-            List<Provincia> lista = provDao.obtenerTodas();
-
-            foreach(Provincia provincia in lista)
-            {
-                Console.WriteLine(provincia.ToString());
-            }
-
-
-
         }
     }
 }

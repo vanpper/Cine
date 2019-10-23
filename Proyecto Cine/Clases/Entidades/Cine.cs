@@ -13,7 +13,6 @@ namespace Proyecto_Cine.Clases.Entidades
         private Ciudad ciudad;
         private String direccion;
         private String descripcion;
-        private List<Sala> salas;
         private bool estado;
 
         public Cine()
@@ -21,14 +20,13 @@ namespace Proyecto_Cine.Clases.Entidades
 
         }
 
-        public Cine(int id, String nombre, Ciudad ciudad, String direccion, String descripcion, List<Sala> salas, bool estado)
+        public Cine(int id, String nombre, Ciudad ciudad, String direccion, String descripcion, bool estado)
         {
             this.id = id;
             this.nombre = nombre;
             this.ciudad = ciudad;
             this.direccion = direccion;
             this.descripcion = descripcion;
-            this.salas = salas;
             this.estado = estado;
         }
 
@@ -67,7 +65,7 @@ namespace Proyecto_Cine.Clases.Entidades
             this.direccion = direccion;
         }
 
-        public String getdireccion()
+        public String getDireccion()
         {
             return this.direccion;
         }
@@ -81,17 +79,7 @@ namespace Proyecto_Cine.Clases.Entidades
         {
             return this.descripcion;
         }
-
-        public void setSalas(List<Sala> salas)
-        {
-            this.salas = salas;
-        }
-
-        public List<Sala> getSalas()
-        {
-            return this.salas;
-        }
-
+        
         public void setEstado(bool estado)
         {
             this.estado = estado;
@@ -100,6 +88,13 @@ namespace Proyecto_Cine.Clases.Entidades
         public bool getEstado()
         {
             return this.estado;
+        }
+
+        override
+        public String ToString()
+        {
+            return "id = " + this.id + ", nombre = " + this.nombre + ", Ciudad = " + this.ciudad.ToString() + ", direccion = " + this.direccion + ", " +
+                   "descripcion = " + this.descripcion + ", estado = " + this.estado;
         }
     }
 }
