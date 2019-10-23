@@ -8,6 +8,7 @@ namespace Proyecto_Cine.Clases.Entidades
 {
     class Sala
     {
+        private Cine cine;
         private int id;
         private TipoDeSala tipo;
         private String descripcion;
@@ -18,12 +19,23 @@ namespace Proyecto_Cine.Clases.Entidades
 
         }
 
-        public Sala(int id, TipoDeSala tipo, String descripcion, bool estado)
+        public Sala(Cine cine, int id, TipoDeSala tipo, String descripcion, bool estado)
         {
+            this.cine = cine;
             this.id = id;
             this.tipo = tipo;
             this.descripcion = descripcion;
             this.estado = estado;
+        }
+
+        public void setCine(Cine cine)
+        {
+            this.cine = cine;
+        }
+
+        public Cine getCine()
+        {
+            return this.cine;
         }
 
         public void setId(int id)
@@ -64,6 +76,13 @@ namespace Proyecto_Cine.Clases.Entidades
         public bool getEstado()
         {
             return this.estado;
+        }
+
+        override
+        public String ToString()
+        {
+            return "id = " + this.id + ", descripcion = " + this.descripcion + ", estado = " + this.estado + ", tipo = " + this.tipo.ToString() + ", " +
+                   "cine = " + cine.ToString();
         }
     }
 }

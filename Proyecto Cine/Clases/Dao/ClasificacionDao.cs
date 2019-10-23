@@ -10,27 +10,25 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Cine.Clases.Dao
 {
-    class CiudadDao : Dao, ICiudadDao
+    class ClasificacionDao : Dao, IClasificacionDao
     {
-        public CiudadDao() : base()
+        public ClasificacionDao() : base()
         {
 
         }
 
-        public bool agregar(Ciudad ciudad)
+        public bool agregar(Clasificacion clasificacion)
         {
             try
             {
                 conexion.abrir();
-                query = "INSERT INTO Ciudades VALUES(@codProvincia, @codCiudad, @descripcion)";
+                query = "INSERT INTO Clasificaciones VALUES(@cod, @descripcion)";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
-                comando.Parameters.Add("@codProvincia", SqlDbType.Int);
-                comando.Parameters["@codProvincia"].Value = ciudad.getProvincia().getId();
-                comando.Parameters.Add("@codCiudad", SqlDbType.Int);
-                comando.Parameters["@codCiudad"].Value = ciudad.getId();
+                comando.Parameters.Add("@cod", SqlDbType.Int);
+                comando.Parameters["@cod"].Value = clasificacion.getId();
                 comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
-                comando.Parameters["@descripcion"].Value = ciudad.getDescripcion();
+                comando.Parameters["@descripcion"].Value = clasificacion.getDescripcion();
 
                 comando.ExecuteNonQuery();
                 conexion.cerrar();
@@ -44,20 +42,18 @@ namespace Proyecto_Cine.Clases.Dao
             }
         }
 
-        public bool modificar(Ciudad ciudad)
+        public bool modificar(Clasificacion clasificacion)
         {
             try
             {
                 conexion.abrir();
-                query = "UPDATE Ciudades SET Descripcion_Ciud = @descripcion WHERE CodProvincia_Ciud = @codProvincia AND CodCiudad_Ciud = @codCiudad";
+                query = "UPDATE Clasificaciones SET Descripcion_Clas = @descripcion WHERE CodClasificacion_Clas = @cod";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
-                comando.Parameters.Add("@codProvincia", SqlDbType.Int);
-                comando.Parameters["@codProvincia"].Value = ciudad.getProvincia().getId();
-                comando.Parameters.Add("@codCiudad", SqlDbType.Int);
-                comando.Parameters["@codCiudad"].Value = ciudad.getId();
+                comando.Parameters.Add("@cod", SqlDbType.Int);
+                comando.Parameters["@cod"].Value = clasificacion.getId();
                 comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
-                comando.Parameters["@descripcion"].Value = ciudad.getDescripcion();
+                comando.Parameters["@descripcion"].Value = clasificacion.getDescripcion();
 
                 comando.ExecuteNonQuery();
                 conexion.cerrar();
@@ -71,29 +67,24 @@ namespace Proyecto_Cine.Clases.Dao
             }
         }
 
-        public Ciudad obtener(int idProvincia, int idCiudad)
+        public Clasificacion obtener(int id)
         {
             try
             {
-                IProvinciaDao provinciaDao = new ProvinciaDao();
-
                 conexion.abrir();
-                query = "SELECT * FROM Ciudades WHERE CodProvincia_Ciud = " + idProvincia + " AND CodCiudad_Ciud = " + idCiudad;
+                query = "SELECT * FROM Clasificaciones WHERE CodClasificacion_Clas = " + id;
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
                 reader.Read();
 
-                Ciudad ciudad = new Ciudad();
-
-                Provincia provincia = provinciaDao.obtener((int)reader[0]);
-                ciudad.setProvincia(provincia);
-                ciudad.setId((int)reader[1]);
-                ciudad.setDescripcion((string)reader[2]);
+                Clasificacion clasificacion = new Clasificacion();
+                clasificacion.setId((int)reader[0]);
+                clasificacion.setDescripcion((string)reader[1]);
 
                 reader.Close();
                 conexion.cerrar();
-                return ciudad;
+                return clasificacion;
             }
             catch (SqlException ex)
             {
@@ -104,29 +95,24 @@ namespace Proyecto_Cine.Clases.Dao
             }
         }
 
-        public List<Ciudad> obtenerTodas(int idProvincia)
+        public List<Clasificacion> obtenerTodas()
         {
             try
             {
-                IProvinciaDao provinciaDao = new ProvinciaDao();
-                List<Ciudad> lista = new List<Ciudad>();
+                List<Clasificacion> lista = new List<Clasificacion>();
 
                 conexion.abrir();
-                query = "SELECT * FROM Ciudades WHERE CodProvincia_Ciud = " + idProvincia;
+                query = "SELECT * FROM Clasificaciones";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    Ciudad ciudad = new Ciudad();
-
-                    Provincia provincia = provinciaDao.obtener((int)reader[0]);
-                    ciudad.setProvincia(provincia);
-                    ciudad.setId((int)reader[1]);
-                    ciudad.setDescripcion((string)reader[2]);
-
-                    lista.Add(ciudad);
+                    Clasificacion clasificacion = new Clasificacion();
+                    clasificacion.setId((int)reader[0]);
+                    clasificacion.setDescripcion((string)reader[1]);
+                    lista.Add(clasificacion);
                 }
 
                 reader.Close();

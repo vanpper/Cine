@@ -10,18 +10,11 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Cine.Clases.Dao
 {
-    class ProvinciaDao : IProvinciaDao
+    class ProvinciaDao : Dao, IProvinciaDao
     {
-        private string query;
-        private Conexion conexion;
-        private SqlCommand comando;
-        private SqlDataReader reader;
-
-        public ProvinciaDao()
+        public ProvinciaDao() : base()
         {
-            conexion = new Conexion();
-            comando = null;
-            reader = null;
+
         }
 
         public bool agregar(Provincia provincia)

@@ -49,7 +49,11 @@
   <ItemGroup>
     <Compile Include="Clases\Dao\CineDao.cs" />
     <Compile Include="Clases\Dao\CiudadDao.cs" />
+    <Compile Include="Clases\Dao\ClasificacionDao.cs" />
+    <Compile Include="Clases\Dao\Dao.cs" />
     <Compile Include="Clases\Dao\ProvinciaDao.cs" />
+    <Compile Include="Clases\Dao\SalaDao.cs" />
+    <Compile Include="Clases\Dao\TipoDeSalaDao.cs" />
     <Compile Include="Clases\Entidades\Cine.cs" />
     <Compile Include="Clases\Entidades\Ciudad.cs" />
     <Compile Include="Clases\Entidades\Clasificacion.cs" />
@@ -68,7 +72,10 @@
     <Compile Include="Clases\Entidades\Usuario.cs" />
     <Compile Include="Clases\IDao\ICineDao.cs" />
     <Compile Include="Clases\IDao\ICiudadDao.cs" />
+    <Compile Include="Clases\IDao\IClasificacionDao.cs" />
     <Compile Include="Clases\IDao\IProvinciaDao.cs" />
+    <Compile Include="Clases\IDao\ISalaDao.cs" />
+    <Compile Include="Clases\IDao\ITipoDeSalaDao.cs" />
     <Compile Include="Forms\AdminView.cs">
       <SubType>Form</SubType>
     </Compile>
