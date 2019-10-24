@@ -51,6 +51,9 @@
     <Compile Include="Clases\Dao\CiudadDao.cs" />
     <Compile Include="Clases\Dao\ClasificacionDao.cs" />
     <Compile Include="Clases\Dao\Dao.cs" />
+    <Compile Include="Clases\Dao\FormatoDao.cs" />
+    <Compile Include="Clases\Dao\GeneroDao.cs" />
+    <Compile Include="Clases\Dao\PeliculaDao.cs" />
     <Compile Include="Clases\Dao\ProvinciaDao.cs" />
     <Compile Include="Clases\Dao\SalaDao.cs" />
     <Compile Include="Clases\Dao\TipoDeSalaDao.cs" />
@@ -73,6 +76,9 @@
     <Compile Include="Clases\IDao\ICineDao.cs" />
     <Compile Include="Clases\IDao\ICiudadDao.cs" />
     <Compile Include="Clases\IDao\IClasificacionDao.cs" />
+    <Compile Include="Clases\IDao\IFormatoDao.cs" />
+    <Compile Include="Clases\IDao\IGeneroDao.cs" />
+    <Compile Include="Clases\IDao\IPeliculaDao.cs" />
     <Compile Include="Clases\IDao\IProvinciaDao.cs" />
     <Compile Include="Clases\IDao\ISalaDao.cs" />
     <Compile Include="Clases\IDao\ITipoDeSalaDao.cs" />

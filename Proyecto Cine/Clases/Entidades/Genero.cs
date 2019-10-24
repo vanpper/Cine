@@ -41,5 +41,11 @@ namespace Proyecto_Cine.Clases.Entidades
         {
             return this.descripcion;
         }
+
+        override
+        public String ToString()
+        {
+            return "id = " + this.id + ", descripcion = " + this.descripcion;
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace Proyecto_Cine.Clases.Dao
                 comando.Parameters.Add("@direccion", SqlDbType.VarChar);
                 comando.Parameters["@direccion"].Value = cine.getDireccion();
                 comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
-                comando.Parameters["@descripcion"].Value = cine.getDescripcion();
+                comando.Parameters["@descripcion"].Value = cine.getDescripcion() ?? (object)DBNull.Value;
                 comando.Parameters.Add("@estado", SqlDbType.Bit);
                 comando.Parameters["@estado"].Value = cine.getEstado();
 
@@ -113,7 +113,7 @@ namespace Proyecto_Cine.Clases.Dao
                 comando.Parameters.Add("@direccion", SqlDbType.VarChar);
                 comando.Parameters["@direccion"].Value = cine.getDireccion();
                 comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
-                comando.Parameters["@descripcion"].Value = cine.getDescripcion();
+                comando.Parameters["@descripcion"].Value = cine.getDescripcion() ?? (object)DBNull.Value;
                 comando.Parameters.Add("@estado", SqlDbType.Bit);
                 comando.Parameters["@estado"].Value = cine.getEstado();
 
@@ -147,7 +147,7 @@ namespace Proyecto_Cine.Clases.Dao
                 Ciudad ciudad = ciudadDao.obtener((int)reader[2], (int)reader[3]);
                 cine.setCiudad(ciudad);
                 cine.setDireccion((string)reader[4]);
-                cine.setDescripcion((string)reader[5]);
+                if(reader[5] != DBNull.Value) cine.setDescripcion((string)reader[5]);
                 cine.setEstado((bool)reader[6]);
 
                 reader.Close();
@@ -184,7 +184,7 @@ namespace Proyecto_Cine.Clases.Dao
                     Ciudad ciudad = ciudadDao.obtener((int)reader[2], (int)reader[3]);
                     cine.setCiudad(ciudad);
                     cine.setDireccion((string)reader[4]);
-                    cine.setDescripcion((string)reader[5]);
+                    if(reader[5] != DBNull.Value) cine.setDescripcion((string)reader[5]);
                     cine.setEstado((bool)reader[6]);
 
                     lista.Add(cine);

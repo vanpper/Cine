@@ -15,7 +15,6 @@ namespace Proyecto_Cine.Clases.Entidades
         private String actores;
         private String director;
         private Genero genero;
-        private List<Formato> formatos;
         private Clasificacion clasificacion;
         private String descripcion;
         private MemoryStream imagen;
@@ -26,7 +25,7 @@ namespace Proyecto_Cine.Clases.Entidades
 
         }
 
-        public Pelicula(int id, String nombre, int duracion, String actores, String director, Genero genero, List<Formato> formatos, 
+        public Pelicula(int id, String nombre, int duracion, String actores, String director, Genero genero,
         Clasificacion clasificacion, String descripcion, MemoryStream imagen, bool estado)
         {
             this.id = id;
@@ -35,7 +34,6 @@ namespace Proyecto_Cine.Clases.Entidades
             this.actores = actores;
             this.director = director;
             this.genero = genero;
-            this.formatos = formatos;
             this.clasificacion = clasificacion;
             this.descripcion = descripcion;
             this.imagen = imagen;
@@ -101,17 +99,7 @@ namespace Proyecto_Cine.Clases.Entidades
         {
             return this.genero;
         }
-
-        public void setFormatos(List<Formato> formatos)
-        {
-            this.formatos = formatos;
-        }
-
-        public List<Formato> getFormatos()
-        {
-            return this.formatos;
-        }
-
+        
         public void setClasificacion(Clasificacion clasificacion)
         {
             this.clasificacion = clasificacion;
@@ -150,6 +138,14 @@ namespace Proyecto_Cine.Clases.Entidades
         public bool getEstado()
         {
             return this.estado;
+        }
+
+        override
+        public String ToString()
+        {
+            return "id = " + this.id + ", nombre = " + this.nombre + ", duracion = " + this.duracion + ", actores = " + this.actores + ", " +
+                   "director = " + this.director + ", genero = [" + this.genero.ToString() + "], clasificacion = [" + this.clasificacion.ToString() + "], " +
+                   "descripcion = " + this.descripcion + ", imagen = " + this.imagen + ", estado = " + this.estado;
         }
     }
 }
