@@ -54,6 +54,7 @@
     <Compile Include="Clases\Dao\FormatoDao.cs" />
     <Compile Include="Clases\Dao\GeneroDao.cs" />
     <Compile Include="Clases\Dao\PeliculaDao.cs" />
+    <Compile Include="Clases\Dao\PeliculaPorFormatoDao.cs" />
     <Compile Include="Clases\Dao\ProvinciaDao.cs" />
     <Compile Include="Clases\Dao\SalaDao.cs" />
     <Compile Include="Clases\Dao\TipoDeSalaDao.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Clases\Entidades\Genero.cs" />
     <Compile Include="Clases\Entidades\Horario.cs" />
     <Compile Include="Clases\Entidades\Pelicula.cs" />
+    <Compile Include="Clases\Entidades\PeliculaPorFormato.cs" />
     <Compile Include="Clases\Entidades\Precio.cs" />
     <Compile Include="Clases\Entidades\Provincia.cs" />
     <Compile Include="Clases\Entidades\Sala.cs" />
@@ -77,8 +79,10 @@
     <Compile Include="Clases\IDao\ICiudadDao.cs" />
     <Compile Include="Clases\IDao\IClasificacionDao.cs" />
     <Compile Include="Clases\IDao\IFormatoDao.cs" />
+    <Compile Include="Clases\IDao\IFuncionDao.cs" />
     <Compile Include="Clases\IDao\IGeneroDao.cs" />
     <Compile Include="Clases\IDao\IPeliculaDao.cs" />
+    <Compile Include="Clases\IDao\IPeliculaPorFormatoDao.cs" />
     <Compile Include="Clases\IDao\IProvinciaDao.cs" />
     <Compile Include="Clases\IDao\ISalaDao.cs" />
     <Compile Include="Clases\IDao\ITipoDeSalaDao.cs" />

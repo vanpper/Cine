@@ -42,10 +42,8 @@ namespace Proyecto_Cine.Clases.Dao
                 comando.Parameters["@codClasificacion"].Value = pelicula.getClasificacion().getId();
                 comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
                 comando.Parameters["@descripcion"].Value = pelicula.getDescripcion() ?? (object)DBNull.Value;
-                if(pelicula.getImagen() != null) {comando.Parameters.Add("@portada", SqlDbType.Image);
-                comando.Parameters["@portada"].Value = pelicula.getImagen().GetBuffer();}
-                else {comando.Parameters.Add("@portada", SqlDbType.Image);
-                comando.Parameters["@portada"].Value = (object)DBNull.Value;}
+                comando.Parameters.Add("@portada", SqlDbType.Image);
+                comando.Parameters["@portada"].Value = pelicula.getImagen() ?? (object)DBNull.Value;
                 comando.Parameters.Add("@estado", SqlDbType.Bit);
                 comando.Parameters["@estado"].Value = pelicula.getEstado();
 
@@ -125,10 +123,8 @@ namespace Proyecto_Cine.Clases.Dao
                 comando.Parameters["@codClasificacion"].Value = pelicula.getClasificacion().getId();
                 comando.Parameters.Add("@descripcion", SqlDbType.VarChar);
                 comando.Parameters["@descripcion"].Value = pelicula.getDescripcion() ?? (object)DBNull.Value;
-                if (pelicula.getImagen() != null) {comando.Parameters.Add("@portada", SqlDbType.Image);
-                comando.Parameters["@portada"].Value = pelicula.getImagen().GetBuffer();}
-                else {comando.Parameters.Add("@portada", SqlDbType.Image);
-                comando.Parameters["@portada"].Value = (object)DBNull.Value;}
+                comando.Parameters.Add("@portada", SqlDbType.Image);
+                comando.Parameters["@portada"].Value = pelicula.getImagen() ?? (object)DBNull.Value;
                 comando.Parameters.Add("@estado", SqlDbType.Bit);
                 comando.Parameters["@estado"].Value = pelicula.getEstado();
 
@@ -169,8 +165,7 @@ namespace Proyecto_Cine.Clases.Dao
                 Clasificacion clasificacion = clasificacionDao.obtener((int)reader[6]);
                 pelicula.setClasificacion(clasificacion);
                 if(reader[7] != DBNull.Value) pelicula.setDescripcion((string)reader[7]);
-                if(reader[8] != DBNull.Value) {MemoryStream buffer = new MemoryStream((byte[])reader[8]);
-                pelicula.setImagen(buffer);}
+                if(reader[8] != DBNull.Value) pelicula.setImagen((byte[])reader[8]);
                 pelicula.setEstado((bool)reader[9]);
 
                 reader.Close();
@@ -213,8 +208,7 @@ namespace Proyecto_Cine.Clases.Dao
                     Clasificacion clasificacion = clasificacionDao.obtener((int)reader[6]);
                     pelicula.setClasificacion(clasificacion);
                     if(reader[7] != DBNull.Value) pelicula.setDescripcion((string)reader[7]);
-                    if(reader[8] != DBNull.Value) {MemoryStream buffer = new MemoryStream((byte[])reader[8]);
-                    pelicula.setImagen(buffer);}
+                    if(reader[8] != DBNull.Value) pelicula.setImagen((byte[])reader[8]);
                     pelicula.setEstado((bool)reader[9]);
                     lista.Add(pelicula);
                 }

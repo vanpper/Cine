@@ -17,7 +17,7 @@ namespace Proyecto_Cine.Clases.Entidades
         private Genero genero;
         private Clasificacion clasificacion;
         private String descripcion;
-        private MemoryStream imagen;
+        private byte[] imagen;
         private bool estado;
 
         public Pelicula()
@@ -26,7 +26,7 @@ namespace Proyecto_Cine.Clases.Entidades
         }
 
         public Pelicula(int id, String nombre, int duracion, String actores, String director, Genero genero,
-        Clasificacion clasificacion, String descripcion, MemoryStream imagen, bool estado)
+        Clasificacion clasificacion, String descripcion, byte[] imagen, bool estado)
         {
             this.id = id;
             this.nombre = nombre;
@@ -120,12 +120,12 @@ namespace Proyecto_Cine.Clases.Entidades
             return this.descripcion;
         }
 
-        public void setImagen(MemoryStream imagen)
+        public void setImagen(byte[] imagen)
         {
             this.imagen = imagen;
         }
 
-        public MemoryStream getImagen()
+        public byte[] getImagen()
         {
             return this.imagen;
         }
