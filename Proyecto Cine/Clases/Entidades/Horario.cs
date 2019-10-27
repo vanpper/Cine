@@ -16,6 +16,14 @@ namespace Proyecto_Cine.Clases.Entidades
 
         }
 
+        public Horario(String cadena)
+        {
+            string[] partes = cadena.Split(':');
+
+            this.hora = Int32.Parse(partes[0]);
+            this.minuto = Int32.Parse(partes[1]);
+        }
+
         public Horario(int hora, int minuto)
         {
             this.hora = hora;
@@ -42,7 +50,7 @@ namespace Proyecto_Cine.Clases.Entidades
             return this.minuto;
         }
 
-        public String getHorario()
+        public String getHHMM()
         {
             String horas;
             String minutos;
