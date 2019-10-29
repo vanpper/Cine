@@ -17,6 +17,13 @@ namespace Proyecto_Cine.Clases.Entidades
 
         }
 
+        public Fecha(DateTime fecha)
+        {
+            this.dia = fecha.Day;
+            this.mes = fecha.Month;
+            this.año = fecha.Year;
+        }
+
         public Fecha(String fecha)
         {
             string[] partes = fecha.Split('-');

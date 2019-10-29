@@ -63,5 +63,11 @@ namespace Proyecto_Cine.Clases.Entidades
 
             return horas + ":" + minutos;
         }
+
+        override
+        public String ToString()
+        {
+            return this.getHHMM();
+        }
     }
 }

@@ -14,6 +14,6 @@ namespace Proyecto_Cine.Clases.IDao
         bool deshabilitar(Funcion funcion);
         bool habilitar(Funcion funcion);
         Funcion obtener(int idCine, int idSala, Fecha fecha, Horario horario);
-        List<Pelicula> obtenerTodas();
+        List<Funcion> obtenerTodas();
     }
 }

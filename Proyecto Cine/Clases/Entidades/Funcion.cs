@@ -17,6 +17,13 @@ namespace Proyecto_Cine.Clases.Entidades
         private int stock;
         private bool estado;
 
+        override
+        public String ToString()
+        {
+            return "cine = [" + this.cine.ToString() + "], sala = [" + this.sala.ToString() + "], fecha = [" + this.fecha.ToString() + "], horario = [" + this.horario.ToString() + "], " +
+                   "pelicula = [" + this.pelicula.ToString() + "], formato = [" + this.formato.ToString() + "], stock = " + this.stock + "], estado = " + this.estado;
+        }
+
         public Funcion()
         {
 

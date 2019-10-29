@@ -161,23 +161,29 @@ namespace Proyecto_Cine.Clases.Dao
 
                 conexion.abrir();
                 query = "SELECT * FROM Funciones WHERE CodCine_Func = " + idCine + " AND CodSala_Func = " + idSala + " AND " +
-                        "Dia_Func = " + fecha.ToString() + " AND Horario_Func = " + horario.getHHMM();
+                        "Dia_Func = '" + fecha.ToString() + "' AND Horario_Func = '" + horario.getHHMM() + "'";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
                 reader.Read();
 
                 Funcion funcion = new Funcion();
-                Cine cine = cineDao.obtener(idCine);
+                Cine cine = cineDao.obtener((int)reader[0]);
                 funcion.setCine(cine);
-                Sala sala = salaDao.obtener(idCine, idSala);
+                Sala sala = salaDao.obtener((int)reader[0], (int)reader[1]);
                 funcion.setSala(sala);
-                funcion.setFecha(new Fecha((string)reader[2]));
+                funcion.setFecha(new Fecha((DateTime)reader[2]));
                 funcion.setHorario(new Horario((string)reader[3]));
+                Pelicula pelicula = peliculaDao.obtener((int)reader[4]);
+                funcion.setPelicula(pelicula);
+                Formato formato = formatoDao.obtener((int)reader[5]);
+                funcion.setFormato(formato);
+                funcion.setStock((int)reader[6]);
+                funcion.setEstado((bool)reader[7]);
 
                 reader.Close();
                 conexion.cerrar();
-                return formato;
+                return funcion;
             }
             catch (SqlException ex)
             {
@@ -188,9 +194,51 @@ namespace Proyecto_Cine.Clases.Dao
             }
         }
 
-        public List<Pelicula> obtenerTodas()
+        public List<Funcion> obtenerTodas()
         {
-            throw new NotImplementedException();
+            try
+            {
+                ICineDao cineDao = new CineDao();
+                ISalaDao salaDao = new SalaDao();
+                IPeliculaDao peliculaDao = new PeliculaDao();
+                IFormatoDao formatoDao = new FormatoDao();
+                List<Funcion> lista = new List<Funcion>();
+
+                conexion.abrir();
+                query = "SELECT * FROM Funciones";
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Funcion funcion = new Funcion();
+                    Cine cine = cineDao.obtener((int)reader[0]);
+                    funcion.setCine(cine);
+                    Sala sala = salaDao.obtener((int)reader[0], (int)reader[1]);
+                    funcion.setSala(sala);
+                    funcion.setFecha(new Fecha((DateTime)reader[2]));
+                    funcion.setHorario(new Horario((string)reader[3]));
+                    Pelicula pelicula = peliculaDao.obtener((int)reader[4]);
+                    funcion.setPelicula(pelicula);
+                    Formato formato = formatoDao.obtener((int)reader[5]);
+                    funcion.setFormato(formato);
+                    funcion.setStock((int)reader[6]);
+                    funcion.setEstado((bool)reader[7]);
+                    lista.Add(funcion);
+                }
+
+                reader.Close();
+                conexion.cerrar();
+                return lista;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
         }
     }
 }
