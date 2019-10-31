@@ -20,7 +20,14 @@ namespace Proyecto_Cine
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Forms.Principal());
-            
+
+            IUsuarioDao usuarioDao = new UsuarioDao();
+
+            foreach(Usuario usuario in usuarioDao.obtenerTodos())
+            {
+                Console.WriteLine(usuario.ToString());
+            }
+
 
         }
     }

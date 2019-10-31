@@ -56,9 +56,13 @@
     <Compile Include="Clases\Dao\GeneroDao.cs" />
     <Compile Include="Clases\Dao\PeliculaDao.cs" />
     <Compile Include="Clases\Dao\PeliculaPorFormatoDao.cs" />
+    <Compile Include="Clases\Dao\PrecioDao.cs" />
     <Compile Include="Clases\Dao\ProvinciaDao.cs" />
     <Compile Include="Clases\Dao\SalaDao.cs" />
+    <Compile Include="Clases\Dao\TipoDeEntradaDao.cs" />
     <Compile Include="Clases\Dao\TipoDeSalaDao.cs" />
+    <Compile Include="Clases\Dao\TipoDeUsuarioDao.cs" />
+    <Compile Include="Clases\Dao\UsuarioDao.cs" />
     <Compile Include="Clases\Entidades\Cine.cs" />
     <Compile Include="Clases\Entidades\Ciudad.cs" />
     <Compile Include="Clases\Entidades\Clasificacion.cs" />
@@ -84,9 +88,13 @@
     <Compile Include="Clases\IDao\IGeneroDao.cs" />
     <Compile Include="Clases\IDao\IPeliculaDao.cs" />
     <Compile Include="Clases\IDao\IPeliculaPorFormatoDao.cs" />
+    <Compile Include="Clases\IDao\IPrecioDao.cs" />
     <Compile Include="Clases\IDao\IProvinciaDao.cs" />
     <Compile Include="Clases\IDao\ISalaDao.cs" />
+    <Compile Include="Clases\IDao\ITipoDeEntradaDao.cs" />
     <Compile Include="Clases\IDao\ITipoDeSalaDao.cs" />
+    <Compile Include="Clases\IDao\ITipoDeUsuarioDao.cs" />
+    <Compile Include="Clases\IDao\IUsuarioDao.cs" />
     <Compile Include="Forms\AdminView.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -36,22 +36,22 @@ namespace Proyecto_Cine.Clases.Entidades
             return this.cine;
         }
 
-        private void setTipoSala(TipoDeSala tipoSala)
+        public void setTipoSala(TipoDeSala tipoSala)
         {
             this.tipoSala = tipoSala;
         }
 
-        private TipoDeSala getTipoSala()
+        public TipoDeSala getTipoSala()
         {
             return this.tipoSala;
         }
 
-        private void setTipoEntrada(TipoDeEntrada tipoEntrada)
+        public void setTipoEntrada(TipoDeEntrada tipoEntrada)
         {
             this.tipoEntrada = tipoEntrada;
         }
 
-        private TipoDeEntrada getTipoEntrada()
+        public TipoDeEntrada getTipoEntrada()
         {
             return this.tipoEntrada;
         }
@@ -64,6 +64,13 @@ namespace Proyecto_Cine.Clases.Entidades
         public int getPrecio()
         {
             return this.precio;
+        }
+
+        override
+        public String ToString()
+        {
+            return "cine = [" + this.cine.ToString() + "], sala = [" + this.tipoSala.ToString() + "], " +
+                   "entrada = [" + this.tipoEntrada.ToString() + "], precio = " + this.precio;
         }
     }
 }

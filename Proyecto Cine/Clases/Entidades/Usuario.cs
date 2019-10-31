@@ -174,5 +174,13 @@ namespace Proyecto_Cine.Clases.Entidades
         {
             return this.estado;
         }
+
+       override
+       public String ToString()
+        {
+            return "id = " + this.id + ", tipo = [" + this.tipo.ToString() + "], nombre = " + this.nombre + ", apellido = " + this.apellido + ", " +
+                   "dni = " + this.dni + ", cumpleaños = " + this.cumpleaños.ToString() + ", telefono = " + this.telefono + ", ciudad = [" + this.ciudad.ToString() + "], " +
+                   "direccion = " + this.direccion + ", cp = " + this.cp + ", email = " + this.email + ", contraseña = " + this.contraseña + ", estado = " + this.estado;
+        }
     }
 }
