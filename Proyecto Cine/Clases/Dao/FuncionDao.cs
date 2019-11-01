@@ -46,7 +46,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -75,7 +75,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -104,7 +104,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -142,7 +142,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -161,7 +161,7 @@ namespace Proyecto_Cine.Clases.Dao
 
                 conexion.abrir();
                 query = "SELECT * FROM Funciones WHERE CodCine_Func = " + idCine + " AND CodSala_Func = " + idSala + " AND " +
-                        "Dia_Func = '" + fecha.ToString() + "' AND Horario_Func = '" + horario.getHHMM() + "'";
+                        "Dia_Func = '" + fecha.toSqlFormat() + "' AND Horario_Func = '" + horario.getHHMM() + "'";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
@@ -185,7 +185,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return funcion;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -232,7 +232,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

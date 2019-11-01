@@ -12,6 +12,7 @@ namespace Proyecto_Cine.Clases.IDao
         bool agregar(Ciudad ciudad);
         bool modificar(Ciudad ciudad);
         Ciudad obtener(int idProvincia, int idCiudad);
+        Ciudad obtenerUltima(int idProvincia);
         List<Ciudad> obtenerTodas(int idProvincia);
     }
 }

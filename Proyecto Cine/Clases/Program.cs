@@ -1,6 +1,8 @@
 ﻿using Proyecto_Cine.Clases.Dao;
 using Proyecto_Cine.Clases.Entidades;
 using Proyecto_Cine.Clases.IDao;
+using Proyecto_Cine.Clases.INegocio;
+using Proyecto_Cine.Clases.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +23,7 @@ namespace Proyecto_Cine
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Forms.Principal());
 
-            IUsuarioDao usuarioDao = new UsuarioDao();
-
-            foreach(Usuario usuario in usuarioDao.obtenerTodos())
-            {
-                Console.WriteLine(usuario.ToString());
-            }
-
-
+           
         }
     }
 }

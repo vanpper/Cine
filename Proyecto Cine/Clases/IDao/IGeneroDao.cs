@@ -12,6 +12,7 @@ namespace Proyecto_Cine.Clases.IDao
         bool agregar(Genero genero);
         bool modificar(Genero genero);
         Genero obtener(int id);
+        Genero obtenerUltimo();
         List<Genero> obtenerTodos();
     }
 }

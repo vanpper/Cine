@@ -12,6 +12,7 @@ namespace Proyecto_Cine.Clases.IDao
         bool agregar(TipoDeSala tipoSala);
         bool modificar(TipoDeSala tipoSala);
         TipoDeSala obtener(int id);
+        TipoDeSala obtenerUltimo();
         List<TipoDeSala> obtenerTodos();
     }
 }

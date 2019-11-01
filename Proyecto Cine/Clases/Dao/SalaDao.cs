@@ -40,7 +40,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -60,7 +60,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -80,7 +80,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -112,7 +112,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -147,7 +147,43 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return sala;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
+        }
+
+        public Sala obtenerUltima(int idCine)
+        {
+            try
+            {
+                ICineDao cineDao = new CineDao();
+                ITipoDeSalaDao tipoSalaDao = new TipoDeSalaDao();
+
+                conexion.abrir();
+                query = "SELECT TOP 1 * FROM SalasXCine ORDER BY CodSala_SXC DESC WHERE CodCine_SXC = " + idCine;
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+                reader.Read();
+
+                Sala sala = new Sala();
+                Cine cine = cineDao.obtener((int)reader[0]);
+                sala.setCine(cine);
+                sala.setId((int)reader[1]);
+                TipoDeSala tipo = tipoSalaDao.obtener((int)reader[2]);
+                sala.setTipo(tipo);
+                sala.setDescripcion((string)reader[3]);
+                sala.setEstado((bool)reader[4]);
+
+                reader.Close();
+                conexion.cerrar();
+                return sala;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -187,7 +223,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

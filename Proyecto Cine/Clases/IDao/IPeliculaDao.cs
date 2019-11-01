@@ -14,6 +14,7 @@ namespace Proyecto_Cine.Clases.IDao
         bool deshabilitar(int id);
         bool habilitar(int id);
         Pelicula obtener(int id);
+        Pelicula obtenerUltima();
         List<Pelicula> obtenerTodas();
     }
 }

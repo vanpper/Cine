@@ -51,7 +51,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -70,7 +70,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -89,7 +89,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -132,7 +132,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -172,7 +172,48 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return pelicula;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
+        }
+
+        public Pelicula obtenerUltima()
+        {
+            try
+            {
+                IGeneroDao generoDao = new GeneroDao();
+                IClasificacionDao clasificacionDao = new ClasificacionDao();
+
+                conexion.abrir();
+                query = "SELECT TOP 1 * FROM Peliculas ORDER BY CodPelicula_Peli DESC";
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+                reader.Read();
+
+                Pelicula pelicula = new Pelicula();
+                pelicula.setId((int)reader[0]);
+                pelicula.setNombre((string)reader[1]);
+                if (reader[2] != DBNull.Value) pelicula.setDuracion((int)reader[2]);
+                if (reader[3] != DBNull.Value) pelicula.setActores((string)reader[3]);
+                if (reader[4] != DBNull.Value) pelicula.setDirector((string)reader[4]);
+                Genero genero = generoDao.obtener((int)reader[5]);
+                pelicula.setGenero(genero);
+                Clasificacion clasificacion = clasificacionDao.obtener((int)reader[6]);
+                pelicula.setClasificacion(clasificacion);
+                if (reader[7] != DBNull.Value) pelicula.setDescripcion((string)reader[7]);
+                if (reader[8] != DBNull.Value) pelicula.setImagen((byte[])reader[8]);
+                pelicula.setEstado((bool)reader[9]);
+
+                reader.Close();
+                conexion.cerrar();
+                return pelicula;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -217,7 +258,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

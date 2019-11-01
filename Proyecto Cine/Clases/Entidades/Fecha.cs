@@ -70,6 +70,11 @@ namespace Proyecto_Cine.Clases.Entidades
             return this.año;
         }
 
+        public String toSqlFormat()
+        {
+            return this.año + "-" + this.mes + "-" + this.dia;
+        }
+
         override
         public String ToString()
         {

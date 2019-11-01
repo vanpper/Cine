@@ -34,7 +34,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -59,7 +59,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -86,7 +86,35 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return tipoSala;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
+        }
+
+        public TipoDeSala obtenerUltimo()
+        {
+            try
+            {
+                conexion.abrir();
+                query = "SELECT TOP 1 * FROM TiposDeSalas ORDER BY CodTipoDeSala_TDS DESC"; 
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+                reader.Read();
+
+                TipoDeSala tipoSala = new TipoDeSala();
+                tipoSala.setId((int)reader[0]);
+                tipoSala.setDescripcion((string)reader[1]);
+
+                reader.Close();
+                conexion.cerrar();
+                return tipoSala;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -118,7 +146,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

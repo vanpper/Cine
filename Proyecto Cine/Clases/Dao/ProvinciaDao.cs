@@ -34,7 +34,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch(SqlException ex)
+            catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -59,7 +59,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -86,7 +86,35 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return provincia;
             }
-            catch(SqlException ex)
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
+        }
+
+        public Provincia obtenerUltima()
+        {
+            try
+            {
+                conexion.abrir();
+                query = "SELECT TOP 1 * FROM Provincias ORDER BY CodProvincia_Prov DESC";
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+                reader.Read();
+
+                Provincia provincia = new Provincia();
+                provincia.setId((int)reader[0]);
+                provincia.setDescripcion((string)reader[1]);
+
+                reader.Close();
+                conexion.cerrar();
+                return provincia;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -117,7 +145,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

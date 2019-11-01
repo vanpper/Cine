@@ -34,7 +34,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -59,7 +59,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -86,7 +86,35 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return formato;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
+        }
+
+        public Formato obtenerUltimo()
+        {
+            try
+            {
+                conexion.abrir();
+                query = "SELECT TOP 1 * FROM Formatos ORDER BY CodFormato_Form DESC";
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+                reader.Read();
+
+                Formato formato = new Formato();
+                formato.setId((int)reader[0]);
+                formato.setDescripcion((string)reader[1]);
+
+                reader.Close();
+                conexion.cerrar();
+                return formato;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -119,7 +147,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

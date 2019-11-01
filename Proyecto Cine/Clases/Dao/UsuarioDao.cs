@@ -59,7 +59,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -111,7 +111,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -154,7 +154,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return usuario;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -198,7 +198,51 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return usuario;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
+        }
+
+        public Usuario obtenerUltimo()
+        {
+            try
+            {
+                ITipoDeUsuarioDao tipoDao = new TipoDeUsuarioDao();
+                ICiudadDao ciudadDao = new CiudadDao();
+
+                conexion.abrir();
+                query = "SELECT TOP 1 * FROM Usuarios ORDER BY CodUsuario_Usua DESC";
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+                reader.Read();
+
+                Usuario usuario = new Usuario();
+                usuario.setId((int)reader[0]);
+                TipoDeUsuario tipo = tipoDao.obtener((int)reader[1]);
+                usuario.setTipo(tipo);
+                usuario.setNombre((string)reader[2]);
+                usuario.setApellido((string)reader[3]);
+                usuario.setDni((string)reader[4]);
+                usuario.setCumpleaños(new Fecha((DateTime)reader[5]));
+                usuario.setTelefono((string)reader[6]);
+                Ciudad ciudad = ciudadDao.obtener((int)reader[7], (int)reader[8]);
+                usuario.setCiudad(ciudad);
+                usuario.setDireccion((string)reader[9]);
+                usuario.setCp((string)reader[10]);
+                usuario.setEmail((string)reader[11]);
+                usuario.setContraseña((string)reader[12]);
+                usuario.setEstado((bool)reader[13]);
+
+                reader.Close();
+                conexion.cerrar();
+                return usuario;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -246,7 +290,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

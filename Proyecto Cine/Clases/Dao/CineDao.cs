@@ -44,7 +44,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -64,7 +64,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -84,7 +84,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -121,7 +121,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -154,7 +154,41 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return cine;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
+        }
+
+        public Cine obtenerUltimo()
+        {
+            try
+            {
+                ICiudadDao ciudadDao = new CiudadDao();
+                conexion.abrir();
+                query = "SELECT TOP 1 * FROM Cines ORDER BY CodCine_Cine DESC";
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+                reader.Read();
+
+                Cine cine = new Cine();
+                cine.setId((int)reader[0]);
+                cine.setNombre((string)reader[1]);
+                Ciudad ciudad = ciudadDao.obtener((int)reader[2], (int)reader[3]);
+                cine.setCiudad(ciudad);
+                cine.setDireccion((string)reader[4]);
+                if (reader[5] != DBNull.Value) cine.setDescripcion((string)reader[5]);
+                cine.setEstado((bool)reader[6]);
+
+                reader.Close();
+                conexion.cerrar();
+                return cine;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -194,7 +228,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

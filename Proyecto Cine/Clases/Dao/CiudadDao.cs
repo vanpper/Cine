@@ -36,7 +36,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -63,7 +63,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conexion.cerrar();
@@ -95,7 +95,40 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return ciudad;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                reader.Close();
+                conexion.cerrar();
+                return null;
+            }
+        }
+
+        public Ciudad obtenerUltima(int idProvincia)
+        {
+            try
+            {
+                IProvinciaDao provinciaDao = new ProvinciaDao();
+
+                conexion.abrir();
+                query = "SELECT TOP 1 * FROM Ciudades ORDER BY CodCiudad_Ciud DESC WHERE CodProvincia_Ciud = " + idProvincia;
+
+                comando = new SqlCommand(query, conexion.getSqlConnection());
+                reader = comando.ExecuteReader();
+                reader.Read();
+
+                Ciudad ciudad = new Ciudad();
+
+                Provincia provincia = provinciaDao.obtener((int)reader[0]);
+                ciudad.setProvincia(provincia);
+                ciudad.setId((int)reader[1]);
+                ciudad.setDescripcion((string)reader[2]);
+
+                reader.Close();
+                conexion.cerrar();
+                return ciudad;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();
@@ -133,7 +166,7 @@ namespace Proyecto_Cine.Clases.Dao
                 conexion.cerrar();
                 return lista;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 reader.Close();

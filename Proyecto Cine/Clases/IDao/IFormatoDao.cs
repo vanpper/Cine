@@ -12,6 +12,7 @@ namespace Proyecto_Cine.Clases.IDao
         bool agregar(Formato formato);
         bool modificar(Formato formato);
         Formato obtener(int id);
+        Formato obtenerUltimo();
         List<Formato> obtenerTodos();
     }
 }

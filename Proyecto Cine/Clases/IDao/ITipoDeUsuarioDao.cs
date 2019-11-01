@@ -12,6 +12,7 @@ namespace Proyecto_Cine.Clases.IDao
         bool agregar(TipoDeUsuario tipo);
         bool modificar(TipoDeUsuario tipo);
         TipoDeUsuario obtener(int id);
+        TipoDeUsuario obtenerUltimo();
         List<TipoDeUsuario> obtenerTodos();
     }
 }
