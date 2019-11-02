@@ -1,6 +1,7 @@
 ﻿using Proyecto_Cine.Clases.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace Proyecto_Cine.Clases.INegocio
         bool modificar(Ciudad ciudad);
         Ciudad obtener(int idProvincia, int idCiudad);
         List<Ciudad> obtenerTodas(int idProvincia);
+        DataTable obtenerDataTable(int idProvincia);
     }
 }

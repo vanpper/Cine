@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Proyecto_Cine.Clases.Entidades;
+using Proyecto_Cine.Clases.INegocio;
+using Proyecto_Cine.Clases.Negocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,42 +16,33 @@ namespace Proyecto_Cine.Forms
 {
     public partial class Ciudades : Form
     {
-        const int NULL = 0;
-        const int NUEVO = 1;
-        const int MODIFICAR = 2;    //CONSTANTES
-        const int PROVINCIAS = 3;
-        const int CIUDADES = 4;
+        private IProvinciaNeg provinciaNeg = new ProvinciaNeg();
+        private ICiudadNeg ciudadNeg = new CiudadNeg();
 
-        Conexion BD = new Conexion();
-        DataTable DTProvincias = new DataTable();
-        DataTable DTCiudades = new DataTable();
-        SqlDataAdapter adaptador;
-        SqlCommand comando;
+        private const int NULL = 0;
+        private const int NUEVO = 1;
+        private const int MODIFICAR = 2; 
+        private const int PROVINCIAS = 3;
+        private const int CIUDADES = 4;
 
-        int Operacion = 0; //INDICADOR DE OPERACION ACTUAL
-        int Entidad = 0; //INDICADOR DE ENTIDAD QUE ESTA OPERANDO
+        private int Operacion = NULL;
+        private int Entidad = NULL;
 
         public Ciudades()
         {
             InitializeComponent();
 
-            dgvProvincias.DataSource = DTProvincias; //INDICARLE AL DATAGRIDVIEW DE PROVINCIAS QUE SU FUENTE DE DATOS VA A SER EL DATATABLE DE PROVINCIAS
-            dgvCiudades.DataSource = DTCiudades; //INDICARLE AL DATAGRIDVIEW DE CIUDADES QUE SU FUENTE DE DATOS VA A SER EL DATATABLE DE CIUDADES
+            ActualizarDgvProvincias();
 
-            if (BD.abrir()) //SI SE PUEDE ABRIR LA CONEXION CON LA BASE DE DATOS
-            {
-                ActualizarDgvProvincias(); //ACTUALIZAR DATAGRID DE PROVINCIAS
-                ActualizarDgvCiudades(); //ACTUALIZAR DATAGRID DE CIUDADES
-            } 
+            ActualizarDgvCiudades();
 
-            ConfigurarGrids(); //CONFIGURACION RELACIONADA CON LA APARIENCIA DE LOS DATAGRIDVIEW
+            ConfigurarGrids();
+
+            
         }
 
         private void ConfigurarGrids()
         {
-            dgvProvincias.Columns[0].HeaderText = "Codigo";
-            dgvProvincias.Columns[1].HeaderText = "Provincia";
-
             dgvProvincias.Size = new Size(450, dgvProvincias.Size.Height);
             dgvProvincias.Columns[0].Visible = false;
             dgvProvincias.ReadOnly = true;
@@ -63,10 +57,6 @@ namespace Proyecto_Cine.Forms
             dgvProvincias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProvincias.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
             dgvProvincias.Sort(dgvProvincias.Columns[1], ListSortDirection.Ascending);
-
-            dgvCiudades.Columns[0].HeaderText = "Codigo Provincia";
-            dgvCiudades.Columns[1].HeaderText = "Codigo Ciudad";
-            dgvCiudades.Columns[2].HeaderText = "Ciudad";
 
             dgvCiudades.Size = new Size(455, dgvCiudades.Size.Height);
             dgvCiudades.Location = new Point(480, dgvCiudades.Location.Y);
@@ -88,61 +78,50 @@ namespace Proyecto_Cine.Forms
 
         private void AbrirPanel()
         {
-            dgvProvincias.Width = 300; //ACHICAR DATAGRID
-            dgvCiudades.Width = 300; //ACHICAR DATAGRID
-            dgvCiudades.Location = new Point(636, dgvCiudades.Location.Y); //REUBICAR DATAGRID
-            panel1.Visible = true; //HACER VISIBLE EL PANEL
+            dgvProvincias.Width = 300;
+            dgvCiudades.Width = 300;
+            dgvCiudades.Location = new Point(636, dgvCiudades.Location.Y);
+            panel1.Visible = true;
         }
 
         private void CerrarPanel()
         {
-            panel1.Visible = false; //OCULTAR PANEL
-            dgvProvincias.Width = 450; //AGRANDAR DATAGRID
-            dgvCiudades.Width = 455; //AGRANDAR DATAGRID
-            dgvCiudades.Location = new Point(480, dgvCiudades.Location.Y); //REUBICAR DATAGRID
-            txtDescripcion.Clear(); //LIMPIAR CONTENEDOR
-            label2.Text = ""; //LIMPIAR LABEL
-            Operacion = NULL; //NO HAY OPERACION EN CURSO
-
-            //AL CERRAR EL PANEL SE PREGUNTA QUE ENTIDAD ESTABA OPERANDO PARA VOLVERLE A DAR EL FOCO Y PODER NAVEGAR CON EL TECLADO
-            if (Entidad == PROVINCIAS) dgvProvincias.Focus();
-            if (Entidad == CIUDADES) dgvCiudades.Focus();
-
-            Entidad = NULL; //NO HAY ENTIDAD OPERANDO
+            panel1.Visible = false;
+            dgvProvincias.Width = 450;
+            dgvCiudades.Width = 455;
+            dgvCiudades.Location = new Point(480, dgvCiudades.Location.Y);
+            txtDescripcion.Clear();
+            label2.Text = "";
+            Operacion = NULL;
+            Entidad = NULL;
         }
 
         private void ActualizarDgvProvincias()
         {
-            adaptador = new SqlDataAdapter("Select * from Provincias", BD.getSqlConnection()); //CARGAR AL ADAPTADOR TODAS LAS PROVINCIAS
-            DTProvincias.Clear(); //LIMPIAR EL DATATABLE DE PROVINCIAS DE VIEJOS REGISTROS
-            adaptador.Fill(DTProvincias); //LLENAR EL DATATABLE DE PROVINCIAS CON LOS NUEVOS REGISTROS
+            dgvProvincias.DataSource = null;
+            dgvProvincias.DataSource = provinciaNeg.obtenerDataTable();
         }
 
         private void ActualizarDgvCiudades()
         {
-            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = " + dgvProvincias.CurrentRow.Cells[0].Value, BD.getSqlConnection()); //CARGAR AL ADAPTADOR TODAS LAS CIUDADES DE LA PROVINCIA SELECCIONADA
-            DTCiudades.Clear(); //LIMPIAR EL DATATABLE DE CIUDADES DE VIEJOS REGISTROS
-            adaptador.Fill(DTCiudades); //LLENAR EL DATATABLE DE CIUDADES CON LOS NUEVOS REGISTROS
+            dgvCiudades.DataSource = null;
+            dgvCiudades.DataSource = ciudadNeg.obtenerDataTable(Int32.Parse(dgvProvincias.Rows[0].Cells[0].Value.ToString()));
+        }
+
+        private void ActualizarDgvCiudades(int idProvincia)
+        {
+            dgvCiudades.DataSource = null;
+            dgvCiudades.DataSource = ciudadNeg.obtenerDataTable(idProvincia);
         }
 
         private void ActualizarGrids()
         {
-            adaptador = new SqlDataAdapter("Select * from Provincias", BD.getSqlConnection()); //CARGAR AL ADAPTADOR TODAS LAS PROVINCIAS
-            DTProvincias.Clear(); //LIMPIAR EL DATATABLE DE PROVINCIAS DE VIEJOS REGISTROS
-            adaptador.Fill(DTProvincias); //LLENAR EL DATATABLE DE PROVINCIAS CON LOS NUEVOS REGISTROS
-
-            adaptador = new SqlDataAdapter("Select * from Ciudades where CodProvincia_Ciud = " + dgvProvincias.CurrentRow.Cells[0].Value, BD.getSqlConnection()); //CARGAR AL ADAPTADOR TODAS LAS CIUDADES DE LA PROVINCIA SELECCIONADA
-            DTCiudades.Clear(); //LIMPIAR EL DATATABLE DE CIUDADES DE VIEJOS REGISTROS
-            adaptador.Fill(DTCiudades); //LLENAR EL DATATABLE DE CIUDADES CON LOS NUEVOS REGISTROS
+           
         }
 
         private void dgvProvincias_SelectionChanged(object sender, EventArgs e)
         {
-            try
-            {
-                ActualizarDgvCiudades(); //ACTUALIZAR DATAGRID CIUDADES DE LA PROVINCIA SELECCIONADA
-            }
-            catch (Exception x){}
+            ActualizarDgvCiudades(Int32.Parse(dgvProvincias.CurrentRow.Cells[0].Value.ToString())); //ES PROBABLE QUE NECESITE UN TRY
         
             if(Entidad == PROVINCIAS && Operacion == MODIFICAR) //SI SE ESTA MODIFICANDO UNA PROVINCIA
             {
@@ -250,43 +229,16 @@ namespace Proyecto_Cine.Forms
             {
                 if (Operacion == NUEVO) //SI SE VA A AGREGAR UN NUEVO REGISTRO
                 {
-                    int NuevoCodigo = 0; //VARIABLE QUE GUARDA EL CODIGO PARA EL NUEVO REGISTRO
-
-                    if (Entidad == PROVINCIAS) //SI LA ENTIDAD QUE OPERA ES PROVINCIAS
+                   if (Entidad == PROVINCIAS) //SI LA ENTIDAD QUE OPERA ES PROVINCIAS
                     {
-                        NuevoCodigo = Int32.Parse(DTProvincias.Compute("MAX(CodProvincia_Prov)", "").ToString()) + 1; //OBTENER ULTIMO CODIGO DE PROVINCIA REGISTRADO Y SUMARLE 1
-
-                        comando = new SqlCommand("INSERT INTO Provincias (CodProvincia_Prov, Descripcion_Prov) VALUES (" + NuevoCodigo + ", '" + txtDescripcion.Text + "')", BD.getSqlConnection()); //INSERTAR EN PROVINCIAS EL NUEVO REGISTRO
-                        comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-
-                        ActualizarDgvProvincias(); //ACTUALIZAR DATAGRID PROVINCIAS
-                        ActualizarDgvCiudades(); //ACTUALIZAR DATAGRID CIUDADES
-
-                        seleccionarFilaProvincias(NuevoCodigo); //SELECCIONAR EL NUEVO REGISTRO
-
-                        ActualizarDgvCiudades(); //ACTUALIZAR EL DATAGRID CIUDADES
+                       
                         txtDescripcion.Clear(); //LIMPIAR EL TEXTBOX
                         txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
                     }
 
                     if (Entidad == CIUDADES) //SI LA ENTIDAD QUE OPERA ES CIUDADES
                     {
-                        if (dgvCiudades.RowCount != 0) //SI LA PROVINCIA TIENE CIUDADES CARGADAS
-                        {
-                            NuevoCodigo = Int32.Parse(DTCiudades.Compute("MAX(CodCiudad_Ciud)", "CodProvincia_Ciud = " + dgvProvincias.CurrentRow.Cells[0].Value).ToString()) + 1; //TOMAR EL ULTIMO CODIGO DE CIUDAD Y SUMARLE 1
-                        }
-                        else
-                        {
-                            NuevoCodigo = 1; //SI LA PROVINCIA NO TIENE CIUDADES CARGADAS, EMPEZAR POR EL CODIGO DE CIUDAD 1
-                        }
-
-                        comando = new SqlCommand("INSERT INTO Ciudades (CodProvincia_Ciud, CodCiudad_Ciud, Descripcion_Ciud) VALUES (" + dgvProvincias.CurrentRow.Cells[0].Value + ", " + NuevoCodigo + ", '" + txtDescripcion.Text + "')", BD.getSqlConnection()); //INSERTAR EN CIUDADES EL NUEVO REGISTRO
-                        comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-
-                        ActualizarDgvCiudades(); //ACTUALIZAR DATAGRID CIUDADES
-
-                        seleccionarFilaCiudades(NuevoCodigo); //SELECCIONAR EL NUEVO REGISTRO
-
+                       
                         txtDescripcion.Clear(); //LIMPIAR EL TEXTBOX
                         txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
                     }
@@ -296,39 +248,12 @@ namespace Proyecto_Cine.Forms
                 {
                     if (Entidad == PROVINCIAS) //SI LA ENTIDAD QUE OPERA ES PROVINCIAS
                     {
-                        int ProvSelectedIndex = dgvProvincias.CurrentRow.Index; //GUARDAR EL INDEX DEL REGISTRO SELECCIONADO EN PROVINCIAS
-                        int CodProvincia = Int32.Parse(dgvProvincias.CurrentRow.Cells[0].Value.ToString());
-
-                        comando = new SqlCommand("UPDATE Provincias SET Descripcion_Prov = '" + txtDescripcion.Text + "' WHERE CodProvincia_Prov = " + CodProvincia, BD.getSqlConnection()); //CONSULTA PARA ACTUALIZAR EL NOMBRE DE LA PROVINCIA
-                        comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-
-                        ActualizarDgvProvincias(); //ACTUALIZAR DATAGRID PROVINCIAS
-
-                        seleccionarFilaProvincias(CodProvincia);
-
-                        ActualizarDgvCiudades(); //ACTUALIZAR DATAGRID CIUDADES
-
-                        txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString(); //LLENAR TEXTBOX CON LA PROVINCIA SELECCIONADA
-                        txtDescripcion.SelectAll(); //SELECCIONAR TODO EL TEXTO DEL TEXTBOX
-                        txtDescripcion.Focus(); //DARLE EL FOCO AL TEXTBOX
+                        
                     }
 
                     if (Entidad == CIUDADES) //SI LA ENTIDAD QUE OPERA ES CIUDADES
                     {
-                        string CodProvincia = dgvProvincias.CurrentRow.Cells[0].Value.ToString(); //GUARDAR EL CODIGO DE LA PROVINCIA SELECCIONADA
-                        string CodCiudad = dgvCiudades.CurrentRow.Cells[1].Value.ToString(); //GUARDAR EL CODIGO DE LA CIUDAD SELECCIONADA
-                        int CiudSelectedIndex = dgvCiudades.CurrentRow.Index; //GUARDAR EL INDEX DEL REGISTRO SELECCIONADO EN CIUDADES
-
-                        comando = new SqlCommand("UPDATE Ciudades SET Descripcion_Ciud = '" + txtDescripcion.Text + "' WHERE CodProvincia_Ciud = " + CodProvincia + " AND CodCiudad_Ciud = " + CodCiudad, BD.getSqlConnection()); //ACTUALIZAR LA CIUDAD
-                        comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-
-                        ActualizarDgvCiudades(); //ACTUALIZAR DATAGRID CIUDADES
-
-                        seleccionarFilaCiudades(Int32.Parse(CodCiudad)); //VOLVER A SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO
-
-                        txtDescripcion.Text = dgvCiudades.CurrentRow.Cells[2].Value.ToString(); //LLENAR TEXTBOX CON LA CIUDAD SELECCIONADA
-                        txtDescripcion.SelectAll(); //SELECCIONAR TODO EL TEXTO DEL TEXTBOX
-                        txtDescripcion.Focus(); //DARLE EL FOCO AL TEXTBOX
+                       
                     }
                 }
             }
