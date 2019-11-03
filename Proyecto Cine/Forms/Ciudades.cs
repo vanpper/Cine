@@ -32,19 +32,21 @@ namespace Proyecto_Cine.Forms
         {
             InitializeComponent();
 
-            ActualizarDgvProvincias();
-
-            ActualizarDgvCiudades();
+            if (ActualizarDgvProvincias())
+            {
+                if(!ActualizarDgvCiudades()) MessageBox.Show("Fallo al recuperar ciudades", "Ha ocurrido un error al intentar recuperar las ciudades desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("Fallo al recuperar provincias", "Ha ocurrido un error al intentar recuperar las provincias desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             ConfigurarGrids();
-
-            
         }
 
         private void ConfigurarGrids()
         {
             dgvProvincias.Size = new Size(450, dgvProvincias.Size.Height);
-            dgvProvincias.Columns[0].Visible = false;
             dgvProvincias.ReadOnly = true;
             dgvProvincias.AllowUserToAddRows = false;
             dgvProvincias.RowHeadersVisible = false;
@@ -55,13 +57,17 @@ namespace Proyecto_Cine.Forms
             dgvProvincias.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProvincias.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProvincias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProvincias.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dgvProvincias.Sort(dgvProvincias.Columns[1], ListSortDirection.Ascending);
+            
+
+            if(dgvProvincias.DataSource != null)
+            {
+                dgvProvincias.Columns[0].Visible = false;
+                dgvProvincias.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgvProvincias.Sort(dgvProvincias.Columns[1], ListSortDirection.Ascending);
+            }
 
             dgvCiudades.Size = new Size(455, dgvCiudades.Size.Height);
             dgvCiudades.Location = new Point(480, dgvCiudades.Location.Y);
-            dgvCiudades.Columns[0].Visible = false;
-            dgvCiudades.Columns[1].Visible = false;
             dgvCiudades.ReadOnly = true;
             dgvCiudades.AllowUserToAddRows = false;
             dgvCiudades.RowHeadersVisible = false;
@@ -72,8 +78,14 @@ namespace Proyecto_Cine.Forms
             dgvCiudades.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCiudades.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCiudades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCiudades.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dgvCiudades.Sort(dgvCiudades.Columns[2], ListSortDirection.Ascending);
+            
+            if(dgvCiudades.DataSource != null)
+            {
+                dgvCiudades.Columns[0].Visible = false;
+                dgvCiudades.Columns[1].Visible = false;
+                dgvCiudades.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgvCiudades.Sort(dgvCiudades.Columns[2], ListSortDirection.Ascending);
+            }
         }
 
         private void AbrirPanel()
@@ -96,22 +108,33 @@ namespace Proyecto_Cine.Forms
             Entidad = NULL;
         }
 
-        private void ActualizarDgvProvincias()
+        private bool ActualizarDgvProvincias()
         {
-            dgvProvincias.DataSource = null;
-            dgvProvincias.DataSource = provinciaNeg.obtenerDataTable();
+            DataTable dt = provinciaNeg.obtenerTodasDataTable();
+            if (dt == null) return false;
+
+            dgvProvincias.DataSource = dt;
+            return true;
         }
 
-        private void ActualizarDgvCiudades()
+        private bool ActualizarDgvCiudades()
         {
-            dgvCiudades.DataSource = null;
-            dgvCiudades.DataSource = ciudadNeg.obtenerDataTable(Int32.Parse(dgvProvincias.Rows[0].Cells[0].Value.ToString()));
+            int idProvincia = Int32.Parse(dgvProvincias.Rows[0].Cells[0].Value.ToString());
+
+            DataTable dt = ciudadNeg.obtenerTodasDataTable(idProvincia);
+            if (dt == null) return false;
+
+            dgvCiudades.DataSource = dt;
+            return true;
         }
 
-        private void ActualizarDgvCiudades(int idProvincia)
+        private bool ActualizarDgvCiudades(int idProvincia)
         {
-            dgvCiudades.DataSource = null;
-            dgvCiudades.DataSource = ciudadNeg.obtenerDataTable(idProvincia);
+            DataTable dt = ciudadNeg.obtenerTodasDataTable(idProvincia);
+            if (dt == null) return false;
+
+            dgvCiudades.DataSource = dt;
+            return true;
         }
 
         private void ActualizarGrids()
@@ -121,237 +144,154 @@ namespace Proyecto_Cine.Forms
 
         private void dgvProvincias_SelectionChanged(object sender, EventArgs e)
         {
-            ActualizarDgvCiudades(Int32.Parse(dgvProvincias.CurrentRow.Cells[0].Value.ToString())); //ES PROBABLE QUE NECESITE UN TRY
-        
-            if(Entidad == PROVINCIAS && Operacion == MODIFICAR) //SI SE ESTA MODIFICANDO UNA PROVINCIA
+            if(ActualizarDgvCiudades(Int32.Parse(dgvProvincias.CurrentRow.Cells[0].Value.ToString())))
             {
-                try
+                if (Entidad == PROVINCIAS && Operacion == MODIFICAR)
                 {
-                    txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString(); //LLENAR TEXTBOX CON LA PROVINCIA SELECCIONADA
-                    txtDescripcion.SelectAll(); //SELECCIONAR TODO EL TEXTO DEL TEXTBOX
-                    txtDescripcion.Focus(); //DARLE EL FOCO AL TEXTBOX
+                    txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString();
+                    txtDescripcion.SelectAll();
+                    txtDescripcion.Focus();
                 }
-                catch (Exception x) { }
+
+                if (Entidad == CIUDADES && Operacion == MODIFICAR)
+                {
+                    if (dgvCiudades.RowCount == 0)
+                    {
+                        CerrarPanel();
+                    }
+                }
             }
-            
-            if(Entidad == CIUDADES && Operacion == MODIFICAR) //SI SE ESTA MODIFICANDO UNA CIUDAD
+            else
             {
-                if(dgvCiudades.RowCount == 0) //Y NO HAY CIUDADES CARGADAS EN LA PROVNCIA
-                {   
-                    CerrarPanel(); //CERRAR EL PANEL
-                }
+                MessageBox.Show("Fallo al recuperar ciudades", "Ha ocurrido un error al intentar recuperar las ciudades desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void dgvCiudades_SelectionChanged(object sender, EventArgs e)
         {
-            if(Entidad == CIUDADES && Operacion == MODIFICAR) //SI SE ESTA MODIFICANDO UNA CIUDAD
+            if(Entidad == CIUDADES && Operacion == MODIFICAR)
             {
-                try
-                {
-                    txtDescripcion.Text = dgvCiudades.CurrentRow.Cells[2].Value.ToString(); //LLENAR TEXTBOX CON LA CIUDAD SELECCIONADA
-                    txtDescripcion.SelectAll(); //SELECCIONAR TODO EL TEXTO DEL TEXTBOX
-                    txtDescripcion.Focus(); //DARLE EL FOCO AL TEXTBOX
-                }
-                catch (Exception x) { }
-            
+                txtDescripcion.Text = dgvCiudades.CurrentRow.Cells[2].Value.ToString();
+                txtDescripcion.SelectAll();
+                txtDescripcion.Focus();
             }
         }
 
         private void btnNuevaProvincia_Click(object sender, EventArgs e)
         {
-            if (panel1.Visible == false) //SI EL PANEL ESTA CERRADO
+            if (panel1.Visible == false)
             {
-                AbrirPanel(); //ABRIR EL PANEL
-                label2.Text = "AGREGAR NUEVA PROVINCIA"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                label2.Location = new Point(45,label2.Location.Y); //REACOMODAR LABEL
-                txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
-                Entidad = PROVINCIAS; //LA ENTIDAD QUE OPERA ES PROVINCIAS
-                Operacion = NUEVO; //LA OPERACION EN CURSO ES AGREGAR UN NUEVO REGISTRO
+                AbrirPanel();
+                label2.Text = "AGREGAR NUEVA PROVINCIA";
+                label2.Location = new Point(45,label2.Location.Y);
+                txtDescripcion.Focus();
+                Entidad = PROVINCIAS;
+                Operacion = NUEVO;
             }
         }
 
         private void btnNuevaCiudad_Click(object sender, EventArgs e)
         {
-            if (panel1.Visible == false) //SI EL PANEL ESTA CERRADO
+            if (panel1.Visible == false)
             {
-                AbrirPanel(); //ABRIR EL PANEL
-                label2.Text = "AGREGAR NUEVA CIUDAD"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                label2.Location = new Point(60, label2.Location.Y); //REACOMODAR LABEL
-                txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
-                Entidad = CIUDADES; //LA ENTIDAD QUE OPERA ES CIUDADES
-                Operacion = NUEVO; //LA OPERACION EN CURSO ES AGREGAR UN NUEVO REGISTRO
+                AbrirPanel();
+                label2.Text = "AGREGAR NUEVA CIUDAD";
+                label2.Location = new Point(60, label2.Location.Y);
+                txtDescripcion.Focus();
+                Entidad = CIUDADES;
+                Operacion = NUEVO;
             }
         }
 
         private void btnModificarProvincia_Click(object sender, EventArgs e)
         {
-            if (panel1.Visible == false) //SI EL PANEL ESTA CERRADO
+            if (panel1.Visible == false)
             {
-                if(dgvProvincias.RowCount != 0) //SI HAY PROVINCIAS CARGADAS
+                if(dgvProvincias.RowCount != 0)
                 {
-                    AbrirPanel(); //ABRIR EL PANEL
-                    label2.Text = "MODIFICAR PROVINCIA"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                    label2.Location = new Point(60, label2.Location.Y); //UBICAR LABEL
-                    txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString(); //CARGAR EN EL TEXTBOX LA PROVINCIA SELECCIONADA
-                    txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
-                    Entidad = PROVINCIAS; //LA ENTIDAD QUE OPERA ES PROVINCIAS
-                    Operacion = MODIFICAR; //LA OPERACION EN CURSO ES MODIFICAR UN REGISTRO EXISTENTE
+                    AbrirPanel();
+                    label2.Text = "MODIFICAR PROVINCIA";
+                    label2.Location = new Point(60, label2.Location.Y);
+                    txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString();
+                    txtDescripcion.Focus();
+                    Entidad = PROVINCIAS;
+                    Operacion = MODIFICAR;
                 }
             }
         }
 
         private void btnModificarCiudad_Click(object sender, EventArgs e)
         {
-            if (panel1.Visible == false) //SI EL PANEL ESTA CERRADO
+            if (panel1.Visible == false)
             {
-                if(dgvCiudades.RowCount != 0) //SI HAY CIUDADES CARGADAS EN LA PROVINCIA SELECCIONADA
+                if(dgvCiudades.RowCount != 0)
                 {
-                    AbrirPanel(); //ABRIR EL PANEL
-                    label2.Text = "MODIFICAR CIUDAD"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                    label2.Location = new Point(75, label2.Location.Y); //REACOMODAR LABEL
-                    txtDescripcion.Text = dgvCiudades.CurrentRow.Cells[2].Value.ToString(); //CARGAR EN EL TEXTBOX LA CIUDAD SELECCIONADA
-                    txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
-                    Entidad = CIUDADES; //LA ENTIDAD QUE OPERA ES CIUDADES
-                    Operacion = MODIFICAR; //LA OPERACION EN CURSO ES MODIFICAR UN REGISTRO EXISTENTE
+                    AbrirPanel();
+                    label2.Text = "MODIFICAR CIUDAD";
+                    label2.Location = new Point(75, label2.Location.Y);
+                    txtDescripcion.Text = dgvCiudades.CurrentRow.Cells[2].Value.ToString();
+                    txtDescripcion.Focus();
+                    Entidad = CIUDADES;
+                    Operacion = MODIFICAR;
                 }
             }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            CerrarPanel(); //CERRAR EL PANEL
+            CerrarPanel();
         }
 
-        private void Guardar()
+        private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (txtDescripcion.TextLength != 0) //SI EL TEXTBOX NO ESTA EN BLANCO
+            if (txtDescripcion.TextLength != 0)
             {
-                if (Operacion == NUEVO) //SI SE VA A AGREGAR UN NUEVO REGISTRO
+                if (Operacion == NUEVO)
                 {
-                   if (Entidad == PROVINCIAS) //SI LA ENTIDAD QUE OPERA ES PROVINCIAS
+                    if (Entidad == PROVINCIAS)
                     {
-                       
-                        txtDescripcion.Clear(); //LIMPIAR EL TEXTBOX
-                        txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
+                        Provincia provincia = new Provincia();
+                        provincia.setDescripcion(txtDescripcion.Text);
+
+                        if (provinciaNeg.agregar(provincia))
+                        {
+                            ActualizarDgvProvincias();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error", "Ha ocurrido un error al intentar agregar la nueva provincia.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        
                     }
 
-                    if (Entidad == CIUDADES) //SI LA ENTIDAD QUE OPERA ES CIUDADES
+                    if (Entidad == CIUDADES)
                     {
-                       
-                        txtDescripcion.Clear(); //LIMPIAR EL TEXTBOX
-                        txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
+
+                        
+                        
                     }
+
+                    txtDescripcion.Clear();
+                    txtDescripcion.Focus();
                 }
 
                 if (Operacion == MODIFICAR) //SI SE VA A MODIFICAR
                 {
                     if (Entidad == PROVINCIAS) //SI LA ENTIDAD QUE OPERA ES PROVINCIAS
                     {
-                        
+
                     }
 
                     if (Entidad == CIUDADES) //SI LA ENTIDAD QUE OPERA ES CIUDADES
                     {
-                       
+
                     }
                 }
             }
-            else //SI EL TEXTBOX ESTA VACIO
+            else
             {
                 MessageBox.Show("El nombre no puede quedar vacio.\nPor favor ingrese una descripcion.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            Guardar(); //GUARDAR LA OPERACION
-        }
-
-        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (Convert.ToInt32(e.KeyChar) == 13) //SI SE APRIETA ENTER CUANDO SE CREA O MODIFICA
-            {
-                Guardar(); //GUARDAR LA OPERACION
-            }
-
-            if (Convert.ToInt32(e.KeyChar) == 27) //SI SE APRIETA ESCAPE CUANDO SE CREA O MODIFICA
-            {
-                CerrarPanel(); //CERRAR EL PANEL
-            }
-        }
-
-        private void dgvProvincias_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.N) //SI LA TECLA APRETADA ES N
-            {
-                if (panel1.Visible == false) //SI EL PANEL ESTA CERRADO
-                {
-                    AbrirPanel(); //ABRIR EL PANEL
-                    label2.Text = "AGREGAR NUEVA PROVINCIA"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                    label2.Location = new Point(25, label2.Location.Y); //REACOMODAR LABEL
-                    txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
-                    Entidad = PROVINCIAS; //LA ENTIDAD QUE OPERA ES PROVINCIAS
-                    Operacion = NUEVO; //LA OPERACION EN CURSO ES AGREGAR UN NUEVO REGISTRO
-                }
-            }
-
-            if (e.KeyCode == Keys.M) //SI LA TECLA APRETADA ES M
-            {
-                if (panel1.Visible == false) //SI EL PANEL ESTA CERRADO
-                {
-                    if (dgvProvincias.RowCount != 0) //SI HAY PROVINCIAS CARGADAS
-                    {
-                        AbrirPanel(); //ABRIR EL PANEL
-                        label2.Text = "MODIFICAR PROVINCIA"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                        label2.Location = new Point(50, label2.Location.Y); //UBICAR LABEL
-                        txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString(); //CARGAR EN EL TEXTBOX LA PROVINCIA SELECCIONADA
-                        txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
-                        Entidad = PROVINCIAS; //LA ENTIDAD QUE OPERA ES PROVINCIAS
-                        Operacion = MODIFICAR; //LA OPERACION EN CURSO ES MODIFICAR UN REGISTRO EXISTENTE
-                    }
-                }
-            }
-
-            if (e.KeyCode == Keys.Right) //SI LA TECLA ES LA FLECHA DERECHA
-            {
-                if (dgvCiudades.RowCount != 0) dgvCiudades.Focus(); //SI EL DATAGRID DE CIUDADES NO ESTA VACIO, DARLE EL FOCO
-            }
-        }
-
-        private void dgvCiudades_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.N) //SI LA TECLA APRETADA ES N o n
-            {
-                if (panel1.Visible == false) //SI EL PANEL ESTA CERRADO
-                {
-                    AbrirPanel(); //ABRIR EL PANEL
-                    label2.Text = "AGREGAR NUEVA CIUDAD"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                    label2.Location = new Point(35, label2.Location.Y); //REACOMODAR LABEL
-                    txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
-                    Entidad = CIUDADES; //LA ENTIDAD QUE OPERA ES CIUDADES
-                    Operacion = NUEVO; //LA OPERACION EN CURSO ES AGREGAR UN NUEVO REGISTRO
-                }
-            }
-
-            if (e.KeyCode == Keys.M) //SI LA TECLA APRETADA ES M o m
-            {
-                if (panel1.Visible == false) //SI EL PANEL ESTA CERRADO
-                {
-                    if (dgvCiudades.RowCount != 0) //SI HAY CIUDADES CARGADAS EN LA PROVINCIA SELECCIONADA
-                    {
-                        AbrirPanel(); //ABRIR EL PANEL
-                        label2.Text = "MODIFICAR CIUDAD"; //CAMBIAR EL TEXTO DEL TITULO DE ACUERDO A LA OPERACION SELECCIONADA
-                        label2.Location = new Point(65, label2.Location.Y); //REACOMODAR LABEL
-                        txtDescripcion.Text = dgvCiudades.CurrentRow.Cells[2].Value.ToString(); //CARGAR EN EL TEXTBOX LA CIUDAD SELECCIONADA
-                        txtDescripcion.Focus(); //DARLE FOCO AL TEXTBOX
-                        Entidad = CIUDADES; //LA ENTIDAD QUE OPERA ES CIUDADES
-                        Operacion = MODIFICAR; //LA OPERACION EN CURSO ES MODIFICAR UN REGISTRO EXISTENTE
-                    }
-                }
-            }
-
-            if (e.KeyCode == Keys.Left) dgvProvincias.Focus(); //SI LA TECLA ES LA FLECHA IZQUIERDA, DARLE FOCO AL DATAGRID PROVINCIAS
         }
 
         private void seleccionarFilaProvincias(int codigo)

@@ -41,14 +41,17 @@ namespace Proyecto_Cine.Clases.Negocio
             return provinciaDao.obtener(id);
         }
 
-        public DataTable obtenerDataTable()
+        public DataTable obtenerTodasDataTable()
         {
-            DataTable dt = new DataTable();
+            List<Provincia> listaProvincias = obtenerTodasList();
 
+            if (listaProvincias == null) return null;
+
+            DataTable dt = new DataTable();
             dt.Columns.Add("Codigo");
             dt.Columns.Add("Provincia");
 
-            foreach (Provincia provincia in obtenerTodas())
+            foreach (Provincia provincia in listaProvincias)
             {
                 DataRow row = dt.NewRow();
                 row[0] = provincia.getId();
@@ -59,7 +62,7 @@ namespace Proyecto_Cine.Clases.Negocio
             return dt;
         }
 
-        public List<Provincia> obtenerTodas()
+        public List<Provincia> obtenerTodasList()
         {
             return provinciaDao.obtenerTodas();
         }

@@ -85,7 +85,6 @@
             this.dgvProvincias.Size = new System.Drawing.Size(299, 422);
             this.dgvProvincias.TabIndex = 0;
             this.dgvProvincias.SelectionChanged += new System.EventHandler(this.dgvProvincias_SelectionChanged);
-            this.dgvProvincias.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvProvincias_KeyDown);
             // 
             // dgvCiudades
             // 
@@ -97,7 +96,6 @@
             this.dgvCiudades.Size = new System.Drawing.Size(300, 422);
             this.dgvCiudades.TabIndex = 3;
             this.dgvCiudades.SelectionChanged += new System.EventHandler(this.dgvCiudades_SelectionChanged);
-            this.dgvCiudades.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvCiudades_KeyDown);
             // 
             // btnNuevaProvincia
             // 
@@ -203,7 +201,6 @@
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(215, 26);
             this.txtDescripcion.TabIndex = 6;
-            this.txtDescripcion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescripcion_KeyPress);
             // 
             // btnModificarProvincia
             // 
