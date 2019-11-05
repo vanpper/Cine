@@ -18,6 +18,8 @@ namespace Proyecto_Cine.Forms
     {
         private IProvinciaNeg provinciaNeg = new ProvinciaNeg();
         private ICiudadNeg ciudadNeg = new CiudadNeg();
+        private DataTable dtProvincias;
+        private DataTable dtCiudades;
 
         private const int NULL = 0;
         private const int NUEVO = 1;
@@ -32,16 +34,35 @@ namespace Proyecto_Cine.Forms
         {
             InitializeComponent();
 
+            iniciarDtProvincias();
+            iniciarDtCiudades();
+
             if (ActualizarDgvProvincias())
             {
-                if(!ActualizarDgvCiudades()) MessageBox.Show("Fallo al recuperar ciudades", "Ha ocurrido un error al intentar recuperar las ciudades desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if(!ActualizarDgvCiudades()) MessageBox.Show("Fallo al listar ciudades", "Ha ocurrido un error al intentar listar las ciudades desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("Fallo al recuperar provincias", "Ha ocurrido un error al intentar recuperar las provincias desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Fallo al listar provincias", "Ha ocurrido un error al intentar listar las provincias desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             ConfigurarGrids();
+        }
+        private void iniciarDtCiudades()
+        {
+            dtCiudades = new DataTable();
+            dtCiudades.Columns.Add("Codigo Provincia");
+            dtCiudades.Columns.Add("Codigo Ciudad");
+            dtCiudades.Columns.Add("Ciudad");
+            dgvCiudades.DataSource = dtCiudades;
+        }
+
+        private void iniciarDtProvincias()
+        {
+            dtProvincias = new DataTable();
+            dtProvincias.Columns.Add("Codigo");
+            dtProvincias.Columns.Add("Provincia");
+            dgvProvincias.DataSource = dtProvincias;
         }
 
         private void ConfigurarGrids()
@@ -57,14 +78,9 @@ namespace Proyecto_Cine.Forms
             dgvProvincias.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProvincias.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProvincias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            
-
-            if(dgvProvincias.DataSource != null)
-            {
-                dgvProvincias.Columns[0].Visible = false;
-                dgvProvincias.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dgvProvincias.Sort(dgvProvincias.Columns[1], ListSortDirection.Ascending);
-            }
+            dgvProvincias.Columns[0].Visible = false;
+            dgvProvincias.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dgvProvincias.Sort(dgvProvincias.Columns[1], ListSortDirection.Ascending);
 
             dgvCiudades.Size = new Size(455, dgvCiudades.Size.Height);
             dgvCiudades.Location = new Point(480, dgvCiudades.Location.Y);
@@ -78,14 +94,10 @@ namespace Proyecto_Cine.Forms
             dgvCiudades.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCiudades.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCiudades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            
-            if(dgvCiudades.DataSource != null)
-            {
-                dgvCiudades.Columns[0].Visible = false;
-                dgvCiudades.Columns[1].Visible = false;
-                dgvCiudades.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dgvCiudades.Sort(dgvCiudades.Columns[2], ListSortDirection.Ascending);
-            }
+            dgvCiudades.Columns[0].Visible = false;
+            dgvCiudades.Columns[1].Visible = false;
+            dgvCiudades.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dgvCiudades.Sort(dgvCiudades.Columns[2], ListSortDirection.Ascending);
         }
 
         private void AbrirPanel()
@@ -110,60 +122,67 @@ namespace Proyecto_Cine.Forms
 
         private bool ActualizarDgvProvincias()
         {
-            DataTable dt = provinciaNeg.obtenerTodasDataTable();
-            if (dt == null) return false;
+            List<Provincia> listaProvincias = provinciaNeg.obtenerTodasList();
+            if (listaProvincias == null) return false;
 
-            dgvProvincias.DataSource = dt;
+            dtProvincias.Clear();
+
+            foreach (Provincia provincia in listaProvincias)
+            {
+                DataRow row = dtProvincias.NewRow();
+                row[0] = provincia.getId();
+                row[1] = provincia.getDescripcion();
+                dtProvincias.Rows.Add(row);
+            }
+
             return true;
         }
 
         private bool ActualizarDgvCiudades()
         {
-            int idProvincia = Int32.Parse(dgvProvincias.Rows[0].Cells[0].Value.ToString());
+            int idProvincia = Int32.Parse(dgvProvincias.CurrentRow.Cells[0].Value.ToString());
+            List<Ciudad> listaCiudades = ciudadNeg.obtenerTodasList(idProvincia);
+            if (listaCiudades == null) return false;
 
-            DataTable dt = ciudadNeg.obtenerTodasDataTable(idProvincia);
-            if (dt == null) return false;
+            dtCiudades.Clear();
 
-            dgvCiudades.DataSource = dt;
+            foreach (Ciudad ciudad in listaCiudades)
+            {
+                DataRow row = dtCiudades.NewRow();
+                row[0] = ciudad.getProvincia().getId();
+                row[1] = ciudad.getId();
+                row[2] = ciudad.getDescripcion();
+                dtCiudades.Rows.Add(row);
+            }
+
             return true;
-        }
-
-        private bool ActualizarDgvCiudades(int idProvincia)
-        {
-            DataTable dt = ciudadNeg.obtenerTodasDataTable(idProvincia);
-            if (dt == null) return false;
-
-            dgvCiudades.DataSource = dt;
-            return true;
-        }
-
-        private void ActualizarGrids()
-        {
-           
         }
 
         private void dgvProvincias_SelectionChanged(object sender, EventArgs e)
         {
-            if(ActualizarDgvCiudades(Int32.Parse(dgvProvincias.CurrentRow.Cells[0].Value.ToString())))
+            if(dgvProvincias.RowCount != 0)
             {
-                if (Entidad == PROVINCIAS && Operacion == MODIFICAR)
+                if (ActualizarDgvCiudades())
                 {
-                    txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString();
-                    txtDescripcion.SelectAll();
-                    txtDescripcion.Focus();
-                }
-
-                if (Entidad == CIUDADES && Operacion == MODIFICAR)
-                {
-                    if (dgvCiudades.RowCount == 0)
+                    if (Entidad == PROVINCIAS && Operacion == MODIFICAR)
                     {
-                        CerrarPanel();
+                        txtDescripcion.Text = dgvProvincias.CurrentRow.Cells[1].Value.ToString();
+                        txtDescripcion.SelectAll();
+                        txtDescripcion.Focus();
+                    }
+
+                    if (Entidad == CIUDADES && Operacion == MODIFICAR)
+                    {
+                        if (dgvCiudades.RowCount == 0)
+                        {
+                            CerrarPanel();
+                        }
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Fallo al recuperar ciudades", "Ha ocurrido un error al intentar recuperar las ciudades desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    MessageBox.Show("Fallo al listar ciudades", "Ha ocurrido un error al intentar listar las ciudades desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -255,7 +274,7 @@ namespace Proyecto_Cine.Forms
 
                         if (provinciaNeg.agregar(provincia))
                         {
-                            ActualizarDgvProvincias();
+                            if (!ActualizarDgvProvincias()) MessageBox.Show("Fallo al listar provincias", "Ha ocurrido un error al intentar listar las provincias desde la base de datos.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
