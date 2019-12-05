@@ -19,6 +19,7 @@ namespace Proyecto_Cine.Clases.Dao
 
         public bool agregar(Ciudad ciudad)
         {
+            Console.WriteLine(ciudad.ToString());
             try
             {
                 conexion.abrir();
@@ -111,7 +112,7 @@ namespace Proyecto_Cine.Clases.Dao
                 IProvinciaDao provinciaDao = new ProvinciaDao();
 
                 conexion.abrir();
-                query = "SELECT TOP 1 * FROM Ciudades ORDER BY CodCiudad_Ciud DESC WHERE CodProvincia_Ciud = " + idProvincia;
+                query = "SELECT TOP 1 * FROM Ciudades WHERE CodProvincia_Ciud = " + idProvincia + " ORDER BY CodCiudad_Ciud DESC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();

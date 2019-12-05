@@ -41,32 +41,14 @@ namespace Proyecto_Cine.Clases.Negocio
             return ciudadDao.obtener(idProvincia, idCiudad);
         }
 
-        public DataTable obtenerTodasDataTable(int idProvincia)
-        {
-            List<Ciudad> listaCiudades = obtenerTodasList(idProvincia);
-
-            if (listaCiudades == null) return null;
-
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Codigo Provincia");
-            dt.Columns.Add("Codigo Ciudad");
-            dt.Columns.Add("Ciudad");
-
-            foreach (Ciudad ciudad in listaCiudades)
-            {
-                DataRow row = dt.NewRow();
-                row[0] = ciudad.getProvincia().getId();
-                row[1] = ciudad.getId();
-                row[2] = ciudad.getDescripcion();
-                dt.Rows.Add(row);
-            }
-
-            return dt;
-        }
-
-        public List<Ciudad> obtenerTodasList(int idProvincia)
+        public List<Ciudad> obtenerTodas(int idProvincia)
         {
             return ciudadDao.obtenerTodas(idProvincia);
+        }
+
+        public Ciudad obtenerUltima(int idProvincia)
+        {
+            return ciudadDao.obtenerUltima(idProvincia);
         }
     }
 }

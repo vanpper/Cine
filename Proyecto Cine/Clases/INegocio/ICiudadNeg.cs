@@ -13,7 +13,7 @@ namespace Proyecto_Cine.Clases.INegocio
         bool agregar(Ciudad ciudad);
         bool modificar(Ciudad ciudad);
         Ciudad obtener(int idProvincia, int idCiudad);
-        List<Ciudad> obtenerTodasList(int idProvincia);
-        DataTable obtenerTodasDataTable(int idProvincia);
+        Ciudad obtenerUltima(int idProvincia);
+        List<Ciudad> obtenerTodas(int idProvincia);
     }
 }
