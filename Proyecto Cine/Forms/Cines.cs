@@ -28,6 +28,7 @@ namespace Proyecto_Cine.Forms
         private const int MODIFICAR = 2;
 
         private int Operacion = NULL;
+        private bool Guardando = false;
 
         public Cines()
         {
@@ -246,27 +247,43 @@ namespace Proyecto_Cine.Forms
                     {
                         if(txtDireccion.Text.Length != 0)
                         {
+                            Guardando = true;
+
+                            Provincia provincia = new Provincia();
+                            provincia.setId(Int32.Parse(boxProvincia.SelectedValue.ToString()));
+
+                            Ciudad ciudad = new Ciudad();
+                            ciudad.setId(Int32.Parse(boxCiudad.SelectedValue.ToString()));
+                            ciudad.setProvincia(provincia);
+
+                            Cine cine = new Cine();
+                            cine.setId(Int32.Parse(dgvCines.CurrentRow.Cells[0].Value.ToString()));
+                            cine.setNombre(txtNombre.Text);
+                            cine.setCiudad(ciudad);
+                            cine.setDireccion(txtDireccion.Text);
+                            cine.setDescripcion(txtDescripcion.Text);
+                            cine.setEstado(checkActivo.Checked);
+
                             if (Operacion == NUEVO)
                             {
-                                Provincia provincia = new Provincia();
-                                provincia.setId(Int32.Parse(boxProvincia.SelectedValue.ToString()));
-
-                                Ciudad ciudad = new Ciudad();
-                                ciudad.setId(Int32.Parse(boxCiudad.SelectedValue.ToString()));
-                                ciudad.setProvincia(provincia);
-
-                                Cine cine = new Cine();
-                                cine.setNombre(txtNombre.Text);
-                                cine.setCiudad(ciudad);
-                                cine.setDireccion(txtDireccion.Text);
-                                cine.setDescripcion(txtDescripcion.Text);
-                                cine.setEstado(checkActivo.Checked);
-
                                 if(cineNeg.agregar(cine))
                                 {
                                     MessageBox.Show("Se ha agregado el cine con exito.", "Cine agregado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     limpiarCajas();
-                                    ActualizarDgvCines();
+                                    
+                                    if(ActualizarDgvCines())
+                                    {
+                                        cine = cineNeg.obtenerUltimo();
+
+                                        if (cine != null)
+                                        {
+                                            seleccionarFila(cine.getId());
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("No se ha podido actualizar la lista de cines.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
                                 }
                                 else
                                 {
@@ -276,8 +293,26 @@ namespace Proyecto_Cine.Forms
 
                             if (Operacion == MODIFICAR)
                             {
+                                if (cineNeg.modificar(cine))
+                                {
+                                    MessageBox.Show("Se ha modificado el cine con exito.", "Cine modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                                    if (ActualizarDgvCines())
+                                    {
+                                        seleccionarFila(cine.getId());
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("No se ha podido actualizar la lista de cines.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
+
+                            Guardando = false;
                         }
                         else
                         {
@@ -302,7 +337,7 @@ namespace Proyecto_Cine.Forms
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            if (Operacion == MODIFICAR)
+            if (Operacion == MODIFICAR && Guardando != true)
             {
                 txtCodigo.Text = dgvCines.CurrentRow.Cells[0].Value.ToString();
                 txtNombre.Text = dgvCines.CurrentRow.Cells[1].Value.ToString();
@@ -329,29 +364,15 @@ namespace Proyecto_Cine.Forms
 
         private void seleccionarFila(int codigo)
         {
-            for(int i=0; i<dgvCines.RowCount; i++) //RECORRER TODO EL DATAGRID
+            for(int i=0; i<dgvCines.RowCount; i++)
             {
-                if(dgvCines.Rows[i].Cells[0].Value.ToString() == codigo.ToString()) //SI LA FILA COINCIDE CON EL CODIGO
+                if(dgvCines.Rows[i].Cells[0].Value.ToString() == codigo.ToString())
                 {
-                    dgvCines.CurrentCell = dgvCines.Rows[i].Cells[1]; //SELECCIONAR EL REGISTRO
-                    dgvCines.Rows[i].Selected = true; //SELECCIONAR EL REGISTRO  
+                    dgvCines.CurrentCell = dgvCines.Rows[i].Cells[1];
+                    dgvCines.Rows[i].Selected = true;
                 }
             }
         }
 
-        private void actualizarCine()
-        {
-           
-        }
-
-        private void deshabilitarSalas(String CodCine)
-        {
-           
-        }
-
-        private void deshabilitarFunciones(String CodCine)
-        {
-            
-        }
     }
 }

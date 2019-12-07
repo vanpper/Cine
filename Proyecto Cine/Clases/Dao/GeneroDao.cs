@@ -130,7 +130,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<Genero> lista = new List<Genero>();
 
                 conexion.abrir();
-                query = "SELECT * FROM Generos";
+                query = "SELECT * FROM Generos ORDER BY Descripcion_Gene ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();

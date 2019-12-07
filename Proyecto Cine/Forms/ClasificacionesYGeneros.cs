@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Proyecto_Cine.Clases.Entidades;
+using Proyecto_Cine.Clases.INegocio;
+using Proyecto_Cine.Clases.Negocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,40 +16,94 @@ namespace Proyecto_Cine.Forms
 {
     public partial class ClasificacionesYGeneros : Form
     {
-        const int NULL = 0;
-        const int NUEVO = 1;        //CONSTANTES
-        const int MODIFICAR = 2;
+        private IClasificacionNeg clasificacionNeg = new ClasificacionNeg();
+        private IGeneroNeg generoNeg = new GeneroNeg();
+        private DataTable dtClasificaciones;
+        private DataTable dtGeneros;
 
-        Conexion BD = new Conexion();
-        SqlCommand comando;
-        SqlDataAdapter adaptador;
-        DataTable DTClasificaciones = new DataTable();
-        DataTable DTGeneros = new DataTable();
-
-        int OperacionClasificaciones = 0;   //INDICADOR DE OPERACION ACTUAL EN CLASIFICACIONES
-        int OperacionGeneros = 0;   //INDICADOR DE OPERACION ACTUAL EN GENEROS
+        private const int NULL = 0;
+        private const int NUEVO = 1;
+        private const int MODIFICAR = 2;
+        
+        private int OperacionClasificaciones = NULL;
+        private int OperacionGeneros = NULL;
+        private bool GuardandoClasificacion = false;
+        private bool GuardandoGenero = false;
+        
 
         public ClasificacionesYGeneros()
         {
             InitializeComponent();
-
-            dgvClasificaciones.DataSource = DTClasificaciones; //INDICARLE AL DATAGRID DE CLASIFICACIONES QUE SU FUENTE DE DATOS SERA EL DATATABLE CLASIFICACIONES
-            dgvGeneros.DataSource = DTGeneros; // INDICARLE AL DATAGRID DE GENEROS QUE SU FUENTE DE DATOS SERA EL DATATABLE DE GENEROS
-
-            if (BD.abrir()) //SI LA CONEXION CON LA BASE DE DATOS SE PUEDE ABRIR...
+            IniciarDtClasificaciones();
+            IniciarDtGeneros();
+            
+            if(!ActualizarDgvClasificaciones())
             {
-                ActualizarDgvClasificaciones(); //ACTUALIZAR DATAGRID CLASIFICACIONES
-                ActualizarDgvGeneros(); //ACTUALIZAR DATAGRID GENEROS
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Clasificaciones", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            ConfigurarGrids(); //CONFIGURACION RELACIONADA CON LA APARIENCIA DE LOS DATAGRID
+            if(!ActualizarDgvGeneros())
+            {
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Generos", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            ConfigurarGrids();
+        }
+
+        private void IniciarDtClasificaciones()
+        {
+            dtClasificaciones = new DataTable();
+            dtClasificaciones.Columns.Add("Codigo");
+            dtClasificaciones.Columns.Add("Clasificacion");
+            dgvClasificaciones.DataSource = dtClasificaciones;
+        }
+
+        private void IniciarDtGeneros()
+        {
+            dtGeneros = new DataTable();
+            dtGeneros.Columns.Add("Codigo");
+            dtGeneros.Columns.Add("Genero");
+            dgvGeneros.DataSource = dtGeneros;
+        }
+
+        private bool ActualizarDgvClasificaciones()
+        {
+            List<Clasificacion> listaClasificaciones = clasificacionNeg.obtenerTodas();
+            if (listaClasificaciones == null) return false;
+
+            dtClasificaciones.Clear();
+
+            foreach(Clasificacion clasificacion in listaClasificaciones)
+            {
+                DataRow row = dtClasificaciones.NewRow();
+                row[0] = clasificacion.getId();
+                row[1] = clasificacion.getDescripcion();
+                dtClasificaciones.Rows.Add(row);
+            }
+
+            return true;
+        }
+
+        private bool ActualizarDgvGeneros()
+        {
+            List<Genero> listaGeneros = generoNeg.obtenerTodos();
+            if (listaGeneros == null) return false;
+
+            dtGeneros.Clear();
+
+            foreach(Genero genero in listaGeneros)
+            {
+                DataRow row = dtGeneros.NewRow();
+                row[0] = genero.getId();
+                row[1] = genero.getDescripcion();
+                dtGeneros.Rows.Add(row);
+            }
+
+            return true;
         }
 
         private void ConfigurarGrids()
         {
-            dgvClasificaciones.Columns[0].HeaderText = "Codigo";
-            dgvClasificaciones.Columns[1].HeaderText = "Clasificaciones";
-
             dgvClasificaciones.Height = 374;
             dgvClasificaciones.Columns[0].Visible = false;
             dgvClasificaciones.ReadOnly = true;
@@ -60,10 +117,6 @@ namespace Proyecto_Cine.Forms
             dgvClasificaciones.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvClasificaciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvClasificaciones.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dgvClasificaciones.Sort(dgvClasificaciones.Columns[1], ListSortDirection.Ascending);
-
-            dgvGeneros.Columns[0].HeaderText = "Codigo";
-            dgvGeneros.Columns[1].HeaderText = "Generos";
 
             dgvGeneros.Height = 374;
             dgvGeneros.Columns[0].Visible = false;
@@ -78,231 +131,260 @@ namespace Proyecto_Cine.Forms
             dgvGeneros.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvGeneros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvGeneros.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dgvGeneros.Sort(dgvGeneros.Columns[1], ListSortDirection.Ascending);
-        }
-
-        private void ActualizarDgvClasificaciones()
-        {
-            adaptador = new SqlDataAdapter("SELECT * FROM Clasificaciones", BD.getSqlConnection()); //TRAER TODAS LAS CLASFICACIONES
-            DTClasificaciones.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTClasificaciones); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
-        }
-
-        private void ActualizarDgvGeneros()
-        {
-            adaptador = new SqlDataAdapter("SELECT * FROM Generos", BD.getSqlConnection()); //TRAER TODOS LOS GENEROS
-            DTGeneros.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTGeneros); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
         }
 
         private void AbrirPanelClasificaciones()
         {
-            dgvClasificaciones.Height = 277; //ACHICAR DATAGRID
-            panelClasificacion.Visible = true; //HACER VISIBLE EL PANEL
-            btnNuevoClasificacion.Visible = false; //OCULTAR BOTON DE NUEVO
-            btnModificarClasificacion.Visible = false; //OCULTAR BOTON DE MODIFICAR
+            dgvClasificaciones.Height = 277;
+            panelClasificacion.Visible = true;
+            btnNuevoClasificacion.Visible = false;
+            btnModificarClasificacion.Visible = false;
         }
 
         private void AbrirPanelGeneros()
         {
-            dgvGeneros.Height = 277; //ACHICAR PANEL
-            panelGenero.Visible = true; //HACER VISIBLE EL PANEL
-            btnNuevoGenero.Visible = false; //OCULTAR BOTON DE NUEVO
-            btnModificarGenero.Visible = false; //OCULTAR BOTON DE MODIFICAR
+            dgvGeneros.Height = 277;
+            panelGenero.Visible = true;
+            btnNuevoGenero.Visible = false;
+            btnModificarGenero.Visible = false;
         }
 
         private void CerrarPanelClasificaciones()
         {
-            OperacionClasificaciones = NULL; //ASIGNAR "NULO" A OPERACION ACTUAL
-            panelClasificacion.Visible = false; //HACER INVISIBLE PANEL
-            dgvClasificaciones.Height = 374; //AGRANDAR DATAGRID
-            btnNuevoClasificacion.Visible = true; //HACER VISIBLE BOTON NUEVO
-            btnModificarClasificacion.Visible = true; //HACER VISIBLE BOTON MODIFICAR
-            txtDescripcionClasificacion.Clear(); //LIMPIAR TEXTBOX
+            OperacionClasificaciones = NULL;
+            panelClasificacion.Visible = false;
+            dgvClasificaciones.Height = 374;
+            btnNuevoClasificacion.Visible = true;
+            btnModificarClasificacion.Visible = true;
+            txtDescripcionClasificacion.Clear();
         }
 
         private void CerrarPanelGeneros()
         {
-            OperacionGeneros = NULL; //ASIGNAR "NULO" A OPERACION ACTUAL
-            panelGenero.Visible = false; //HACER INVISIBLE PANEL
-            dgvGeneros.Height = 374; //AGRANDAR DATAGRID
-            btnNuevoGenero.Visible = true; //HACER VISIBLE BOTON
+            OperacionGeneros = NULL;
+            panelGenero.Visible = false;
+            dgvGeneros.Height = 374;
+            btnNuevoGenero.Visible = true;
             btnModificarGenero.Visible = true;
             txtDescripcionGenero.Clear();
         }
 
         private void btnVolverClasificacion_Click(object sender, EventArgs e)
         {
-            CerrarPanelClasificaciones(); //CERRAR EL PANEL DE CLASIFICACIONES
+            CerrarPanelClasificaciones();
         }
 
         private void btnNuevoClasificacion_Click(object sender, EventArgs e)
         {
-            OperacionClasificaciones = NUEVO; //INDICAR OPERACION ACTUAL DE CLASIFICACIONES COMO "NUEVO"
-            AbrirPanelClasificaciones(); //ABRIR EL PANEL
-            txtDescripcionClasificacion.Focus(); //PONER FOCO AL TEXTBOX
+            OperacionClasificaciones = NUEVO;
+            AbrirPanelClasificaciones();
+            txtDescripcionClasificacion.Focus();
         }
 
         private void btnModificarClasificacion_Click(object sender, EventArgs e)
         {
-            OperacionClasificaciones = MODIFICAR; //INDICAR OPERACION ACTUAL DE CLASIFICAICONES COMO "MODIFICAR"
-            AbrirPanelClasificaciones(); //ABRIR PANEL
-            txtDescripcionClasificacion.Text = dgvClasificaciones.CurrentRow.Cells[1].Value.ToString(); //LLENAR EL TEXTBOX CON EL REGISTRO QUE ESTE SELECCIONADO
-            txtDescripcionClasificacion.Focus(); //DARLE FOCO AL TEXTBOX
-            txtDescripcionClasificacion.SelectAll(); //SELECCIONAR TODO EL TEXTO
+            OperacionClasificaciones = MODIFICAR;
+            AbrirPanelClasificaciones();
+            txtDescripcionClasificacion.Text = dgvClasificaciones.CurrentRow.Cells[1].Value.ToString();
+            txtDescripcionClasificacion.Focus();
+            txtDescripcionClasificacion.SelectAll();
         }
 
         private void dgvClasificaciones_SelectionChanged(object sender, EventArgs e)
         {
-            if(OperacionClasificaciones == MODIFICAR) //SI LA OPERACION ACTUAL DE CLASFICACIONES ES "MODIFICAR"...
+            if(OperacionClasificaciones == MODIFICAR && GuardandoClasificacion != true)
             {
-                try
-                {
-                    txtDescripcionClasificacion.Text = dgvClasificaciones.CurrentRow.Cells[1].Value.ToString(); //LLENAR EL TEXTBOX CON EL NUEVO REGISTRO SELECCIONADO
-                    txtDescripcionClasificacion.Focus(); //DARLE FOCO AL TEXTBOX
-                    txtDescripcionClasificacion.SelectAll(); //SELECCIONAR TODO EL TEXTO
-                }
-                catch(Exception ex) { }
+               txtDescripcionClasificacion.Text = dgvClasificaciones.CurrentRow.Cells[1].Value.ToString();
+               txtDescripcionClasificacion.Focus();
+               txtDescripcionClasificacion.SelectAll();
             }
         }
 
         private void btnGuardarClasificacion_Click(object sender, EventArgs e)
         {
-            if(txtDescripcionClasificacion.TextLength != 0) //SI EL TEXTBOX NO ESTA VACIO...
+            if(txtDescripcionClasificacion.TextLength != 0)
             {
-                if (OperacionClasificaciones == NUEVO) //SI LA OPERACION ES "NUEVO"
+                GuardandoClasificacion = true;
+
+                Clasificacion clasificacion = new Clasificacion();
+                clasificacion.setId(Int32.Parse(dgvClasificaciones.CurrentRow.Cells[0].Value.ToString()));
+                clasificacion.setDescripcion(txtDescripcionClasificacion.Text);
+
+                if (OperacionClasificaciones == NUEVO)
                 {
-                    int NuevoCodigo = Int32.Parse(DTClasificaciones.Compute("MAX(CodClasificacion_Clas)", "").ToString()) + 1; //GENERAR NUEVO CODIGO OBTENIENDO EL ULTIMO REGISTRADO + 1
+                    if(clasificacionNeg.agregar(clasificacion))
+                    {
+                        MessageBox.Show("Se ha agregado la clasificacion con exito.", "Clasificacion agregada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtDescripcionClasificacion.Clear();
+                        txtDescripcionClasificacion.Focus();
 
-                    comando = new SqlCommand("INSERT INTO Clasificaciones (CodClasificacion_Clas, Descripcion_Clas) VALUES ("+NuevoCodigo+", '"+txtDescripcionClasificacion.Text+"')", BD.getSqlConnection()); //GENERAR CONSULTA
-                    comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
+                        if (ActualizarDgvClasificaciones())
+                        {
+                            clasificacion = clasificacionNeg.obtenerUltima();
 
-                    ActualizarDgvClasificaciones(); //ACTUALIZAR DATAGRID CLASIFICACIONES
-
-                    seleccionarClasificacion(NuevoCodigo.ToString()); //SELECCIONAR EL NUEVO REGISTRO
-
-                    txtDescripcionClasificacion.Clear(); //LIMPIAR EL TEXTBOX
-                    txtDescripcionClasificacion.Focus(); //DARLE FOCO AL TEXTBOX
+                            if (clasificacion != null)
+                            {
+                                seleccionarFilaClasificacion(clasificacion.getId());
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se ha podido actualizar la lista de Clasificaciones.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
 
-                if (OperacionClasificaciones == MODIFICAR) //SI LA OPERACION ES "MODIFICAF"
+                if (OperacionClasificaciones == MODIFICAR)
                 {
-                    String CurrentCode = dgvClasificaciones.CurrentRow.Cells[0].Value.ToString(); //OBTENER EL CODIGO DE LA FILA SELECCIONADA
-
-                    comando = new SqlCommand("UPDATE Clasificaciones SET Descripcion_Clas = '" + txtDescripcionClasificacion.Text + "' WHERE CodClasificacion_Clas = " + CurrentCode, BD.getSqlConnection()); //GENERAR CONSULTA
-                    comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-
-                    ActualizarDgvClasificaciones(); //ACTUALIZAR DATAGRID CLASIFICACIONES
-
-                    seleccionarClasificacion(CurrentCode); //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO
-
-                    txtDescripcionClasificacion.Text = dgvClasificaciones.CurrentRow.Cells[1].Value.ToString(); //LLENAR EL TEXTBOX CON EL REGISTRO
-                    txtDescripcionClasificacion.Focus(); //DARLE FOCO AL TEXTO
-                    txtDescripcionClasificacion.SelectAll(); //SELECCIONAR TOOD EL TEXTO
+                    if (clasificacionNeg.modificar(clasificacion))
+                    {
+                        MessageBox.Show("Se ha modificado la clasificacion con exito.", "Clasificacion modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        if (ActualizarDgvClasificaciones())
+                        {
+                            seleccionarFilaClasificacion(clasificacion.getId());
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se ha podido actualizar la lista de Clasificaciones.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
+
+                GuardandoClasificacion = false;
             }
-            else //SI EL TEXTBOX ESTA VACIO...
+            else
             {
-                MessageBox.Show("El nombre no puede quedar vacio", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El nombre no puede quedar vacio.", "Nombre vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void btnVolverGenero_Click(object sender, EventArgs e)
         {
-            CerrarPanelGeneros(); //CERRAR PANEL DE GENEROS
+            CerrarPanelGeneros();
         }
 
         private void btnNuevoGenero_Click(object sender, EventArgs e)
         {
-            OperacionGeneros = NUEVO; //INDICAR OPERACION ACTUAL DE GENEROS COMO "NUEVO"
-            AbrirPanelGeneros(); //ABRIR PANEL DE GENEROS
-            txtDescripcionGenero.Focus(); //DARLE FOCO AL TEXTBOX
+            OperacionGeneros = NUEVO;
+            AbrirPanelGeneros();
+            txtDescripcionGenero.Focus();
         }
 
         private void btnModificarGenero_Click(object sender, EventArgs e)
         {
-            OperacionGeneros = MODIFICAR; //INDICAR OPERACION ACTUAL DE GENEROS COMO "MODIFICAR"
-            AbrirPanelGeneros(); //ABRIR PANEL DE GENEROS
-            txtDescripcionGenero.Text = dgvGeneros.CurrentRow.Cells[1].Value.ToString(); //LLENAR TEXTBOX CON EL GENERO SELECCIONADO
-            txtDescripcionGenero.Focus(); //DARLE FOCO AL TEXTBOX
-            txtDescripcionGenero.SelectAll(); //SELECCIONAR TODO EL TEXTO
+            OperacionGeneros = MODIFICAR;
+            AbrirPanelGeneros();
+            txtDescripcionGenero.Text = dgvGeneros.CurrentRow.Cells[1].Value.ToString();
+            txtDescripcionGenero.Focus();
+            txtDescripcionGenero.SelectAll();
         }
 
         private void dgvGeneros_SelectionChanged(object sender, EventArgs e)
         {
-            if (OperacionGeneros == MODIFICAR) //SI LA OPERACION ACTUAL DE GENEROS ES "MODIFICAR"
+            if (OperacionGeneros == MODIFICAR && GuardandoGenero != true)
             {
-                try
-                {
-                    txtDescripcionGenero.Text = dgvGeneros.CurrentRow.Cells[1].Value.ToString(); //LLENAR EL TEXTO CON EL GENERO SELECCIONADO
-                    txtDescripcionGenero.Focus(); //DARLE FOCO AL TEXTBOX
-                    txtDescripcionGenero.SelectAll(); //SELECCIONAR TODO EL TEXTO
-                }
-                catch (Exception ex) { }
+                txtDescripcionGenero.Text = dgvGeneros.CurrentRow.Cells[1].Value.ToString();
+                txtDescripcionGenero.Focus();
+                txtDescripcionGenero.SelectAll();
             }
         }
 
         private void btnGuardarGenero_Click(object sender, EventArgs e)
         {
-            if(txtDescripcionGenero.TextLength != 0) //SI EL TEXTBOX NO ESTA VACIO...
+            if (txtDescripcionGenero.TextLength != 0)
             {
-                if(OperacionGeneros == NUEVO) //SI LA OPERACION ACTUAL DE GENEROS ES "NUEVO"
+                GuardandoGenero = true;
+
+                Genero genero = new Genero();
+                genero.setId(Int32.Parse(dgvGeneros.CurrentRow.Cells[0].Value.ToString()));
+                genero.setDescripcion(txtDescripcionGenero.Text);
+
+                if (OperacionGeneros == NUEVO)
                 {
-                    int NuevoCodigo = Int32.Parse(DTGeneros.Compute("MAX(CodGenero_Gene)", "").ToString()) + 1; //GENERAR NUEVO CODIGO OBTENIENDO EL ULTIMO REGISTRADO + 1
+                    if (generoNeg.agregar(genero))
+                    {
+                        MessageBox.Show("Se ha agregado el genero con exito.", "Genero agregado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtDescripcionGenero.Clear();
+                        txtDescripcionGenero.Focus();
 
-                    comando = new SqlCommand("INSERT INTO Generos (CodGenero_Gene, Descripcion_Gene) VALUES (" + NuevoCodigo + ", '" + txtDescripcionGenero.Text + "')", BD.getSqlConnection()); //GENERAR CONSULTA
-                    comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
+                        if (ActualizarDgvGeneros())
+                        {
+                            genero = generoNeg.obtenerUltimo();
 
-                    ActualizarDgvGeneros(); //ACTUALIZAR DATAGRID GENEROS
-
-                    seleccionarGenero(NuevoCodigo.ToString()); //SELECCIONAR EL NUEVO REGISTRO
-
-                    txtDescripcionGenero.Clear(); //LIMPIAR TEXTBOX
-                    txtDescripcionGenero.Focus(); //DARLE FOCO AL TEXTBOX
+                            if (genero != null)
+                            {
+                                seleccionarFilaGenero(genero.getId());
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se ha podido actualizar la lista de Generos.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
 
-                if(OperacionGeneros == MODIFICAR) //SI LA OPERACION ACTUAL DE GENEROS ES "MODIFICAR"
+                if (OperacionGeneros == MODIFICAR)
                 {
-                    String CurrentCode = dgvGeneros.CurrentRow.Cells[0].Value.ToString(); //GUARDAR EL CODIGO DE LA FILA ACTUAL
+                    if (generoNeg.modificar(genero))
+                    {
+                        MessageBox.Show("Se ha modificado el genero con exito.", "Genero modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    comando = new SqlCommand("UPDATE Generos SET Descripcion_Gene = '" + txtDescripcionGenero.Text + "' WHERE CodGenero_Gene = " + CurrentCode, BD.getSqlConnection()); //GENERAR CONSULTA
-                    comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-
-                    ActualizarDgvGeneros(); //ACTUALIZAR DATAGIRD GENEROS
-
-                    seleccionarGenero(CurrentCode); //SELECCIONAR EL REGISTRO MODIFICADO
-
-                    txtDescripcionGenero.Text = dgvGeneros.CurrentRow.Cells[1].Value.ToString(); //LLENAR EL TEXTBOX CON EL REGISTRO SELECCIONADO
-                    txtDescripcionGenero.Focus(); //DARLE FOCO AL TEXTBOX
-                    txtDescripcionGenero.SelectAll(); //SELECCIONAR TODO EL TEXTO
+                        if (ActualizarDgvGeneros())
+                        {
+                            seleccionarFilaGenero(genero.getId());
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se ha podido actualizar la lista de Generos.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
+
+                GuardandoGenero = false;
             }
-            else //SI EL TEXTBOX ESTA VACIO...
+            else
             {
-                MessageBox.Show("El nombre no puede quedar vacio", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El nombre no puede quedar vacio.", "Nombre vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private void seleccionarClasificacion(String codigo)
+        private void seleccionarFilaClasificacion(int codigo)
         {
-            for(int i=0; i<dgvClasificaciones.RowCount; i++) //RECORRER TODAS LAS CLASIFICACIONES
+            for(int i=0; i<dgvClasificaciones.RowCount; i++)
             {
-                if(dgvClasificaciones.Rows[i].Cells[0].Value.ToString() == codigo) //SI EL CODIGO DE LA FILA COINCIDE CON EL CODIGO BUSCADO
+                if(dgvClasificaciones.Rows[i].Cells[0].Value.ToString() == codigo.ToString())
                 {
-                    dgvClasificaciones.CurrentCell = dgvClasificaciones.Rows[i].Cells[1]; //SELECCIONAR FILA
-                    dgvClasificaciones.Rows[i].Selected = true; //SELECCIONAR FILA
+                    dgvClasificaciones.CurrentCell = dgvClasificaciones.Rows[i].Cells[1];
+                    dgvClasificaciones.Rows[i].Selected = true;
                 }
             }
         }
 
-        private void seleccionarGenero(String codigo)
+        private void seleccionarFilaGenero(int codigo)
         {
-            for (int i = 0; i < dgvGeneros.RowCount; i++) //RECORRER TODOS LOS GENEROS
+            for (int i = 0; i < dgvGeneros.RowCount; i++)
             {
-                if (dgvGeneros.Rows[i].Cells[0].Value.ToString() == codigo) //SI EL CODIGO DE LA FILA COINCIDE CON EL CODIGO BUSCADO
+                if (dgvGeneros.Rows[i].Cells[0].Value.ToString() == codigo.ToString())
                 {
-                    dgvGeneros.CurrentCell = dgvGeneros.Rows[i].Cells[1]; //SELECCIONAR FILA
-                    dgvGeneros.Rows[i].Selected = true; //SELECCIONAR FILA
+                    dgvGeneros.CurrentCell = dgvGeneros.Rows[i].Cells[1];
+                    dgvGeneros.Rows[i].Selected = true;
                 }
             }
         }

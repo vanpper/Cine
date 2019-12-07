@@ -12,6 +12,7 @@ namespace Proyecto_Cine.Clases.INegocio
         bool agregar(Clasificacion clasificacion);
         bool modificar(Clasificacion clasificacion);
         Clasificacion obtener(int id);
+        Clasificacion obtenerUltima();
         List<Clasificacion> obtenerTodas();
     }
 }

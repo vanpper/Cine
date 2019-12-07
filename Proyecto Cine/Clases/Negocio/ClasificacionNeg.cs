@@ -44,5 +44,10 @@ namespace Proyecto_Cine.Clases.Negocio
         {
             return dao.obtenerTodas();
         }
+
+        public Clasificacion obtenerUltima()
+        {
+            return dao.obtenerUltima();
+        }
     }
 }

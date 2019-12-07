@@ -130,7 +130,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<Clasificacion> lista = new List<Clasificacion>();
 
                 conexion.abrir();
-                query = "SELECT * FROM Clasificaciones";
+                query = "SELECT * FROM Clasificaciones ORDER BY Descripcion_Clas ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
