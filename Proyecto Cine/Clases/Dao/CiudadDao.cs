@@ -146,7 +146,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<Ciudad> lista = new List<Ciudad>();
 
                 conexion.abrir();
-                query = "SELECT * FROM Ciudades WHERE CodProvincia_Ciud = " + idProvincia;
+                query = "SELECT * FROM Ciudades WHERE CodProvincia_Ciud = " + idProvincia + " ORDER BY Descripcion_Ciud ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();

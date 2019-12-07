@@ -49,6 +49,7 @@ namespace Proyecto_Cine.Forms
 
             ConfigurarGrids();
         }
+
         private void iniciarDtCiudades()
         {
             dtCiudades = new DataTable();
@@ -81,7 +82,6 @@ namespace Proyecto_Cine.Forms
             dgvProvincias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProvincias.Columns[0].Visible = false;
             dgvProvincias.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dgvProvincias.Sort(dgvProvincias.Columns[1], ListSortDirection.Ascending);
 
             dgvCiudades.Size = new Size(455, dgvCiudades.Size.Height);
             dgvCiudades.Location = new Point(480, dgvCiudades.Location.Y);
@@ -98,7 +98,6 @@ namespace Proyecto_Cine.Forms
             dgvCiudades.Columns[0].Visible = false;
             dgvCiudades.Columns[1].Visible = false;
             dgvCiudades.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dgvCiudades.Sort(dgvCiudades.Columns[2], ListSortDirection.Ascending);
         }
 
         private void AbrirPanel()
@@ -136,12 +135,6 @@ namespace Proyecto_Cine.Forms
                 dtProvincias.Rows.Add(row);
             }
 
-            if(listaProvincias.Count != 0)
-            {
-                dgvProvincias.CurrentCell = dgvProvincias.Rows[0].Cells[1];
-                dgvProvincias.Rows[0].Selected = true;
-            }
-
             return true;
         }
 
@@ -160,12 +153,6 @@ namespace Proyecto_Cine.Forms
                 row[1] = ciudad.getId();
                 row[2] = ciudad.getDescripcion();
                 dtCiudades.Rows.Add(row);
-            }
-
-            if (listaCiudades.Count != 0)
-            {
-                dgvCiudades.CurrentCell = dgvCiudades.Rows[0].Cells[2];
-                dgvCiudades.Rows[0].Selected = true;
             }
 
             return true;

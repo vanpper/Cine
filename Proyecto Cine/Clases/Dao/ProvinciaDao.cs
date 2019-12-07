@@ -128,7 +128,7 @@ namespace Proyecto_Cine.Clases.Dao
             try
             {
                 conexion.abrir();
-                query = "SELECT * FROM Provincias";
+                query = "SELECT * FROM Provincias ORDER BY Descripcion_Prov ASC";
                 List<Provincia> lista = new List<Provincia>();
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
