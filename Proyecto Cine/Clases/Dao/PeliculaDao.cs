@@ -231,7 +231,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<Pelicula> lista = new List<Pelicula>();
 
                 conexion.abrir();
-                query = "SELECT * FROM Peliculas";
+                query = "SELECT * FROM Peliculas ORDER BY Nombre_Peli ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();

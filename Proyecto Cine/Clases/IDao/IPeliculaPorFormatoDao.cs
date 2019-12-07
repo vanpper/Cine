@@ -10,8 +10,8 @@ namespace Proyecto_Cine.Clases.IDao
     interface IPeliculaPorFormatoDao
     {
         bool agregar(PeliculaPorFormato pxf);
-        bool deshabilitar(int idPelicula, int idFormato);
-        bool habilitar(int idPelicula, int idFormato);
+        bool deshabilitar(PeliculaPorFormato pxf);
+        bool habilitar(PeliculaPorFormato pxf);
         PeliculaPorFormato obtener(int idPelicula, int idFormato);
         List<PeliculaPorFormato> obtenerTodos(int idPelicula);
     }

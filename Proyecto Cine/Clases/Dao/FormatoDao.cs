@@ -130,7 +130,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<Formato> lista = new List<Formato>();
 
                 conexion.abrir();
-                query = "SELECT * FROM Formatos";
+                query = "SELECT * FROM Formatos ORDER BY Descripcion_Form ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();

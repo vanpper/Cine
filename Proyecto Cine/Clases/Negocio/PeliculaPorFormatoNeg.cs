@@ -19,14 +19,14 @@ namespace Proyecto_Cine.Clases.Negocio
             return dao.agregar(pxf);
         }
 
-        public bool deshabilitar(int idPelicula, int idFormato)
+        public bool deshabilitar(PeliculaPorFormato pxf)
         {
-            return dao.deshabilitar(idPelicula, idFormato);
+            return dao.deshabilitar(pxf);
         }
 
-        public bool habilitar(int idPelicula, int idFormato)
+        public bool habilitar(PeliculaPorFormato pxf)
         {
-            return dao.habilitar(idPelicula, idFormato);
+            return dao.habilitar(pxf);
         }
 
         public PeliculaPorFormato obtener(int idPelicula, int idFormato)

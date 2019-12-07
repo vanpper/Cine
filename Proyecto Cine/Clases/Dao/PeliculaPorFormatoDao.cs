@@ -44,7 +44,7 @@ namespace Proyecto_Cine.Clases.Dao
             }
         }
 
-        public bool deshabilitar(int idPelicula, int idFormato)
+        public bool deshabilitar(PeliculaPorFormato pxf)
         {
             try
             {
@@ -53,9 +53,9 @@ namespace Proyecto_Cine.Clases.Dao
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 comando.Parameters.Add("@codPelicula", SqlDbType.Int);
-                comando.Parameters["@codPelicula"].Value = idPelicula;
+                comando.Parameters["@codPelicula"].Value = pxf.getPelicula().getId();
                 comando.Parameters.Add("@codFormato", SqlDbType.Int);
-                comando.Parameters["@codFormato"].Value = idFormato;
+                comando.Parameters["@codFormato"].Value = pxf.getFormato().getId();
 
                 comando.ExecuteNonQuery();
                 conexion.cerrar();
@@ -69,7 +69,7 @@ namespace Proyecto_Cine.Clases.Dao
             }
         }
 
-        public bool habilitar(int idPelicula, int idFormato)
+        public bool habilitar(PeliculaPorFormato pxf)
         {
             try
             {
@@ -78,9 +78,9 @@ namespace Proyecto_Cine.Clases.Dao
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 comando.Parameters.Add("@codPelicula", SqlDbType.Int);
-                comando.Parameters["@codPelicula"].Value = idPelicula;
+                comando.Parameters["@codPelicula"].Value = pxf.getPelicula().getId();
                 comando.Parameters.Add("@codFormato", SqlDbType.Int);
-                comando.Parameters["@codFormato"].Value = idFormato;
+                comando.Parameters["@codFormato"].Value = pxf.getFormato().getId();
 
                 comando.ExecuteNonQuery();
                 conexion.cerrar();

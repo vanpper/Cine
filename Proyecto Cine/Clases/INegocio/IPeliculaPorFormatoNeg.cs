@@ -10,8 +10,8 @@ namespace Proyecto_Cine.Clases.INegocio
     interface IPeliculaPorFormatoNeg
     {
         bool agregar(PeliculaPorFormato pxf);
-        bool deshabilitar(int idPelicula, int idFormato);
-        bool habilitar(int idPelicula, int idFormato);
+        bool deshabilitar(PeliculaPorFormato pxf);
+        bool habilitar(PeliculaPorFormato pxf);
         PeliculaPorFormato obtener(int idPelicula, int idFormato);
         List<PeliculaPorFormato> obtenerTodos(int idPelicula);
     }

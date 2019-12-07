@@ -149,11 +149,11 @@
             // 
             // btnHabilitacionPXF
             // 
-            this.btnHabilitacionPXF.Location = new System.Drawing.Point(351, 391);
+            this.btnHabilitacionPXF.Location = new System.Drawing.Point(332, 391);
             this.btnHabilitacionPXF.Name = "btnHabilitacionPXF";
-            this.btnHabilitacionPXF.Size = new System.Drawing.Size(75, 23);
+            this.btnHabilitacionPXF.Size = new System.Drawing.Size(94, 23);
             this.btnHabilitacionPXF.TabIndex = 3;
-            this.btnHabilitacionPXF.Text = "Habilitar";
+            this.btnHabilitacionPXF.Text = "Cambiar Estado";
             this.btnHabilitacionPXF.UseVisualStyleBackColor = true;
             this.btnHabilitacionPXF.Click += new System.EventHandler(this.btnHabilitacionPXF_Click);
             // 
@@ -215,7 +215,6 @@
             this.dgvPXF.Name = "dgvPXF";
             this.dgvPXF.Size = new System.Drawing.Size(412, 235);
             this.dgvPXF.TabIndex = 1;
-            this.dgvPXF.SelectionChanged += new System.EventHandler(this.dgvPXF_SelectionChanged);
             // 
             // boxPeliculas
             // 
