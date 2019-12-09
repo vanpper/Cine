@@ -27,8 +27,6 @@ namespace Proyecto_Cine.Forms
         private const int NULL = 0;
         private const int NUEVO = 1;
         private const int MODIFICAR = 2;
-        private const int HABILITADO = 3;
-        private const int DESHABILITADO = 4;
 
         private int OperacionFormatos = 0;
         private bool GuardandoFormato = false;
@@ -60,7 +58,6 @@ namespace Proyecto_Cine.Forms
             {
                 MessageBox.Show("Ha ocurrido un error al actualizar la lista de peliculas y sus formatos", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
 
             ConfigurarGrids();
         }

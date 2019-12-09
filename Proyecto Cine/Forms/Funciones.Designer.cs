@@ -311,8 +311,6 @@
             this.PtxtMinutos.Name = "PtxtMinutos";
             this.PtxtMinutos.Size = new System.Drawing.Size(57, 20);
             this.PtxtMinutos.TabIndex = 16;
-            this.PtxtMinutos.Enter += new System.EventHandler(this.PtxtMinutos_Enter);
-            this.PtxtMinutos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PtxtMinutos_KeyPress);
             // 
             // btnGuardar
             // 
@@ -351,8 +349,6 @@
             this.PtxtStock.Name = "PtxtStock";
             this.PtxtStock.Size = new System.Drawing.Size(121, 20);
             this.PtxtStock.TabIndex = 17;
-            this.PtxtStock.Enter += new System.EventHandler(this.PtxtStock_Enter);
-            this.PtxtStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PtxtStock_KeyPress);
             // 
             // PboxFormatos
             // 
@@ -380,8 +376,6 @@
             this.PtxtHora.Name = "PtxtHora";
             this.PtxtHora.Size = new System.Drawing.Size(54, 20);
             this.PtxtHora.TabIndex = 15;
-            this.PtxtHora.Enter += new System.EventHandler(this.PtxtHora_Enter);
-            this.PtxtHora.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PtxtHora_KeyPress);
             // 
             // PdtpFecha
             // 

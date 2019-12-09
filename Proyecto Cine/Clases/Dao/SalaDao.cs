@@ -201,7 +201,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<Sala> lista = new List<Sala>();
 
                 conexion.abrir();
-                query = "SELECT * FROM SalasXCine WHERE CodCine_SXC = " + idCine;
+                query = "SELECT * FROM SalasXCine WHERE CodCine_SXC = " + idCine + " ORDER BY Descripcion_SXC ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
