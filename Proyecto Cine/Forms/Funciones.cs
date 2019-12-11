@@ -603,60 +603,149 @@ namespace Proyecto_Cine.Forms
             }
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if(PboxSalas.SelectedItem != null) //SI EL BOX DE SALAS NO ESTA VACIO
-            {
-                if(PboxFormatos.SelectedItem != null) //SI EL BOX DE FORMATOS NO ESTA VACIO
-                {
-                    if (PtxtHora.TextLength != 0) //SI EL TEXTBOX HORA NO ESTA VACIO
-                    {
-                        if (PtxtMinutos.TextLength != 0) //SI EL TEXTBOX MINUTOS NO ESTA VACIO
-                        {
-                            if (PtxtStock.TextLength != 0) //SI EL TEXTBOX STOCK NO ESTA VACIO
-                            {
-                                if (OperacionActual == NUEVO) //SI SE ESTA AGREGANDO UNA NUEVA FUNCION
-                                {
-                                    
-                                }
-
-                                if (OperacionActual == MODIFICAR) //SI SE ESTA MODIFICANDO UNA FUNCION
-                                {
-                                   
-                                }
-                            }
-                            else //SI EL STOCK ESTA VACIO
-                            {
-                                MessageBox.Show("Por favor indique la cantidad de entradas en stock.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                PtxtStock.Focus();
-                            }
-                        }
-                        else //SI LOS MINUTOS ESTAN VACIOS
-                        {
-                            MessageBox.Show("Faltó completar los minutos.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            PtxtMinutos.Focus();
-                        }
-                    }
-                    else //SI LA HORA ESTA VACIA
-                    {
-                        MessageBox.Show("Faltó completar la hora.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        PtxtHora.Focus();
-                    }
-                }
-                else //SI LA PELICULA TODAVIA NO TIENE FORMATOS
-                {
-                    MessageBox.Show("La pelicula seleccionada aun no posee formatos.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else //SI EL BOX DE SALAS ESTA VACIO
-            {
-                MessageBox.Show("El cine seleccionado aun no posee salas registradas.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
         private void dgvFunciones_SelectionChanged(object sender, EventArgs e)
         {
             ActualizarContenedores();
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if(PboxCines.SelectedIndex != 0)
+            {
+                if(PboxSalas.SelectedIndex != 0)
+                {
+                    if(PboxPeliculas.SelectedIndex != 0)
+                    {
+                        if (PboxFormatos.SelectedIndex != 0)
+                        {
+                            if (PtxtHora.TextLength != 0 && PtxtMinutos.TextLength != 0)
+                            {
+                                if (PtxtStock.TextLength != 0)
+                                {
+                                    Cine cine = new Cine();
+                                    cine.setId(Int32.Parse(PboxCines.SelectedValue.ToString()));
+
+                                    Sala sala = new Sala();
+                                    sala.setId(Int32.Parse(PboxSalas.SelectedValue.ToString()));
+
+                                    Pelicula pelicula = new Pelicula();
+                                    pelicula.setId(Int32.Parse(PboxPeliculas.SelectedValue.ToString()));
+
+                                    Formato formato = new Formato();
+                                    formato.setId(Int32.Parse(PboxFormatos.SelectedValue.ToString()));
+
+                                    Fecha fecha = new Fecha(PdtpFecha.Text);
+                                    Horario horario = new Horario(PtxtHora.Text + ":" + PtxtMinutos.Text);
+
+                                    Funcion funcion = new Funcion();
+                                    funcion.setCine(cine);
+                                    funcion.setSala(sala);
+                                    funcion.setPelicula(pelicula);
+                                    funcion.setFormato(formato);
+                                    funcion.setFecha(fecha);
+                                    funcion.setHorario(horario);
+                                    funcion.setStock(Int32.Parse(PtxtStock.Text));
+                                    funcion.setEstado(PcbEstado.Checked);
+
+                                    if(!funcionNeg.comprobarExistencia(funcion))
+                                    {
+                                        if(OperacionActual == NUEVO)
+                                        {
+                                            if(funcionNeg.agregar(funcion))
+                                            {
+                                                MessageBox.Show("Se ha agregado la funcion con exito.", "Funcion agregada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                
+                                                if(ActualizarDgvFunciones())
+                                                {
+                                                    seleccionarFila(funcion);
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("No se ha podido actualizar la lista de Funciones.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+
+                                        if(OperacionActual == MODIFICAR) //NO SE PUEDE MODIFICAR FUNCION EXISTENTE
+                                        {
+                                            if(funcionNeg.modificar(funcion))
+                                            {
+                                                MessageBox.Show("Se ha modificado la funcion con exito.", "Funcion modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                                if (ActualizarDgvFunciones())
+                                                {
+                                                    seleccionarFila(funcion);
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("No se ha podido actualizar la lista de Funciones.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Ya existe una funcion con los datos seleccionados.", "Superposicion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Por favor indique la cantidad de entradas en stock.", "Sin stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Por favor complete el horario de la funcion indicando horas y minutos.", "Horario incompleto", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor seleccione un formato para la pelicula.", "Sin formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Por favor seleccione una pelicula para la funcion.", "Sin pelicula", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor seleccione una sala para la funcion.", "Sin sala", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione un cine para la funcion.", "Sin cine", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void seleccionarFila(Funcion funcion)
+        {
+            for(int i=0; i<dgvFunciones.RowCount; i++)
+            {
+                if(dgvFunciones.Rows[i].Cells[0].Value.ToString() == funcion.getCine().getId().ToString())
+                {
+                    if(dgvFunciones.Rows[i].Cells[2].Value.ToString() == funcion.getSala().getId().ToString())
+                    {
+                        if(dgvFunciones.Rows[i].Cells[4].Value.ToString() == funcion.getFecha().ToString())
+                        {
+                            if(dgvFunciones.Rows[i].Cells[5].Value.ToString() == funcion.getHorario().ToString())
+                            {
+                                dgvFunciones.CurrentCell = dgvFunciones.Rows[i].Cells[1];
+                                dgvFunciones.Rows[i].Selected = true;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

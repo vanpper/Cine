@@ -16,7 +16,14 @@ namespace Proyecto_Cine.Clases.Negocio
 
         public bool agregar(Funcion funcion)
         {
-            throw new NotImplementedException();
+            return dao.agregar(funcion);
+        }
+
+        public bool comprobarExistencia(Funcion funcion)
+        {
+            Funcion aux = dao.obtener(funcion.getCine().getId(), funcion.getSala().getId(), funcion.getFecha(), funcion.getHorario());
+            if (aux == null) return false;
+            return true;
         }
 
         public bool deshabilitar(Funcion funcion)

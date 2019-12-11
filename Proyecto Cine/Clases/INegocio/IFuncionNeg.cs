@@ -13,6 +13,7 @@ namespace Proyecto_Cine.Clases.INegocio
         bool modificar(Funcion funcion);
         bool deshabilitar(Funcion funcion);
         bool habilitar(Funcion funcion);
+        bool comprobarExistencia(Funcion funcion);
         Funcion obtener(int idCine, int idSala, Fecha fecha, Horario horario);
         List<Funcion> obtenerTodas();
     }

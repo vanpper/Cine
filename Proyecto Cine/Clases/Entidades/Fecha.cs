@@ -26,11 +26,11 @@ namespace Proyecto_Cine.Clases.Entidades
 
         public Fecha(String fecha)
         {
-            string[] partes = fecha.Split('-');
+            string[] partes = fecha.Split('/');
 
-            this.año = Int32.Parse(partes[0]);
+            this.año = Int32.Parse(partes[2]);
             this.mes = Int32.Parse(partes[1]);
-            this.dia = Int32.Parse(partes[2]);
+            this.dia = Int32.Parse(partes[0]);
         }
 
         public Fecha(int dia, int mes, int año)
@@ -78,7 +78,7 @@ namespace Proyecto_Cine.Clases.Entidades
         override
         public String ToString()
         {
-            return dia + "-" + mes + "-" + año;
+            return this.dia + "-" + this.mes + "-" + this.año;
         }
     }
 }
