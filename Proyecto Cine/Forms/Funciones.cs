@@ -95,6 +95,11 @@ namespace Proyecto_Cine.Forms
                 }
             }
 
+            if(!ActualizarDgvFunciones())
+            {
+                MessageBox.Show("Ha ocurrido un error al actualizar el listado de Funciones", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             ConfigurarGrid();
         }
 
@@ -372,6 +377,34 @@ namespace Proyecto_Cine.Forms
 
             PboxFormatos.DisplayMember = "Nombre";
             PboxFormatos.ValueMember = "Codigo";
+
+            return true;
+        }
+
+        private bool ActualizarDgvFunciones()
+        {
+            List<Funcion> lista = funcionNeg.obtenerTodas();
+            if (lista == null) return false;
+
+            dtFunciones.Clear();
+
+            foreach(Funcion funcion in lista)
+            {
+                DataRow row = dtFunciones.NewRow();
+                row[0] = funcion.getCine().getId();
+                row[1] = funcion.getCine().getNombre();
+                row[2] = funcion.getSala().getId();
+                row[3] = funcion.getSala().getDescripcion();
+                row[4] = funcion.getFecha().ToString();
+                row[5] = funcion.getHorario().ToString();
+                row[6] = funcion.getPelicula().getId();
+                row[7] = funcion.getPelicula().getNombre();
+                row[8] = funcion.getFormato().getId();
+                row[9] = funcion.getFormato().getDescripcion();
+                row[10] = funcion.getStock();
+                row[11] = funcion.getEstado();
+                dtFunciones.Rows.Add(row);
+            }
 
             return true;
         }
