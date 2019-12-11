@@ -51,20 +51,48 @@ namespace Proyecto_Cine.Forms
             {
                 MessageBox.Show("Error al cargar la lista de cines de la barra superior de busqueda.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+                if(!ActualizarBoxSalas_A())
+                {
+                    MessageBox.Show("Error al cargar la lista de salas de la barra superior de busqueda.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
 
             if (!ActualizarBoxPeliculas_A())
             {
                 MessageBox.Show("Error al cargar la lista de peliculas de la barra superior de busqueda.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if(!ActualizarBoxFormatos_A())
+                {
+                    MessageBox.Show("Error al cargar la lista de formatos de la barra superior de busqueda.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             if (!ActualizarBoxCines_B())
             {
                 MessageBox.Show("Error al cargar la lista de cines de la barra inferior.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+                if (!ActualizarBoxSalas_B())
+                {
+                    MessageBox.Show("Error al cargar la lista de salas de la barra inferior.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
 
             if (!ActualizarBoxPeliculas_B())
             {
                 MessageBox.Show("Error al cargar la lista de peliculas de la barra inferior.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if (!ActualizarBoxFormatos_B())
+                {
+                    MessageBox.Show("Error al cargar la lista de formatos de la barra inferior.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             ConfigurarGrid();
@@ -348,9 +376,6 @@ namespace Proyecto_Cine.Forms
             return true;
         }
 
-
-
-
         private void ConfigurarGrid()
         {
             dgvFunciones.Height = 348;
@@ -372,24 +397,24 @@ namespace Proyecto_Cine.Forms
             dgvFunciones.Sort(dgvFunciones.Columns[1], ListSortDirection.Ascending);
         }
 
-
         private void AbrirPanel()
         {
-            dgvFunciones.Height = 253; //ACHICAR DATAGRID
-            panel2.Visible = true; //HACER VISIBLE EL PANEL
-            btnNuevo.Visible = false; //OCULTAR BOTON "NUEVO"
-            btnModificar.Visible = false; //OCULTAR BOTON "MODIFICAR"
+            dgvFunciones.Height = 253;
+            panel2.Visible = true;
+            btnNuevo.Visible = false;
+            btnModificar.Visible = false;
         }
 
         private void CerrarPanel()
         {
-            OperacionActual = NULL; //SETEAR OPERACION ACTUAL COMO NULO
-            panel2.Visible = false; //OCULTAR PANEL
-            dgvFunciones.Height = 348; //AGRANDAR DATAGRID
-            btnNuevo.Visible = true; //MOSTRAR BOTON "NUEVO"
-            btnModificar.Visible = true; //MOSTRAR BOTON "MODIFICAR"
+            OperacionActual = NULL;
+            panel2.Visible = false;
+            dgvFunciones.Height = 348;
+            btnNuevo.Visible = true;
+            btnModificar.Visible = true;
         }
 
+        //REVISAR
         private void FiltarDatos()
         {
             //TODAS LAS COMBINACIONES POSIBLES DE LOS CHECKBOXS DEL PANEL SUPERIOR DE BUSQUEDA
@@ -409,7 +434,7 @@ namespace Proyecto_Cine.Forms
             if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
             if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
             if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue; }
+            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "\"Codigo Cine\" = " + boxCines.SelectedValue; }
 
             if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
             if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
@@ -429,148 +454,84 @@ namespace Proyecto_Cine.Forms
             if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = null; }
         }
 
-       
-
-        
-
+        //INCOMPLETO
         private void boxCines_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ActualizarBoxSalas_A();
-
-            if (cbCine.Checked) //SI EL CHECKBOX DEL BOX CINE ESTA HABILITADO, AL CAMBIAR EL INDEX, TAMBIEN...
+            if (!ActualizarBoxSalas_A())
             {
-                FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-                if(OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-                {
-                    CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-                }
+                MessageBox.Show("Error al cargar la lista de salas del cine seleccionado.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+
         private void cbCine_CheckedChanged(object sender, EventArgs e)
         {
-            FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-            if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-            {
-                CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-            }
+            
         }
 
         private void cbSala_CheckedChanged(object sender, EventArgs e)
         {
-            FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-            if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-            {
-                CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-            }
+            
         }
 
         private void cbFecha_CheckedChanged(object sender, EventArgs e)
         {
-            FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-            if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-            {
-                CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-            }
+            
         }
 
         private void cbPelicula_CheckedChanged(object sender, EventArgs e)
         {
-            FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-            if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-            {
-                CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-            }
+            
         }
 
         private void cbFormato_CheckedChanged(object sender, EventArgs e)
         {
-            FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-            if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-            {
-                CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-            }
+            
         }
 
         private void boxSalas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbSala.Checked) //SI EL CHECKBOX DEL BOX SALAS ESTA HABILITADO, AL CAMBIAR EL INDEX, TAMBIEN...
-            {
-                FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-                if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-                {
-                    CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-                }
-            }
+            
         }
 
         private void dtpFecha_ValueChanged(object sender, EventArgs e)
         {
-            if (cbFecha.Checked) //SI EL CHECKBOX DEL DATE TIME PICKER ESTA HABILITADO, AL CAMBIAR LA FECHA, TAMBIEN...
-            {
-                FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-                if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-                {
-                    CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-                }
-            }
+            
         }
 
+        //INCOMPLETO
         private void boxPeliculas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ActualizarBoxFormatos_A();
-
-            if (cbPelicula.Checked) //SI EL CHECKBOX DEL BOX PELICULAS ESTA HABILITADO, AL CAMBIAR EL INDEX, TAMBIEN...
+            if(!ActualizarBoxFormatos_A())
             {
-                FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-                if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-                {
-                    CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-                }
+                MessageBox.Show("Error al cargar la lista de formatos de la pelicula seleccionada.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void boxFormatos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbFormato.Checked)
-            {
-                FiltarDatos(); //FILTRAR LOS DATOS EN EL DATAGRID DE ACUERDO A LOS CHECKBOXS SELECCIONADOS
-
-                if (OperacionActual == MODIFICAR && dgvFunciones.RowCount == 0) //SI EL PANEL INFERIOR ESTA ABIERTO Y EL RESULTADO DE LA BUSQUEDA NO ARROJA ALGUN RESULTADO...
-                {
-                    CerrarPanel(); //CERRAR EL PANEL DE MODIFICACION
-                }
-            }
+            
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            OperacionActual = NUEVO; //SETEAR OPERACION ACTUAL COMO "NUEVO"
-            AbrirPanel(); //ABRIR EL PANEL INFERIOR
+            OperacionActual = NUEVO;
+            AbrirPanel();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if(dgvFunciones.RowCount > 0) //SI EL DATAGRID TIENE ALGUN REGISTRO
+            if(dgvFunciones.RowCount > 0)
             {
-                OperacionActual = MODIFICAR; //SETEAR OPERACION ACTUAL COMO "MODIFICAR"
-                AbrirPanel(); //ABRIR EL PANEL INFERIOR
+                OperacionActual = MODIFICAR;
+                AbrirPanel();
                 ActualizarContenedores();
             }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            CerrarPanel(); //CERRAR EL PANEL INFERIOR
+            CerrarPanel();
         }
 
         private void PboxCines_SelectedIndexChanged(object sender, EventArgs e)
@@ -589,16 +550,9 @@ namespace Proyecto_Cine.Forms
             }
         }
 
-        private bool VerificarExistenciaDeRegistro()
-        {
-            return false;
-        }
-
         private void ActualizarContenedores()
         {   
-            //ACTUALIZAR CADA CONTENEDOR CON LOS DATOS DEL REGISTRO SELECCIONADO EN EL DATAGRIDVIEW
-
-            try
+            if(OperacionActual == MODIFICAR && dgvFunciones.CurrentRow != null)
             {
                 PboxCines.SelectedValue = dgvFunciones.CurrentRow.Cells[0].Value;
                 PboxSalas.SelectedValue = dgvFunciones.CurrentRow.Cells[2].Value;
@@ -606,15 +560,14 @@ namespace Proyecto_Cine.Forms
                 PboxFormatos.SelectedValue = dgvFunciones.CurrentRow.Cells[8].Value;
                 PdtpFecha.Value = DateTime.Parse(dgvFunciones.CurrentRow.Cells[4].Value.ToString());
 
-                string Horario = dgvFunciones.CurrentRow.Cells[5].Value.ToString(); //GUARDAR EL HORARIO "HH:MM" EN LA VARIABLE
-                string[] partes = Horario.Split(':'); //DIVIDIR EL HORARIO EN HORAS Y MINUTOS
-                PtxtHora.Text = partes[0]; //PASAR LAS HORAS AL TEXTBOX HORA
-                PtxtMinutos.Text = partes[1]; //PASAR LOS MINUTOS AL TEXTBOX MINUTOS
+                string Horario = dgvFunciones.CurrentRow.Cells[5].Value.ToString();
+                string[] partes = Horario.Split(':');
+                PtxtHora.Text = partes[0];
+                PtxtMinutos.Text = partes[1];
 
                 PtxtStock.Text = dgvFunciones.CurrentRow.Cells[10].Value.ToString();
                 PcbEstado.Checked = bool.Parse(dgvFunciones.CurrentRow.Cells[11].Value.ToString());
             }
-            catch (Exception ex) { }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -631,27 +584,12 @@ namespace Proyecto_Cine.Forms
                             {
                                 if (OperacionActual == NUEVO) //SI SE ESTA AGREGANDO UNA NUEVA FUNCION
                                 {
-                                    if (VerificarExistenciaDeRegistro() != true) //CORROBORAR QUE LOS DATOS ELEGIDOS NO EXISTAN EN LA BASE DE DATOS
-                                    {
-                                       
-                                    }
-                                    else //SI YA EXISTE UNA PELICULA EN LOS DATOS ELEGIDOS
-                                    {
-                                        MessageBox.Show("En el cine elegido, sala, dia y horario, ya existe una funcion programada.", "Funcion existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
+                                    
                                 }
 
                                 if (OperacionActual == MODIFICAR) //SI SE ESTA MODIFICANDO UNA FUNCION
                                 {
-                                    try
-                                    {
-                                        
-                                        
-                                    }
-                                    catch(Exception ex)
-                                    {
-                                        MessageBox.Show("Es probable que los datos seleccionados ya se encuentren registrados en una funcion.\nCorrobore la existencia de dicha funcion a traves del menu superior de busqueda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
+                                   
                                 }
                             }
                             else //SI EL STOCK ESTA VACIO
@@ -685,10 +623,7 @@ namespace Proyecto_Cine.Forms
 
         private void dgvFunciones_SelectionChanged(object sender, EventArgs e)
         {
-            if(OperacionActual == MODIFICAR) //SI SE ESTA MODIFICANDO
-            {
-                ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES CON LOS DATOS DEL DATAGRID
-            }
+            ActualizarContenedores();
         }
     }
 }
