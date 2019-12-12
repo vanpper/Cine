@@ -10,7 +10,7 @@ namespace Proyecto_Cine.Clases.INegocio
     interface IFuncionNeg
     {
         bool agregar(Funcion funcion);
-        bool modificar(Funcion funcion);
+        bool modificar(Funcion funcion, Funcion old);
         bool deshabilitar(Funcion funcion);
         bool habilitar(Funcion funcion);
         bool comprobarExistencia(Funcion funcion);

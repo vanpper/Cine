@@ -33,6 +33,15 @@ namespace Proyecto_Cine.Clases.Entidades
             this.dia = Int32.Parse(partes[0]);
         }
 
+        public Fecha(String fecha, int x)
+        {
+            string[] partes = fecha.Split('-');
+
+            this.año = Int32.Parse(partes[2]);
+            this.mes = Int32.Parse(partes[1]);
+            this.dia = Int32.Parse(partes[0]);
+        }
+
         public Fecha(int dia, int mes, int año)
         {
             this.dia = dia;

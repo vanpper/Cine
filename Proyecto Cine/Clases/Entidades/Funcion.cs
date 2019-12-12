@@ -115,6 +115,19 @@ namespace Proyecto_Cine.Clases.Entidades
         }
 
         override
+        public bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            Funcion funcion = (Funcion)obj;
+            if (this.cine.getId() != funcion.getCine().getId()) return false;
+            if (this.sala.getId() != funcion.getSala().getId()) return false;
+            if (this.fecha.ToString() != funcion.getFecha().ToString()) return false;
+            if (this.horario.ToString() != funcion.getHorario().ToString()) return false;
+
+            return true;
+        }
+
+        override
         public String ToString()
         {
             return "cine = [" + this.cine.ToString() + "], sala = [" + this.sala.ToString() + "], fecha = [" + this.fecha.ToString() + "], horario = [" + this.horario.ToString() + "], " +

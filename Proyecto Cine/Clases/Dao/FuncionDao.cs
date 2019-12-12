@@ -112,13 +112,13 @@ namespace Proyecto_Cine.Clases.Dao
             }
         }
 
-        public bool modificar(Funcion funcion)
+        public bool modificar(Funcion funcion, Funcion old)
         {
             try
             {
                 conexion.abrir();
-                query = "UPDATE Funciones SET CodPelicula_Func = @codPelicula, CodFormato_Func = @codFormato, Stock_Func = @stock, Estado_Func = @estado " +
-                        "WHERE CodCine_Func = @codCine AND CodSala_Func = @codSala AND Dia_Func = @dia AND Horario_Func = @horario";
+                query = "UPDATE Funciones SET CodCine_Func = @codCine, CodSala_Func = @codSala, Dia_Func = @dia, Horario_Func = @horario, CodPelicula_Func = @codPelicula, CodFormato_Func = @codFormato, Stock_Func = @stock, Estado_Func = @estado " +
+                        "WHERE CodCine_Func = @codCineOld AND CodSala_Func = @codSalaOld AND Dia_Func = @diaOld AND Horario_Func = @horarioOld";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 comando.Parameters.Add("@codCine", SqlDbType.Int);
@@ -137,6 +137,15 @@ namespace Proyecto_Cine.Clases.Dao
                 comando.Parameters["@stock"].Value = funcion.getStock();
                 comando.Parameters.Add("@estado", SqlDbType.Bit);
                 comando.Parameters["@estado"].Value = funcion.getEstado();
+
+                comando.Parameters.Add("@codCineOld", SqlDbType.Int);
+                comando.Parameters["@codCineOld"].Value = old.getCine().getId();
+                comando.Parameters.Add("@codSalaOld", SqlDbType.Int);
+                comando.Parameters["@codSalaOld"].Value = old.getSala().getId();
+                comando.Parameters.Add("@diaOld", SqlDbType.Date);
+                comando.Parameters["@diaOld"].Value = old.getFecha().ToString();
+                comando.Parameters.Add("@horarioOld", SqlDbType.VarChar);
+                comando.Parameters["@horarioOld"].Value = old.getHorario().getHHMM();
 
                 comando.ExecuteNonQuery();
                 conexion.cerrar();

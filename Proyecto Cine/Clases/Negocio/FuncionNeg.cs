@@ -36,9 +36,9 @@ namespace Proyecto_Cine.Clases.Negocio
             return dao.habilitar(funcion);
         }
 
-        public bool modificar(Funcion funcion)
+        public bool modificar(Funcion funcion, Funcion old)
         {
-            return dao.modificar(funcion);
+            return dao.modificar(funcion, old);
         }
 
         public Funcion obtener(int idCine, int idSala, Fecha fecha, Horario horario)

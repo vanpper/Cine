@@ -35,6 +35,7 @@ namespace Proyecto_Cine.Forms
         private const int NULL = 0;
         private const int NUEVO = 1;
         private const int MODIFICAR = 2;
+        private bool Guardando = false;
 
         private int OperacionActual = NULL;
 
@@ -546,9 +547,23 @@ namespace Proyecto_Cine.Forms
             
         }
 
+        private void limpiarCajas()
+        {
+            PboxCines.SelectedIndex = 0;
+            PboxSalas.SelectedIndex = 0;
+            PboxPeliculas.SelectedIndex = 0;
+            PboxFormatos.SelectedIndex = 0;
+            PdtpFecha.Value = DateTime.Today;
+            PtxtHora.Clear();
+            PtxtMinutos.Clear();
+            PtxtStock.Clear();
+            PcbEstado.Checked = true;
+        }
+
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             OperacionActual = NUEVO;
+            limpiarCajas();
             AbrirPanel();
         }
 
@@ -585,7 +600,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarContenedores()
         {   
-            if(OperacionActual == MODIFICAR && dgvFunciones.CurrentRow != null)
+            if(OperacionActual == MODIFICAR && Guardando != true)
             {
                 PboxCines.SelectedValue = dgvFunciones.CurrentRow.Cells[0].Value;
                 PboxSalas.SelectedValue = dgvFunciones.CurrentRow.Cells[2].Value;
@@ -622,6 +637,8 @@ namespace Proyecto_Cine.Forms
                             {
                                 if (PtxtStock.TextLength != 0)
                                 {
+                                    Guardando = true;
+
                                     Cine cine = new Cine();
                                     cine.setId(Int32.Parse(PboxCines.SelectedValue.ToString()));
 
@@ -647,15 +664,15 @@ namespace Proyecto_Cine.Forms
                                     funcion.setStock(Int32.Parse(PtxtStock.Text));
                                     funcion.setEstado(PcbEstado.Checked);
 
-                                    if(!funcionNeg.comprobarExistencia(funcion))
+                                    if (OperacionActual == NUEVO)
                                     {
-                                        if(OperacionActual == NUEVO)
+                                        if (!funcionNeg.comprobarExistencia(funcion))
                                         {
-                                            if(funcionNeg.agregar(funcion))
+                                            if (funcionNeg.agregar(funcion))
                                             {
                                                 MessageBox.Show("Se ha agregado la funcion con exito.", "Funcion agregada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                
-                                                if(ActualizarDgvFunciones())
+
+                                                if (ActualizarDgvFunciones())
                                                 {
                                                     seleccionarFila(funcion);
                                                 }
@@ -669,10 +686,32 @@ namespace Proyecto_Cine.Forms
                                                 MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                             }
                                         }
-
-                                        if(OperacionActual == MODIFICAR) //NO SE PUEDE MODIFICAR FUNCION EXISTENTE
+                                        else
                                         {
-                                            if(funcionNeg.modificar(funcion))
+                                            MessageBox.Show("Ya existe una funcion con los datos seleccionados.", "Superposicion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        }
+                                    }
+
+                                    if (OperacionActual == MODIFICAR)
+                                    {
+                                        Cine cineold = new Cine();
+                                        cineold.setId(Int32.Parse(dgvFunciones.CurrentRow.Cells[0].Value.ToString()));
+
+                                        Sala salaold = new Sala();
+                                        salaold.setId(Int32.Parse(dgvFunciones.CurrentRow.Cells[2].Value.ToString()));
+
+                                        Fecha fechaold = new Fecha(dgvFunciones.CurrentRow.Cells[4].Value.ToString(), 0);
+                                        Horario horarioold = new Horario(dgvFunciones.CurrentRow.Cells[5].Value.ToString());
+
+                                        Funcion old = new Funcion();
+                                        old.setCine(cineold);
+                                        old.setSala(salaold);
+                                        old.setFecha(fechaold);
+                                        old.setHorario(horarioold);
+
+                                        if(funcion.Equals(old))
+                                        {
+                                            if (funcionNeg.modificar(funcion, old))
                                             {
                                                 MessageBox.Show("Se ha modificado la funcion con exito.", "Funcion modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -690,11 +729,36 @@ namespace Proyecto_Cine.Forms
                                                 MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                             }
                                         }
+                                        else
+                                        {
+                                            if (!funcionNeg.comprobarExistencia(funcion))
+                                            {
+                                                if (funcionNeg.modificar(funcion, old))
+                                                {
+                                                    MessageBox.Show("Se ha modificado la funcion con exito.", "Funcion modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                                    if (ActualizarDgvFunciones())
+                                                    {
+                                                        seleccionarFila(funcion);
+                                                    }
+                                                    else
+                                                    {
+                                                        MessageBox.Show("No se ha podido actualizar la lista de Funciones.", "Fallo actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Ya existe una funcion con los datos seleccionados.", "Superposicion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            }
+                                        }
                                     }
-                                    else
-                                    {
-                                        MessageBox.Show("Ya existe una funcion con los datos seleccionados.", "Superposicion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
+
+                                    Guardando = false;
                                 }
                                 else
                                 {
