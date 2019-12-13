@@ -448,43 +448,40 @@ namespace Proyecto_Cine.Forms
             btnModificar.Visible = true;
         }
 
-        //REVISAR
         private void FiltarDatos()
         {
-            //TODAS LAS COMBINACIONES POSIBLES DE LOS CHECKBOXS DEL PANEL SUPERIOR DE BUSQUEDA
+            if (cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Sala] = " + boxSalas.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "' AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Sala] = " + boxSalas.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "' AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue; }
+            if (cbCine.Checked && cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Sala] = " + boxSalas.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (cbCine.Checked && cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Sala] = " + boxSalas.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "'"; }
+            if (cbCine.Checked && cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Sala] = " + boxSalas.SelectedValue + " AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (cbCine.Checked && cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Sala] = " + boxSalas.SelectedValue + " AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue; }
+            if (cbCine.Checked && cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Sala] = " + boxSalas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (cbCine.Checked && cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Sala] = " + boxSalas.SelectedValue; }
+            if (cbCine.Checked && !cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "' AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (cbCine.Checked && !cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "' AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue; }
+            if (cbCine.Checked && !cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "' AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (cbCine.Checked && !cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "'"; }
+            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue; }
+            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Cine] = " + boxCines.SelectedValue; }
 
-            if (cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "Codigo Cine = " + boxCines.SelectedValue + " AND CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
-            if (cbCine.Checked && cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "'"; }
-            if (cbCine.Checked && cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + boxSalas.SelectedValue + " AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + boxSalas.SelectedValue + " AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
-            if (cbCine.Checked && cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + boxSalas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodSala_Func = " + boxSalas.SelectedValue; }
-            if (cbCine.Checked && !cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && !cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
-            if (cbCine.Checked && !cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && !cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "'"; }
-            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
-            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodCine_Func = " + boxCines.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "\"Codigo Cine\" = " + boxCines.SelectedValue; }
-
-            if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
-            if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND Dia_Func = '" + dtpFecha.Text + "'"; }
-            if (!cbCine.Checked && cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (!cbCine.Checked && cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
-            if (!cbCine.Checked && cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (!cbCine.Checked && cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodSala_Func = " + boxSalas.SelectedValue; }
-            if (!cbCine.Checked && !cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (!cbCine.Checked && !cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "Dia_Func = '" + dtpFecha.Text + "' AND CodPelicula_Func = " + boxPeliculas.SelectedValue; }
-            if (!cbCine.Checked && !cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "Dia_Func = '" + dtpFecha.Text + "' AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (!cbCine.Checked && !cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "Dia_Func = '" + dtpFecha.Text + "'"; }
-            if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodPelicula_Func = " + boxPeliculas.SelectedValue + " AND CodFormato_Func = " + boxFormatos.SelectedValue; }
-            if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodPelicula_Func = " + boxPeliculas.SelectedValue; }
-            if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "CodFormato_Func = " + boxFormatos.SelectedValue; }
+            if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Sala] = " + boxSalas.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "' AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Sala] = " + boxSalas.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "' AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue; }
+            if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Sala] = " + boxSalas.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (!cbCine.Checked && cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Sala] = " + boxSalas.SelectedValue + " AND [Dia] = '" + dtpFecha.Text + "'"; }
+            if (!cbCine.Checked && cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Sala] = " + boxSalas.SelectedValue + " AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (!cbCine.Checked && cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Sala] = " + boxSalas.SelectedValue + " AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue; }
+            if (!cbCine.Checked && cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Sala] = " + boxSalas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (!cbCine.Checked && cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Sala] = " + boxSalas.SelectedValue; }
+            if (!cbCine.Checked && !cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Dia] = '" + dtpFecha.Text + "' AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (!cbCine.Checked && !cbSala.Checked && cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Dia] = '" + dtpFecha.Text + "' AND [Codigo Pelicula] = " + boxPeliculas.SelectedValue; }
+            if (!cbCine.Checked && !cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Dia] = '" + dtpFecha.Text + "' AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (!cbCine.Checked && !cbSala.Checked && cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Dia] = '" + dtpFecha.Text + "'"; }
+            if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Pelicula] = " + boxPeliculas.SelectedValue + " AND [Codigo Formato] = " + boxFormatos.SelectedValue; }
+            if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Pelicula] = " + boxPeliculas.SelectedValue; }
+            if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = "[Codigo Formato] = " + boxFormatos.SelectedValue; }
             if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = null; }
         }
 
@@ -494,6 +491,23 @@ namespace Proyecto_Cine.Forms
             if (!ActualizarBoxSalas_A())
             {
                 MessageBox.Show("Error al cargar la lista de salas del cine seleccionado.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (cbCine.Checked)
+            {
+                FiltarDatos();
+
+                if(OperacionActual == MODIFICAR)
+                {
+                    if(dgvFunciones.RowCount != 0)
+                    {
+                        ActualizarContenedores();
+                    }
+                    else
+                    {
+                        CerrarPanel();
+                    }
+                }
             }
         }
 
@@ -540,6 +554,7 @@ namespace Proyecto_Cine.Forms
             {
                 MessageBox.Show("Error al cargar la lista de formatos de la pelicula seleccionada.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void boxFormatos_SelectedIndexChanged(object sender, EventArgs e)
@@ -569,7 +584,7 @@ namespace Proyecto_Cine.Forms
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if(dgvFunciones.RowCount > 0)
+            if(dgvFunciones.RowCount != 0)
             {
                 OperacionActual = MODIFICAR;
                 AbrirPanel();
@@ -600,7 +615,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarContenedores()
         {   
-            if(OperacionActual == MODIFICAR && Guardando != true)
+            if(OperacionActual == MODIFICAR && Guardando != true && dgvFunciones.CurrentRow != null)
             {
                 PboxCines.SelectedValue = dgvFunciones.CurrentRow.Cells[0].Value;
                 PboxSalas.SelectedValue = dgvFunciones.CurrentRow.Cells[2].Value;
