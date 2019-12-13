@@ -485,7 +485,6 @@ namespace Proyecto_Cine.Forms
             if (!cbCine.Checked && !cbSala.Checked && !cbFecha.Checked && !cbPelicula.Checked && !cbFormato.Checked) { dtFunciones.DefaultView.RowFilter = null; }
         }
 
-        //INCOMPLETO
         private void boxCines_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!ActualizarBoxSalas_A())
@@ -511,43 +510,131 @@ namespace Proyecto_Cine.Forms
             }
         }
 
-
         private void cbCine_CheckedChanged(object sender, EventArgs e)
         {
-            
+            FiltarDatos();
+
+            if (OperacionActual == MODIFICAR)
+            {
+                if (dgvFunciones.RowCount != 0)
+                {
+                    ActualizarContenedores();
+                }
+                else
+                {
+                    CerrarPanel();
+                }
+            }
         }
 
         private void cbSala_CheckedChanged(object sender, EventArgs e)
         {
-            
+            FiltarDatos();
+
+            if (OperacionActual == MODIFICAR)
+            {
+                if (dgvFunciones.RowCount != 0)
+                {
+                    ActualizarContenedores();
+                }
+                else
+                {
+                    CerrarPanel();
+                }
+            }
         }
 
         private void cbFecha_CheckedChanged(object sender, EventArgs e)
         {
-            
+            FiltarDatos();
+
+            if (OperacionActual == MODIFICAR)
+            {
+                if (dgvFunciones.RowCount != 0)
+                {
+                    ActualizarContenedores();
+                }
+                else
+                {
+                    CerrarPanel();
+                }
+            }
         }
 
         private void cbPelicula_CheckedChanged(object sender, EventArgs e)
         {
-            
+            FiltarDatos();
+
+            if (OperacionActual == MODIFICAR)
+            {
+                if (dgvFunciones.RowCount != 0)
+                {
+                    ActualizarContenedores();
+                }
+                else
+                {
+                    CerrarPanel();
+                }
+            }
         }
 
         private void cbFormato_CheckedChanged(object sender, EventArgs e)
         {
-            
+            FiltarDatos();
+
+            if (OperacionActual == MODIFICAR)
+            {
+                if (dgvFunciones.RowCount != 0)
+                {
+                    ActualizarContenedores();
+                }
+                else
+                {
+                    CerrarPanel();
+                }
+            }
         }
 
         private void boxSalas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (cbSala.Checked)
+            {
+                FiltarDatos();
+
+                if (OperacionActual == MODIFICAR)
+                {
+                    if (dgvFunciones.RowCount != 0)
+                    {
+                        ActualizarContenedores();
+                    }
+                    else
+                    {
+                        CerrarPanel();
+                    }
+                }
+            }
         }
 
         private void dtpFecha_ValueChanged(object sender, EventArgs e)
         {
-            
+            if (cbFecha.Checked)
+            {
+                FiltarDatos();
+
+                if (OperacionActual == MODIFICAR)
+                {
+                    if (dgvFunciones.RowCount != 0)
+                    {
+                        ActualizarContenedores();
+                    }
+                    else
+                    {
+                        CerrarPanel();
+                    }
+                }
+            }
         }
 
-        //INCOMPLETO
         private void boxPeliculas_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(!ActualizarBoxFormatos_A())
@@ -555,11 +642,42 @@ namespace Proyecto_Cine.Forms
                 MessageBox.Show("Error al cargar la lista de formatos de la pelicula seleccionada.", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            if (cbPelicula.Checked)
+            {
+                FiltarDatos();
+
+                if (OperacionActual == MODIFICAR)
+                {
+                    if (dgvFunciones.RowCount != 0)
+                    {
+                        ActualizarContenedores();
+                    }
+                    else
+                    {
+                        CerrarPanel();
+                    }
+                }
+            }
         }
 
         private void boxFormatos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (cbFormato.Checked)
+            {
+                FiltarDatos();
+
+                if (OperacionActual == MODIFICAR)
+                {
+                    if (dgvFunciones.RowCount != 0)
+                    {
+                        ActualizarContenedores();
+                    }
+                    else
+                    {
+                        CerrarPanel();
+                    }
+                }
+            }
         }
 
         private void limpiarCajas()
