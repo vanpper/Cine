@@ -183,9 +183,9 @@
             // 
             this.boxClasificacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.boxClasificacion.FormattingEnabled = true;
-            this.boxClasificacion.Location = new System.Drawing.Point(167, 118);
+            this.boxClasificacion.Location = new System.Drawing.Point(194, 118);
             this.boxClasificacion.Name = "boxClasificacion";
-            this.boxClasificacion.Size = new System.Drawing.Size(121, 21);
+            this.boxClasificacion.Size = new System.Drawing.Size(143, 21);
             this.boxClasificacion.TabIndex = 1;
             // 
             // boxGenero
@@ -194,7 +194,7 @@
             this.boxGenero.FormattingEnabled = true;
             this.boxGenero.Location = new System.Drawing.Point(16, 118);
             this.boxGenero.Name = "boxGenero";
-            this.boxGenero.Size = new System.Drawing.Size(121, 21);
+            this.boxGenero.Size = new System.Drawing.Size(143, 21);
             this.boxGenero.TabIndex = 1;
             // 
             // txtDescripcion

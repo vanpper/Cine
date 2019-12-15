@@ -9,115 +9,170 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Proyecto_Cine.Clases.INegocio;
+using Proyecto_Cine.Clases.Negocio;
+using Proyecto_Cine.Clases.Entidades;
 
 namespace Proyecto_Cine.Forms
 {
     public partial class Peliculas : Form
     {
-        const int NULL = 0;
-        const int NUEVO = 1;        //CONSTANTES
-        const int MODIFICAR = 2;
+        private IPeliculaNeg peliculaNeg = new PeliculaNeg();
+        private IClasificacionNeg clasificacionNeg = new ClasificacionNeg();
+        private IGeneroNeg generoNeg = new GeneroNeg();
+        private DataTable dtPeliculas;
+        private DataTable dtClasificaciones;
+        private DataTable dtGeneros;
 
-        Conexion BD = new Conexion();
-        DataTable DTPeliculas = new DataTable();
-        DataTable DTGeneros = new DataTable();
-        DataTable DTClasificaciones = new DataTable();
-        SqlDataAdapter adaptador;
-        SqlCommand comando;
-
-        int OperacionActual = 0; //INDICADOR DE OPERACION ACTUAL
+        private const int NULL = 0;
+        private const int NUEVO = 1;
+        private const int MODIFICAR = 2;
+        
+        private int OperacionActual = NULL;
+        private bool Guardando = false;
 
         public Peliculas()
         {
             InitializeComponent();
+            IniciarDtPeliculas();
+            IniciarDtClasificaciones();
+            IniciarDtGeneros();
 
-            dgvPeliculas.DataSource = DTPeliculas; //INDICARLE AL DATAGRID PELICULAS QUE SU FUENTE DE DATOS SERA EL DATATABLE PELICULAS
-            boxGenero.DataSource = DTGeneros; //INDICARLE AL BOX GENEROS QUE SU FUENTE DE DATOS SERA EL DATATABLE GENEROS
-            boxClasificacion.DataSource = DTClasificaciones; //INDICARLE AL BOX CLASIFICACIONES QUE SU FUENTE DE DATOS SERA EL DATATABLE CLASIFICACIONES
-
-            if (BD.abrir()) //SI LA CONEXION CON LA BASE DE DATOS SE PUEDE ABRIR...
+            if (!ActualizarBoxClasificaciones())
             {
-                ActualizarDgvPeliculas(); //ACTUALIZAR EL DATAGRID PELICULAS
-                ActualizarBoxGeneros(); //ACTUALIZAR EL BOX DE GENEROS
-                ActualizarBoxClasificaciones(); //ACTUALIZAR EL BOX DE CLASIFICAICONES
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Clasificaciones", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            ConfigurarGrids(); //CONFIGURACION RELACIONADA CON LA APARIENCIA DEL DATAGRID
-        }
-
-        private void ActualizarContenedores()
-        {
-            try
+            if (!ActualizarBoxGeneros())
             {
-                //LLENAR CADA ELEMENTO CON LOS DATOS DE LA PELICULA SELECCIONADA EN EL DATAGRID
-                txtNombre.Text = dgvPeliculas.CurrentRow.Cells[1].Value.ToString();
-                txtDuracion.Text = dgvPeliculas.CurrentRow.Cells[2].Value.ToString();
-                txtActores.Text = dgvPeliculas.CurrentRow.Cells[3].Value.ToString();
-                txtDirectores.Text = dgvPeliculas.CurrentRow.Cells[4].Value.ToString();
-                boxGenero.SelectedValue = dgvPeliculas.CurrentRow.Cells[5].Value;
-                boxClasificacion.SelectedValue = dgvPeliculas.CurrentRow.Cells[7].Value;
-                cbEstado.Checked = Boolean.Parse(dgvPeliculas.CurrentRow.Cells[11].Value.ToString());
-                txtDescripcion.Text = dgvPeliculas.CurrentRow.Cells[9].Value.ToString();
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Generos", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-                if(dgvPeliculas.CurrentRow.Cells[10].Value.ToString() != "") //SI LA PELICULA SELECCIONADA TIENE UNA IMAGEN CARGADA...
-                {
-                    MemoryStream buffer = new MemoryStream((byte[])dgvPeliculas.CurrentRow.Cells[10].Value); //LLENAR EL BUFFER CON LA IMAGEN
-                    pictureBox1.Image = Image.FromStream(buffer); //PASAR LA IMAGEN DEL BUFFER AL PICTURE BOX
-                }
-                else //SI LA PELICULA NO TIENE UNA IMAGEN CARGADA...
-                {
-                    pictureBox1.Image = null; //VACIAR EL PICTURE BOX
-                }
-            } catch (Exception ex) { }
+            if (!ActualizarDgvPeliculas())
+            {
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Peliculas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            ConfigurarGrids();
         }
 
-        private void ActualizarBoxClasificaciones()
+        private void IniciarDtPeliculas()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Clasificaciones", BD.getSqlConnection()); //TRAER TODAS LAS CLASIFICACIONES
-            DTClasificaciones.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTClasificaciones); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
-
-            DTClasificaciones.DefaultView.Sort = "Descripcion_Clas"; //ORDENAR CLASIFICACIONES ALFABETICAMENTE
-
-            boxClasificacion.DisplayMember = "Descripcion_Clas"; //LO QUE SE VERA SERA LA DESCRIPCION DE CADA CLASIFICACION
-            boxClasificacion.ValueMember = "CodClasificacion_Clas"; //CADA MIEMBRO TENDRA COMO VALOR EL CODIGO DE CLASIFICACION CORRESPONDIENTE
+            dtPeliculas = new DataTable();
+            dtPeliculas.Columns.Add("Codigo Pelicula");
+            dtPeliculas.Columns.Add("Nombre");
+            dtPeliculas.Columns.Add("Duracion");
+            dtPeliculas.Columns.Add("Actores");
+            dtPeliculas.Columns.Add("Director");
+            dtPeliculas.Columns.Add("Codigo Genero");
+            dtPeliculas.Columns.Add("Codigo Clasificacion");
+            dtPeliculas.Columns.Add("Descripcion");
+            dtPeliculas.Columns.Add("Portada", typeof(byte[]));
+            dtPeliculas.Columns.Add("Estado");
+            dgvPeliculas.DataSource = dtPeliculas;
         }
 
-        private void ActualizarBoxGeneros()
+        private void IniciarDtClasificaciones()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Generos", BD.getSqlConnection()); //TRAER TODOS LOS GENEROS
-            DTGeneros.Clear(); //LIMPIAR EL DATATABLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTGeneros);  //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+            dtClasificaciones = new DataTable();
+            dtClasificaciones.Columns.Add("Codigo");
+            dtClasificaciones.Columns.Add("Descripcion");
+            boxClasificacion.DataSource = dtClasificaciones;
+        }
 
-            DTGeneros.DefaultView.Sort = "Descripcion_Gene"; //ORDENAR GENEROS ALFABETICAMENTE
+        private void IniciarDtGeneros()
+        {
+            dtGeneros = new DataTable();
+            dtGeneros.Columns.Add("Codigo");
+            dtGeneros.Columns.Add("Descripcion");
+            boxGenero.DataSource = dtGeneros;
+        }
 
-            boxGenero.DisplayMember = "Descripcion_Gene"; //LO QUE SE VERA SERA LA DESCRIPCION DE CADA GENERO
-            boxGenero.ValueMember = "CodGenero_Gene"; //CADA MIEMBRO TENDRA COMO VALOR EL CODIGO DE GENERO CORRESPONDIENTE
+        private bool ActualizarDgvPeliculas()
+        {
+            List<Pelicula> lista = peliculaNeg.obtenerTodas();
+            if (lista == null) return false;
+
+            dtPeliculas.Clear();
+
+            foreach(Pelicula pelicula in lista)
+            {
+                DataRow row = dtPeliculas.NewRow();
+                row[0] = pelicula.getId();
+                row[1] = pelicula.getNombre();
+                row[2] = pelicula.getDuracion();
+                row[3] = pelicula.getActores();
+                row[4] = pelicula.getDirector();
+                row[5] = pelicula.getGenero().getId();
+                row[6] = pelicula.getClasificacion().getId();
+                row[7] = pelicula.getDescripcion();
+                row[8] = pelicula.getImagen();
+                row[9] = pelicula.getEstado();
+                dtPeliculas.Rows.Add(row);
+            }
+
+            return true;
+        }
+
+        private bool ActualizarBoxClasificaciones()
+        {
+            List<Clasificacion> lista = clasificacionNeg.obtenerTodas();
+            if (lista == null) return false;
+
+            dtClasificaciones.Clear();
+
+            DataRow firstRow = dtClasificaciones.NewRow();
+            firstRow[0] = 0;
+            firstRow[1] = "--- CLASIFICACIONES ---";
+            dtClasificaciones.Rows.Add(firstRow);
+
+            foreach (Clasificacion clasificacion in lista)
+            {
+                DataRow row = dtClasificaciones.NewRow();
+                row[0] = clasificacion.getId();
+                row[1] = clasificacion.getDescripcion();
+                dtClasificaciones.Rows.Add(row);
+            }
+
+            boxClasificacion.DisplayMember = "Descripcion";
+            boxClasificacion.ValueMember = "Codigo";
+
+            return true;
+        }
+
+        private bool ActualizarBoxGeneros()
+        {
+            List<Genero> lista = generoNeg.obtenerTodos();
+            if (lista == null) return false;
+
+            dtGeneros.Clear();
+
+            DataRow firstRow = dtGeneros.NewRow();
+            firstRow[0] = 0;
+            firstRow[1] = "--- GENEROS ---";
+            dtGeneros.Rows.Add(firstRow);
+
+            foreach (Genero genero in lista)
+            {
+                DataRow row = dtGeneros.NewRow();
+                row[0] = genero.getId();
+                row[1] = genero.getDescripcion();
+                dtGeneros.Rows.Add(row);
+            }
+
+            boxGenero.DisplayMember = "Descripcion";
+            boxGenero.ValueMember = "Codigo";
+
+            return true;
         }
 
         private void ConfigurarGrids()
         {
-            dgvPeliculas.Columns[0].HeaderText = "Codigo";
-            dgvPeliculas.Columns[1].HeaderText = "Peliculas";
-            dgvPeliculas.Columns[2].HeaderText = "Duracion";
-            dgvPeliculas.Columns[3].HeaderText = "Actores";
-            dgvPeliculas.Columns[4].HeaderText = "Directores";
-            dgvPeliculas.Columns[5].HeaderText = "Codigo Genero";
-            dgvPeliculas.Columns[6].HeaderText = "Genero";
-            dgvPeliculas.Columns[7].HeaderText = "Codigo Clasificacion";
-            dgvPeliculas.Columns[8].HeaderText = "Clasificacion";
-            dgvPeliculas.Columns[9].HeaderText = "Descripcion";
-            dgvPeliculas.Columns[10].HeaderText = "Portada";
-            dgvPeliculas.Columns[11].HeaderText = "Estado";
-
-            for(int i = 0; i < dgvPeliculas.ColumnCount; i++)
+            for (int i = 0; i < dgvPeliculas.ColumnCount; i++)
             {
-                if(i != 1)
-                {
-                    dgvPeliculas.Columns[i].Visible = false;
-                }
+                if (i != 1) dgvPeliculas.Columns[i].Visible = false;
             }
-            
+
             dgvPeliculas.ReadOnly = true;
             dgvPeliculas.AllowUserToAddRows = false;
             dgvPeliculas.RowHeadersVisible = false;
@@ -129,18 +184,31 @@ namespace Proyecto_Cine.Forms
             dgvPeliculas.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvPeliculas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPeliculas.Sort(dgvPeliculas.Columns[1], ListSortDirection.Ascending);
-
-            for (int i = 0; i < dgvPeliculas.ColumnCount; i++)
-            {
-                dgvPeliculas.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
+            dgvPeliculas.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
-        private void ActualizarDgvPeliculas()
+        private void ActualizarContenedores()
         {
-            adaptador = new SqlDataAdapter("SELECT CodPelicula_Peli, Nombre_Peli, Duracion_Peli, Actores_Peli, Director_Peli, CodGenero_Peli, Descripcion_Gene, CodClasificacion_Peli, Descripcion_Clas, Descripcion_Peli, Portada_Peli, Estado_Peli FROM Peliculas INNER JOIN Generos ON CodGenero_Peli = CodGenero_Gene INNER JOIN Clasificaciones ON CodClasificacion_Clas = CodClasificacion_Peli", BD.getSqlConnection()); //TRAER TODAS LAS PELICULAS
-            DTPeliculas.Clear(); //LIMPIAR EL DATATBLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTPeliculas); //LLENAR EL DATATABLE CON LOS NUEVOS REGISTROS
+            if(OperacionActual != NUEVO && dgvPeliculas.CurrentRow != null && Guardando != true)
+            {
+                txtNombre.Text = dgvPeliculas.CurrentRow.Cells[1].Value.ToString();
+                txtDuracion.Text = dgvPeliculas.CurrentRow.Cells[2].Value.ToString();
+                txtActores.Text = dgvPeliculas.CurrentRow.Cells[3].Value.ToString();
+                txtDirectores.Text = dgvPeliculas.CurrentRow.Cells[4].Value.ToString();
+                boxGenero.SelectedValue = dgvPeliculas.CurrentRow.Cells[5].Value;
+                boxClasificacion.SelectedValue = dgvPeliculas.CurrentRow.Cells[6].Value;
+                txtDescripcion.Text = dgvPeliculas.CurrentRow.Cells[7].Value.ToString();
+                cbEstado.Checked = Boolean.Parse(dgvPeliculas.CurrentRow.Cells[9].Value.ToString());
+
+                if (dgvPeliculas.CurrentRow.Cells[8].Value.ToString() != "")
+                {
+                    pictureBox1.Image = Image.FromStream(new MemoryStream((byte[])dgvPeliculas.CurrentRow.Cells[8].Value));
+                }
+                else
+                {
+                    pictureBox1.Image = null;
+                }
+            }
         }
 
         private void btnImagen_Click(object sender, EventArgs e)
@@ -151,37 +219,34 @@ namespace Proyecto_Cine.Forms
                 openFileDialog1.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
                 openFileDialog1.FileName = "";
 
-
-                if (openFileDialog1.ShowDialog() == DialogResult.OK) //ABRIR VENTANA PARA SELECCIONAR ARCHIVO. SI SE SELECCIONO UN ARCHIVO...
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    string imagen = openFileDialog1.FileName; //GUARDAR LA RUTA DE LA IMAGEN
-                    pictureBox1.Image = Image.FromFile(imagen); //CARGAR ESA IMAGEN A TRAVES DE LA RUTA AL PICTURE BOX
+                    string imagen = openFileDialog1.FileName;
+                    pictureBox1.Image = Image.FromFile(imagen);
                 }
             }
-            catch (Exception ex) //SI EL ARCHIVO SELECCIONADO NO ES UNA IMAGEN...
+            catch (Exception ex)
             {
                 MessageBox.Show("El archivo seleccionado no es un tipo de imagen válido");
+                Console.WriteLine(ex.Message);
                 pictureBox1.Image = null;
             }
         }
 
         private void dgvPeliculas_SelectionChanged(object sender, EventArgs e)
         {
-            if(OperacionActual != NUEVO) //SI NO SE ESTA AGREGANDO UNA NUEVA PELICULA
-            {
-                ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES DE DATOS CON LA PELICULA SELECCIONADA
-            }
+            ActualizarContenedores();
 
-            if(OperacionActual == MODIFICAR) placeholderTextbox(); //CONTROL POR SI LOS TEXTBOX ESTAN EN BLANCO. HAY QUE PONER EL TEXTO GUIA
+            if(OperacionActual == MODIFICAR) placeholderTextbox();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            OperacionActual = NUEVO; //INDICAR QUE LA OPERACION ACTUAL ES "NUEVO"
+            OperacionActual = NUEVO;
 
             txtNombre.ReadOnly = false;
             txtDuracion.ReadOnly = false;
-            txtActores.ReadOnly = false;    //HABILITAR CONTENEDORES PARA INGRESAR DATOS
+            txtActores.ReadOnly = false;
             txtDirectores.ReadOnly = false;
             txtDescripcion.ReadOnly = false;
             cbEstado.Checked = true;
@@ -189,7 +254,7 @@ namespace Proyecto_Cine.Forms
             txtNombre.Clear();
             txtDuracion.Clear();
             txtActores.Clear();
-            txtDirectores.Clear();      //LIMPIAR CONTENEDORES
+            txtDirectores.Clear();
             txtDescripcion.Clear();
             boxGenero.SelectedIndex = 0;
             boxClasificacion.SelectedIndex = 0;
@@ -197,223 +262,291 @@ namespace Proyecto_Cine.Forms
 
             txtNombre.Text = "Nombre";
             txtDuracion.Text = "Duracion";
-            txtActores.Text = "Actores";            //TEXTO QUE DESCRIBE QUE ES CADA TEXTBOX
+            txtActores.Text = "Actores";
             txtDirectores.Text = "Directores";
             txtDescripcion.Text = "Descripcion";
 
             txtNombre.ForeColor = Color.Gray;
             txtDuracion.ForeColor = Color.Gray;
-            txtActores.ForeColor = Color.Gray;      //COLOR PARA LOS TEXTBOXS
+            txtActores.ForeColor = Color.Gray;
             txtDirectores.ForeColor = Color.Gray;
             txtDescripcion.ForeColor = Color.Gray;
             this.ActiveControl = null;
 
             btnAgregarImagen.Visible = true;
             btnBorrarImagen.Visible = true;
-            btnGuardar.Visible = true;          //OCULTAR BOTONES QUE NO SE UTILIZARAN PARA DICHA OPERACION
-            btnVolver.Visible = true;           //MOSTRAR BOTONES QUE SE UTILIZARAN PARA DICHA OPERACION
+            btnGuardar.Visible = true;
+            btnVolver.Visible = true;
             btnNuevo.Visible = false;
             btnModificar.Visible = false;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            OperacionActual = NULL; //INDICAR QUE LA OPERACION ACTUAL ES "NULO"
-            ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES CON LA PELICULA SELECCIONADA
+            OperacionActual = NULL;
+            ActualizarContenedores();
 
             txtNombre.ReadOnly = true;
             txtDuracion.ReadOnly = true;
-            txtActores.ReadOnly = true;     //INHABILITAR LOS CONTENEDORES PARA EL INGRESO DE DATOS
+            txtActores.ReadOnly = true;
             txtDirectores.ReadOnly = true;
             txtDescripcion.ReadOnly = true;
 
             btnAgregarImagen.Visible = false;
             btnBorrarImagen.Visible = false;
-            btnNuevo.Visible = true;            //OCULTAR BOTONES QUE NO SE UTILIZARAN PARA DICHA OPERACION
-            btnModificar.Visible = true;        //MOSTRAR BOTONES QUE SE UTILIZARAN PARA DICHA OPERACION
+            btnNuevo.Visible = true;
+            btnModificar.Visible = true;
             btnVolver.Visible = false;
             btnGuardar.Visible = false;
-            
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            OperacionActual = MODIFICAR; //INDICAR QUE LA OPERACION ACTUAL ES "MODIFICAR"
+            OperacionActual = MODIFICAR;
 
             txtNombre.Focus();
             txtNombre.ReadOnly = false;
             txtDuracion.ReadOnly = false;
-            txtActores.ReadOnly = false;        //HABILITAR LOS CONTENEDORES PARA EL INGRESO DE DATOS
+            txtActores.ReadOnly = false;
             txtDirectores.ReadOnly = false;
             txtDescripcion.ReadOnly = false;
 
-            placeholderTextbox(); //CONTROL POR SI LOS TEXTBOX ESTAN EN BLANCO. HAY QUE PONER EL TEXTO GUIA
-            txtNombre.ForeColor = Color.Black; //COLOR NEGRO POR SI QUEDO EN GRIS
+            placeholderTextbox();
+            txtNombre.ForeColor = Color.Black;
 
             btnAgregarImagen.Visible = true;
             btnBorrarImagen.Visible = true;
-            btnVolver.Visible = true;           //OCULTAR BOTONES QUE NO SE UTILIZARAN PARA DICHA OPERACION
-            btnGuardar.Visible = true;          //MOSTRAR BOTONES QUE SE UTILIZARAN PARA DICHA OPERACION
+            btnVolver.Visible = true;
+            btnGuardar.Visible = true;
             btnNuevo.Visible = false;
             btnModificar.Visible = false;
-
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (!(txtNombre.Text == "Nombre" || txtNombre.Text == "")) //SI EL TEXTBOX NOMBRE TIENE ALGO ESCRITO 
+            if(txtNombre.ForeColor != Color.Gray)
             {
-                if (OperacionActual == MODIFICAR) //SI SE ESTA MODIFICANDO
+                if(boxGenero.SelectedIndex != 0)
                 {
-                    if(dgvPeliculas.CurrentRow.Cells[11].Value.ToString() == "True" && cbEstado.Checked == false) //SI SE VA A DESHABILITAR LA PELICULA
+                    if(boxClasificacion.SelectedIndex != 0)
                     {
-                        DialogResult resultado = MessageBox.Show("Al deshabilitar la pelicula, tambien sera deshabilitada en todos sus formatos.\nPara volver a habilitar cada formato debera hacerlo manualmente.\n¿Desea continuar?", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        Guardando = true;
 
-                        if(resultado == DialogResult.Yes) //SI SE ELIGIO "SI"
+                        Genero genero = new Genero();
+                        genero.setId(Int32.Parse(boxGenero.SelectedValue.ToString()));
+
+                        Clasificacion clasificacion = new Clasificacion();
+                        clasificacion.setId(Int32.Parse(boxClasificacion.SelectedValue.ToString()));
+
+                        Pelicula pelicula = new Pelicula();
+                        pelicula.setId(Int32.Parse(dgvPeliculas.CurrentRow.Cells[0].Value.ToString()));
+                        pelicula.setNombre(txtNombre.Text);
+                        pelicula.setEstado(cbEstado.Checked);
+                        pelicula.setGenero(genero);
+                        pelicula.setClasificacion(clasificacion);
+
+                        if(txtDuracion.ForeColor != Color.Gray) pelicula.setDuracion(Int32.Parse(txtDuracion.Text));
+                        if(txtActores.ForeColor != Color.Gray) pelicula.setActores(txtActores.Text);
+                        if(txtDirectores.ForeColor != Color.Gray) pelicula.setDirector(txtDirectores.Text);
+                        if(txtDescripcion.ForeColor != Color.Gray) pelicula.setDescripcion(txtDescripcion.Text);
+
+
+                        //pelicula.setImagen(pictureBox1.im);
+
+                        if (OperacionActual == NUEVO)
                         {
-                            modificarPelicula(); //MODIFICAR LA PELICULA EN LA BASE DE DATOS
-                            deshabilitarPeliculasXFormato(); //DESHABILITAR LA PELICULA EN SUS VARIOS FORMATOS
+                            if(peliculaNeg.agregar(pelicula))
+                            {
+                                if(ActualizarDgvPeliculas())
+                                {
+                                    MessageBox.Show("Se ha agregado la pelicula con exito.", "Pelicula agregada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    limpiarCajas();
+
+                                    pelicula = peliculaNeg.obtenerUltima();
+
+                                    if(pelicula != null)
+                                    {
+                                        seleccionarRegistro(pelicula.getId());
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Ha ocurrido un error al actualizar la lista de Peliculas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
+
+                        if(OperacionActual == MODIFICAR)
+                        {
+
+                        }
+
+                        Guardando = false;
                     }
-                    else //SI LA MODIFICACION NO TIENE QUE VER CON DESHABILITAR LA PELICULA
+                    else
                     {
-                        modificarPelicula(); //SIMPLEMENTE MODIFICAR
+                        MessageBox.Show("Debe seleccionar una clasificacion para la pelicula.", "Sin clasificacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-
-                if (OperacionActual == NUEVO)
+                else
                 {
-                    agregarPelicula(); //AGREGAR PELICULA A LA BASE DE DATOS
+                    MessageBox.Show("Debe seleccionar un genero para la pelicula.", "Sin genero", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("La pelicula debe contener un nombre.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El nombre no puede quedar vacio.", "Nombre vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void btnBorrarImagen_Click(object sender, EventArgs e)
         {
-            if(pictureBox1.Image != null) //SI EL PICTURE BOX TIENE UNA IMAGEN CARGADA
+            if(pictureBox1.Image != null)
             {
-                pictureBox1.Image = null; //LIMPIAR
+                pictureBox1.Image = null;
             }
         }
 
         private void txtNombre_Enter(object sender, EventArgs e)
         {
-            if(txtNombre.Text == "Nombre") //SI CUANDO SE SELECCIONO EL TEXTBOX, ESTA ESCRITO EL TEXTO GUIA...
+            if(txtNombre.Text == "Nombre")
             {
-                txtNombre.Clear(); //LIMPIAR CAJA PARA PODER INGRESAR TEXTO
-                txtNombre.ForeColor = Color.Black; //PONER EL COLOR EN NEGRO
+                txtNombre.Clear();
+                txtNombre.ForeColor = Color.Black;
             }
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)
         {
-            if (txtNombre.Text == "") //SI CUANDO SE DEJO EL TEXTBOX, ESTE QUEDO EN BLANCO...
+            if (txtNombre.Text == "")
             {
-                txtNombre.Text = "Nombre"; //VOLVER A PONER EL TEXTO GUIA
-                txtNombre.ForeColor = Color.Gray; //PONER COLOR EN GRIS
+                txtNombre.Text = "Nombre";
+                txtNombre.ForeColor = Color.Gray;
             }
         }
 
         private void txtDuracion_Enter(object sender, EventArgs e)
         {
-            if (txtDuracion.Text == "Duracion") //SI CUANDO SE SELECCIONO EL TEXTBOX, ESTA ESCRITO EL TEXTO GUIA...
+            if (txtDuracion.Text == "Duracion")
             {
-                txtDuracion.Clear(); //LIMPIAR CAJA PARA PODER INGRESAR TEXTO
-                txtDuracion.ForeColor = Color.Black; //PONER EL COLOR EN NEGRO
+                txtDuracion.Clear();
+                txtDuracion.ForeColor = Color.Black;
             }
         }
 
         private void txtDuracion_Leave(object sender, EventArgs e)
-        {
-            if (txtDuracion.Text == "") //SI CUANDO SE DEJO EL TEXTBOX, ESTE QUEDO EN BLANCO...
-            {
-                txtDuracion.Text = "Duracion"; //VOLVER A PONER EL TEXTO GUIA
-                txtDuracion.ForeColor = Color.Gray; //PONER COLOR EN GRIS
-            }
-        }
-
-        private void txtActores_Enter(object sender, EventArgs e)
-        {
-            if (txtActores.Text == "Actores") //SI CUANDO SE SELECCIONO EL TEXTBOX, ESTA ESCRITO EL TEXTO GUIA...
-            {
-                txtActores.Clear(); //LIMPIAR CAJA PARA PODER INGRESAR TEXTO
-                txtActores.ForeColor = Color.Black; //PONER EL COLOR EN NEGRO
-            }
-        }
-
-        private void txtActores_Leave(object sender, EventArgs e)
-        {
-            if (txtActores.Text == "") //SI CUANDO SE DEJO EL TEXTBOX, ESTE QUEDO EN BLANCO...
-            {
-                txtActores.Text = "Actores"; //VOLVER A PONER EL TEXTO GUIA
-                txtActores.ForeColor = Color.Gray; //PONER COLOR EN GRIS
-            }
-        }
-
-        private void txtDirectores_Enter(object sender, EventArgs e)
-        {
-            if (txtDirectores.Text == "Directores") //SI CUANDO SE SELECCIONO EL TEXTBOX, ESTA ESCRITO EL TEXTO GUIA...
-            {
-                txtDirectores.Clear(); //LIMPIAR CAJA PARA PODER INGRESAR TEXTO
-                txtDirectores.ForeColor = Color.Black; //PONER EL COLOR EN NEGRO
-            }
-        }
-
-        private void txtDirectores_Leave(object sender, EventArgs e)
-        {
-            if (txtDirectores.Text == "") //SI CUANDO SE DEJO EL TEXTBOX, ESTE QUEDO EN BLANCO...
-            {
-                txtDirectores.Text = "Directores"; //VOLVER A PONER EL TEXTO GUIA
-                txtDirectores.ForeColor = Color.Gray; //PONER COLOR EN GRIS
-            }
-        }
-
-        private void txtDescripcion_Enter(object sender, EventArgs e)
-        {
-            if (txtDescripcion.Text == "Descripcion") //SI CUANDO SE SELECCIONO EL TEXTBOX, ESTA ESCRITO EL TEXTO GUIA...
-            {
-                txtDescripcion.Clear(); //LIMPIAR CAJA PARA PODER INGRESAR TEXTO
-                txtDescripcion.ForeColor = Color.Black; //PONER EL COLOR EN NEGRO
-            }
-        }
-
-        private void txtDescripcion_Leave(object sender, EventArgs e)
-        {
-            if (txtDescripcion.Text == "") //SI CUANDO SE DEJO EL TEXTBOX, ESTE QUEDO EN BLANCO...
-            {
-                txtDescripcion.Text = "Descripcion"; //VOLVER A PONER EL TEXTO GUIA
-                txtDescripcion.ForeColor = Color.Gray; //PONER COLOR EN GRIS
-            }
-        }
-
-        private void placeholderTextbox()
         {
             if (txtDuracion.Text == "")
             {
                 txtDuracion.Text = "Duracion";
                 txtDuracion.ForeColor = Color.Gray;
             }
+        }
+
+        private void txtActores_Enter(object sender, EventArgs e)
+        {
+            if (txtActores.Text == "Actores")
+            {
+                txtActores.Clear();
+                txtActores.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtActores_Leave(object sender, EventArgs e)
+        {
+            if (txtActores.Text == "")
+            {
+                txtActores.Text = "Actores";
+                txtActores.ForeColor = Color.Gray;
+            }
+        }
+
+        private void txtDirectores_Enter(object sender, EventArgs e)
+        {
+            if (txtDirectores.Text == "Directores")
+            {
+                txtDirectores.Clear();
+                txtDirectores.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtDirectores_Leave(object sender, EventArgs e)
+        {
+            if (txtDirectores.Text == "")
+            {
+                txtDirectores.Text = "Directores";
+                txtDirectores.ForeColor = Color.Gray;
+            }
+        }
+
+        private void txtDescripcion_Enter(object sender, EventArgs e)
+        {
+            if (txtDescripcion.Text == "Descripcion")
+            {
+                txtDescripcion.Clear();
+                txtDescripcion.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtDescripcion_Leave(object sender, EventArgs e)
+        {
+            if (txtDescripcion.Text == "")
+            {
+                txtDescripcion.Text = "Descripcion";
+                txtDescripcion.ForeColor = Color.Gray;
+            }
+        }
+
+        private void limpiarCajas()
+        {
+            txtNombre.Clear();
+            txtDuracion.Clear();
+            txtActores.Clear();
+            txtDirectores.Clear();
+            txtDescripcion.Clear();
+            boxGenero.SelectedIndex = 0;
+            boxClasificacion.SelectedIndex = 0;
+            pictureBox1.Image = null;
+            cbEstado.Checked = true;
+
+            placeholderTextbox();
+        }
+
+        private void placeholderTextbox()
+        {
+            if (txtNombre.TextLength == 0)
+            {
+                txtNombre.Text = "Nombre";
+                txtNombre.ForeColor = Color.Gray;
+            }
+            else txtNombre.ForeColor = Color.Black;
+
+            if (txtDuracion.TextLength == 0)
+            {
+                txtDuracion.Text = "Duracion";
+                txtDuracion.ForeColor = Color.Gray;
+            }
             else txtDuracion.ForeColor = Color.Black;
 
-            if (txtActores.Text == "")
+            if (txtActores.TextLength == 0)
             {
                 txtActores.Text = "Actores";
                 txtActores.ForeColor = Color.Gray;
             }
             else txtActores.ForeColor = Color.Black;
 
-            if (txtDirectores.Text == "")
+            if (txtDirectores.TextLength == 0)
             {
                 txtDirectores.Text = "Directores";
                 txtDirectores.ForeColor = Color.Gray;
             }
             else txtDirectores.ForeColor = Color.Black;
 
-            if (txtDescripcion.Text == "")
+            if (txtDescripcion.TextLength == 0)
             {
                 txtDescripcion.Text = "Descripcion";
                 txtDescripcion.ForeColor = Color.Gray;
@@ -423,171 +556,17 @@ namespace Proyecto_Cine.Forms
 
         private void txtDuracion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
-        private void modificarPelicula()
+        private void seleccionarRegistro(int codigo)
         {
-            String CodPelicula = dgvPeliculas.CurrentRow.Cells[0].Value.ToString();
-            int CurrentIndex = dgvPeliculas.CurrentRow.Index; //GUARDAR EL INDEX DEL REGISTRO SELECCIONADO EN EL DATAGRID
-            string consulta; //GUARDAR LA CONSULTA SQL
-
-            consulta = "UPDATE Peliculas SET Nombre_Peli = '" + txtNombre.Text + "', CodGenero_Peli = " + boxGenero.SelectedValue + ", CodClasificacion_Peli = " + boxClasificacion.SelectedValue + ", Estado_Peli = '" + cbEstado.Checked + "'";
-
-            //LAS SIGUIENTES CONDICIONES IF SE BASAN EN QUE SI UN TEXTBOX ESTA VACIO, EN LA CONSULTA EL CAMPO TENDRA UN VALOR = NULL.
-            //CASO CONTRARIO EL VALOR SERA IGUAL A LO QUE CONTENGA EL TEXTBOX
-
-            if (txtDuracion.Text != "Duracion") //SI ESTA LLENO
+            for(int i=0; i<dgvPeliculas.RowCount; i++) 
             {
-                consulta += ", Duracion_Peli = " + txtDuracion.Text;
-            }
-            else //SI ESTA VACIO
-            {
-                consulta += ", Duracion_Peli = NULL";
-            }
-
-            if (txtActores.Text != "Actores") //SI ESTA LLENO
-            {
-                consulta += ", Actores_Peli = '" + txtActores.Text + "'";
-            }
-            else //SI ESTA VACIO
-            {
-                consulta += ", Actores_Peli = NULL";
-            }
-
-            if (txtDirectores.Text != "Directores") //SI ESTA LLENO
-            {
-                consulta += ", Director_Peli = '" + txtDirectores.Text + "'";
-            }
-            else //SI ESTA VACIO
-            {
-                consulta += ", Director_Peli = NULL";
-            }
-
-            if (txtDescripcion.Text != "Descripcion") //SI ESTA LLENO
-            {
-                consulta += ", Descripcion_Peli = '" + txtDescripcion.Text + "'";
-            }
-            else //SI ESTA VACIO
-            {
-                consulta += ", Descripcion_Peli = NULL";
-            }
-
-            if (pictureBox1.Image != null) //SI EL PICTURE BOX TIENE UNA IMAGEN CARGADA
-            {
-                MemoryStream buffer = new MemoryStream(); //BUFFER EN MEMORIA QUE VA A GUARDAR LA IMAGEN
-                pictureBox1.Image.Save(buffer, System.Drawing.Imaging.ImageFormat.Jpeg); //PASAR LA IMAGEN AL BUFFER 
-
-                comando = new SqlCommand(consulta + ", Portada_Peli = @imagen WHERE CodPelicula_Peli = " + CodPelicula, BD.getSqlConnection()); //CARGAR CONSULTA
-                comando.Parameters.Add("@imagen", System.Data.SqlDbType.Image); //PARAMETRO QUE REFERENCIA LA IMAGEN
-                comando.Parameters["@imagen"].Value = buffer.GetBuffer(); //ASIGNAR LA IMAGEN AL PARAMETRO A TRAVES DEL BUFFER
-            }
-            else //SI EL PICTURE BOX NO TIENE UNA IMAGEN CARGADA
-            {
-                comando = new SqlCommand(consulta + ", Portada_Peli = NULL WHERE CodPelicula_Peli = " + CodPelicula, BD.getSqlConnection()); //CARGAR CONSULTA
-            }
-
-            comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-            ActualizarDgvPeliculas(); //ACTUALIZAR DATAGRID PELICULAS
-
-            seleccionarRegistro(CodPelicula); //SELECCIONAR EL REGISTRO QUE ESTABA SELECCIONADO
-
-            ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES
-            placeholderTextbox(); //CONTROL POR SI LOS TEXTBOX QUEDARON EN BLANCO. HAY QUE PONER EL TEXTO GUIA
-        }
-
-        private void agregarPelicula()
-        {
-            int NuevoCodigo = Int32.Parse(DTPeliculas.Compute("MAX(CodPelicula_Peli)", "").ToString()) + 1; //OBTENER ULTIMO CODIGO REGISTRADO Y SUMARLE 1
-            string consulta; //CONSULTA SQL
-
-            consulta = "INSERT INTO Peliculas(CodPelicula_Peli, Nombre_Peli, CodGenero_Peli, CodClasificacion_Peli, Estado_Peli, Duracion_Peli, Actores_Peli, Director_Peli, Descripcion_Peli, Portada_Peli) VALUES (" + NuevoCodigo + ", '" + txtNombre.Text + "', " + boxGenero.SelectedValue + ", " + boxClasificacion.SelectedValue + ", '" + cbEstado.Checked + "'";
-
-            //LAS SIGUIENTES CONDICIONES IF SE BASAN EN QUE SI UN TEXTBOX ESTA VACIO, EN LA CONSULTA EL CAMPO TENDRA UN VALOR = NULL.
-            //CASO CONTRARIO EL VALOR SERA IGUAL A LO QUE CONTENGA EL TEXTBOX
-
-            if (txtDuracion.Text != "Duracion") //SI ESTA LLENO
-            {
-                consulta += ", " + txtDuracion.Text;
-            }
-            else //SI ESTA VACIO
-            {
-                consulta += ", NULL";
-            }
-
-            if (txtActores.Text != "Actores") //SI ESTA LLENO
-            {
-                consulta += ", '" + txtActores.Text + "'";
-            }
-            else //SI ESTA VACIO
-            {
-                consulta += ", NULL";
-            }
-
-            if (txtDirectores.Text != "Directores") //SI ESTA LLENO
-            {
-                consulta += ", '" + txtDirectores.Text + "'";
-            }
-            else //SI ESTA VACIO
-            {
-                consulta += ", NULL";
-            }
-
-            if (txtDescripcion.Text != "Descripcion") //SI ESTA LLENO
-            {
-                consulta += ", '" + txtDescripcion.Text + "'";
-            }
-            else //SI ESTA VACIO
-            {
-                consulta += ", NULL";
-            }
-
-            if (pictureBox1.Image != null) //SI EL PICTURE BOX TIENE UNA IMAGEN CARGADA
-            {
-                MemoryStream buffer = new MemoryStream(); //BUFFER EN MEMORIA QUE VA A GUARDAR LA IMAGEN
-                pictureBox1.Image.Save(buffer, System.Drawing.Imaging.ImageFormat.Jpeg); //PASAR LA IMAGEN AL BUFFER 
-
-                comando = new SqlCommand(consulta + ", @imagen)", BD.getSqlConnection()); //CARGAR CONSULTA
-                comando.Parameters.Add("@imagen", System.Data.SqlDbType.Image); //PARAMETRO QUE REFERENCIA LA IMAGEN
-                comando.Parameters["@imagen"].Value = buffer.GetBuffer(); //ASIGNAR LA IMAGEN AL PARAMETRO A TRAVES DEL BUFFER
-            }
-            else //SI EL PICTURE BOX NO TIENE UNA IMAGEN CARGADA
-            {
-                comando = new SqlCommand(consulta + ", NULL)", BD.getSqlConnection()); //CARGAR CONSULTA
-            }
-
-            comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-            ActualizarDgvPeliculas(); //ACTUALIZAR DATAGRID PELICULAS
-
-            seleccionarRegistro(NuevoCodigo.ToString()); //SELECCIONAR EL NUEVO REGISTRO
-
-            txtNombre.Clear();
-            txtDuracion.Clear();
-            txtActores.Clear();
-            txtDirectores.Clear();      //LIMPIAR CONTENEDORES
-            txtDescripcion.Clear();
-            boxGenero.SelectedIndex = 0;
-            boxClasificacion.SelectedIndex = 0;
-            pictureBox1.Image = null;
-            txtNombre.Focus();
-
-            placeholderTextbox(); //CONTROL POR SI LOS TEXTBOX ESTAN EN BLANCO. HAY QUE PONER EL TEXTO GUIA
-        }
-
-        private void deshabilitarPeliculasXFormato()
-        {
-            comando = new SqlCommand("UPDATE PeliculasXFormato SET Estado_PXF = 'False' WHERE CodPelicula_PXF = " + dgvPeliculas.CurrentRow.Cells[0].Value.ToString(), BD.getSqlConnection());
-            comando.ExecuteNonQuery();
-        }
-
-        private void seleccionarRegistro(String CodPelicula)
-        {
-            for(int i=0; i<dgvPeliculas.RowCount; i++) //RECORRER TODO EL DATAGRID DE PELICULAS
-            {
-                if(dgvPeliculas.Rows[i].Cells[0].Value.ToString() == CodPelicula) //SI EL CODIGO DE LA FILA COINCIDE CON EL CODIGO BUSCADO
+                if(dgvPeliculas.Rows[i].Cells[0].Value.ToString() == codigo.ToString()) 
                 {
-                    dgvPeliculas.CurrentCell = dgvPeliculas.Rows[i].Cells[1]; //SELECCIONAR EL REGISTRO
-                    dgvPeliculas.Rows[i].Selected = true; //SELECCIONAR EL REGISTRO
+                    dgvPeliculas.CurrentCell = dgvPeliculas.Rows[i].Cells[1];
+                    dgvPeliculas.Rows[i].Selected = true;
                 }
             }
         }

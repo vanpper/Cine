@@ -55,5 +55,9 @@ namespace Proyecto_Cine.Clases.Negocio
             return peliculaDao.obtenerTodas();
         }
 
+        public Pelicula obtenerUltima()
+        {
+            return peliculaDao.obtenerUltima();
+        }
     }
 }
