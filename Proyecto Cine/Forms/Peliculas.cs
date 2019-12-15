@@ -344,24 +344,27 @@ namespace Proyecto_Cine.Forms
                         pelicula.setEstado(cbEstado.Checked);
                         pelicula.setGenero(genero);
                         pelicula.setClasificacion(clasificacion);
-
                         if(txtDuracion.ForeColor != Color.Gray) pelicula.setDuracion(Int32.Parse(txtDuracion.Text));
                         if(txtActores.ForeColor != Color.Gray) pelicula.setActores(txtActores.Text);
                         if(txtDirectores.ForeColor != Color.Gray) pelicula.setDirector(txtDirectores.Text);
                         if(txtDescripcion.ForeColor != Color.Gray) pelicula.setDescripcion(txtDescripcion.Text);
 
-
-                        //pelicula.setImagen(pictureBox1.im);
+                        if(pictureBox1.Image != null)
+                        {
+                            MemoryStream ms = new MemoryStream();
+                            pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            pelicula.setImagen(ms.GetBuffer());
+                        }
 
                         if (OperacionActual == NUEVO)
                         {
                             if(peliculaNeg.agregar(pelicula))
                             {
-                                if(ActualizarDgvPeliculas())
-                                {
-                                    MessageBox.Show("Se ha agregado la pelicula con exito.", "Pelicula agregada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    limpiarCajas();
+                                MessageBox.Show("Se ha agregado la pelicula con exito.", "Pelicula agregada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                limpiarCajas();
 
+                                if (ActualizarDgvPeliculas())
+                                {
                                     pelicula = peliculaNeg.obtenerUltima();
 
                                     if(pelicula != null)
@@ -382,7 +385,25 @@ namespace Proyecto_Cine.Forms
 
                         if(OperacionActual == MODIFICAR)
                         {
+                            if (peliculaNeg.modificar(pelicula))
+                            {
+                                MessageBox.Show("Se ha modificado la pelicula con exito.", "Pelicula modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                placeholderTextbox();
 
+
+                                if (ActualizarDgvPeliculas())
+                                {
+                                    seleccionarRegistro(pelicula.getId());
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Ha ocurrido un error al actualizar la lista de Peliculas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
 
                         Guardando = false;
@@ -518,35 +539,35 @@ namespace Proyecto_Cine.Forms
 
         private void placeholderTextbox()
         {
-            if (txtNombre.TextLength == 0)
+            if (txtNombre.TextLength == 0 || txtNombre.Text == "Nombre")
             {
                 txtNombre.Text = "Nombre";
                 txtNombre.ForeColor = Color.Gray;
             }
             else txtNombre.ForeColor = Color.Black;
 
-            if (txtDuracion.TextLength == 0)
+            if (txtDuracion.TextLength == 0 || txtDuracion.Text == "Duracion")
             {
                 txtDuracion.Text = "Duracion";
                 txtDuracion.ForeColor = Color.Gray;
             }
             else txtDuracion.ForeColor = Color.Black;
 
-            if (txtActores.TextLength == 0)
+            if (txtActores.TextLength == 0 || txtActores.Text == "Actores")
             {
                 txtActores.Text = "Actores";
                 txtActores.ForeColor = Color.Gray;
             }
             else txtActores.ForeColor = Color.Black;
 
-            if (txtDirectores.TextLength == 0)
+            if (txtDirectores.TextLength == 0 || txtDirectores.Text == "Directores")
             {
                 txtDirectores.Text = "Directores";
                 txtDirectores.ForeColor = Color.Gray;
             }
             else txtDirectores.ForeColor = Color.Black;
 
-            if (txtDescripcion.TextLength == 0)
+            if (txtDescripcion.TextLength == 0 || txtDescripcion.Text == "Descripcion")
             {
                 txtDescripcion.Text = "Descripcion";
                 txtDescripcion.ForeColor = Color.Gray;
