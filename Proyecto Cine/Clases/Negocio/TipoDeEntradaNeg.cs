@@ -44,5 +44,10 @@ namespace Proyecto_Cine.Clases.Negocio
         {
             return tipoDao.obtenerTodos();
         }
+
+        public TipoDeEntrada obtenerUltimo()
+        {
+            return tipoDao.obtenerUltimo();
+        }
     }
 }

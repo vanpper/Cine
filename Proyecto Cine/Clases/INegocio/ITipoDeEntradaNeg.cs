@@ -12,6 +12,7 @@ namespace Proyecto_Cine.Clases.INegocio
         bool agregar(TipoDeEntrada tipoEntrada);
         bool modificar(TipoDeEntrada tipoEntrada);
         TipoDeEntrada obtener(int id);
+        TipoDeEntrada obtenerUltimo();
         List<TipoDeEntrada> obtenerTodos();
     }
 }

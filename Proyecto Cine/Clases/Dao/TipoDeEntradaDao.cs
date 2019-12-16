@@ -130,7 +130,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<TipoDeEntrada> lista = new List<TipoDeEntrada>();
 
                 conexion.abrir();
-                query = "SELECT * FROM TiposDeEntradas";
+                query = "SELECT * FROM TiposDeEntradas ORDER BY Descripcion_TDE ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();

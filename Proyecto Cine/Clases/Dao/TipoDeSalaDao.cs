@@ -129,7 +129,7 @@ namespace Proyecto_Cine.Clases.Dao
             {
                 List<TipoDeSala> lista = new List<TipoDeSala>();
                 conexion.abrir();
-                query = "SELECT * FROM TiposDeSalas";
+                query = "SELECT * FROM TiposDeSalas ORDER BY Descripcion_TDS ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
