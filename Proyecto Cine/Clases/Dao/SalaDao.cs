@@ -164,7 +164,7 @@ namespace Proyecto_Cine.Clases.Dao
                 ITipoDeSalaDao tipoSalaDao = new TipoDeSalaDao();
 
                 conexion.abrir();
-                query = "SELECT TOP 1 * FROM SalasXCine ORDER BY CodSala_SXC DESC WHERE CodCine_SXC = " + idCine;
+                query = "SELECT TOP 1 * FROM SalasXCine WHERE CodCine_SXC = " + idCine + " ORDER BY CodSala_SXC DESC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();

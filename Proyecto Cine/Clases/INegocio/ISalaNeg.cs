@@ -14,6 +14,7 @@ namespace Proyecto_Cine.Clases.INegocio
         bool deshabilitar(int idCine, int idSala);
         bool habilitar(int idCine, int idSala);
         Sala obtener(int idCine, int idSala);
+        Sala obtenerUltima(int idCine);
         List<Sala> obtenerTodas(int idCine);
     }
 }

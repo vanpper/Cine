@@ -54,5 +54,10 @@ namespace Proyecto_Cine.Clases.Negocio
         {
             return salaDao.obtenerTodas(idCine);
         }
+
+        public Sala obtenerUltima(int idCine)
+        {
+            return salaDao.obtenerUltima(idCine);
+        }
     }
 }

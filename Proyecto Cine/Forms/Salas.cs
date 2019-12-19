@@ -30,6 +30,8 @@ namespace Proyecto_Cine.Forms
 
         private int OperacionTDS = NULL;
         private int OperacionSalas = NULL;
+        private bool GuardandoTDS = false;
+        private bool GuardandoSalas = false;
 
         public Salas()
         {
@@ -290,9 +292,16 @@ namespace Proyecto_Cine.Forms
 
         private void btnNuevoSalas_Click(object sender, EventArgs e)
         {
-            OperacionSalas = NUEVO;
-            AbrirPanelSalas();
-            txtDescripcionSalas.Focus();
+            if(boxCines.SelectedIndex != 0)
+            {
+                OperacionSalas = NUEVO;
+                AbrirPanelSalas();
+                txtDescripcionSalas.Focus();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un cine.", "Sin cine", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnModificarSalas_Click(object sender, EventArgs e)
@@ -308,6 +317,10 @@ namespace Proyecto_Cine.Forms
                 txtDescripcionSalas.SelectAll();
                 checkSala.Checked = bool.Parse(dgvSalas.CurrentRow.Cells[5].Value.ToString());
             }
+            else
+            {
+                MessageBox.Show("No hay un registro seleccionado. ", "Seleccionar fila", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnVolverSalas_Click(object sender, EventArgs e)
@@ -319,7 +332,7 @@ namespace Proyecto_Cine.Forms
         {
             ActualizarDgvSalas();
 
-            if (OperacionSalas == MODIFICAR && dgvSalas.RowCount == 0)
+            if ((OperacionSalas == MODIFICAR && dgvSalas.RowCount == 0) || boxCines.SelectedIndex == 0)
             {
                 CerrarPanelSalas();
             }
@@ -327,7 +340,7 @@ namespace Proyecto_Cine.Forms
 
         private void dgvTDS_SelectionChanged(object sender, EventArgs e)
         {
-            if(OperacionTDS == MODIFICAR && dgvTDS.CurrentRow != null)
+            if(OperacionTDS == MODIFICAR && dgvTDS.CurrentRow != null && GuardandoTDS != true)
             {   
                 txtDescripcionTDS.Clear();
                 txtDescripcionTDS.Text = dgvTDS.CurrentRow.Cells[1].Value.ToString();
@@ -338,7 +351,7 @@ namespace Proyecto_Cine.Forms
 
         private void dgvSalas_SelectionChanged(object sender, EventArgs e)
         {
-            if(OperacionSalas == MODIFICAR && dgvSalas.CurrentRow != null)
+            if(OperacionSalas == MODIFICAR && dgvSalas.CurrentRow != null && GuardandoSalas != true)
             {
                 txtDescripcionSalas.Text = dgvSalas.CurrentRow.Cells[2].Value.ToString();
                 txtDescripcionSalas.Focus();
@@ -350,12 +363,179 @@ namespace Proyecto_Cine.Forms
 
         private void btnGuardarTDS_Click(object sender, EventArgs e)
         {
-           
+            if(txtDescripcionTDS.TextLength != 0)
+            {
+                GuardandoTDS = true;
+
+                TipoDeSala tipo = new TipoDeSala();
+                tipo.setId(Int32.Parse(dgvTDS.CurrentRow.Cells[0].Value.ToString()));
+                tipo.setDescripcion(txtDescripcionTDS.Text);
+
+                if(OperacionTDS == NUEVO)
+                {
+                    if(tiposalaNeg.agregar(tipo))
+                    {
+                        MessageBox.Show("Se ha agregado el Tipo de sala con exito.", "Tipo de sala agregado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtDescripcionTDS.Clear();
+                        txtDescripcionTDS.Focus();
+
+                        if(ActualizarDgvTDS())
+                        {
+                            tipo = tiposalaNeg.obtenerUltimo();
+                            
+                            if(tipo != null)
+                            {
+                                seleccionarFilaTDS(tipo.getId());
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error al actualizar la lista de Tipo de salas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        if(!ActualizarBoxTDS())
+                        {
+                            MessageBox.Show("Ha ocurrido un error al actualizar la lista de Tipo de salas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                if(OperacionTDS == MODIFICAR)
+                {
+                    if (tiposalaNeg.modificar(tipo))
+                    {
+                        MessageBox.Show("Se ha modificado el Tipo de sala con exito.", "Tipo de sala modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        if (ActualizarDgvTDS())
+                        {
+                            seleccionarFilaTDS(tipo.getId());
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error al actualizar la lista de Tipo de salas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        if(dgvSalas.CurrentRow != null)
+                        {
+                            int selectedSala = Int32.Parse(dgvSalas.CurrentRow.Cells[1].Value.ToString());
+
+                            if (ActualizarDgvSalas())
+                            {
+                                seleccionarFilaSalas(selectedSala);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Salas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                        if(!ActualizarBoxTDS())
+                        {
+                            MessageBox.Show("Ha ocurrido un error al actualizar la lista de Tipo de salas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                GuardandoTDS = false;
+            }
+            else
+            {
+                MessageBox.Show("La descripcion no puede quedar vacia.", "Sin descripcion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnGuardarSalas_Click(object sender, EventArgs e)
         {
-            
+            if(txtDescripcionSalas.TextLength != 0)
+            {
+                if(boxTDS.SelectedIndex != 0)
+                {
+                    GuardandoSalas = true;
+
+                    Cine cine = new Cine();
+                    cine.setId(Int32.Parse(boxCines.SelectedValue.ToString()));
+
+                    TipoDeSala tipoSala = new TipoDeSala();
+                    tipoSala.setId(Int32.Parse(boxTDS.SelectedValue.ToString()));
+
+                    Sala sala = new Sala();
+                    sala.setCine(cine);
+                    sala.setDescripcion(txtDescripcionSalas.Text);
+                    sala.setEstado(checkSala.Checked);
+                    sala.setTipo(tipoSala);
+                    
+                    if(OperacionSalas == NUEVO)
+                    {
+                        if(salaNeg.agregar(sala))
+                        {
+                            MessageBox.Show("Se ha agregado la sala con exito.", "Sala agregada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            txtDescripcionSalas.Clear();
+                            txtDescripcionSalas.Focus();
+                            boxTDS.SelectedIndex = 0;
+                            checkSala.Checked = true;
+
+                            if (ActualizarDgvSalas())
+                            {
+                                sala = salaNeg.obtenerUltima(cine.getId());
+
+                                if (sala != null)
+                                {
+                                    seleccionarFilaSalas(sala.getId());
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Tipo de salas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                    if(OperacionSalas == MODIFICAR)
+                    {
+                        sala.setId(Int32.Parse(dgvSalas.CurrentRow.Cells[1].Value.ToString()));
+
+                        if (salaNeg.modificar(sala))
+                        {
+                            MessageBox.Show("Se ha modificado la sala con exito.", "Sala modificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            
+                            if (ActualizarDgvSalas())
+                            {
+                                seleccionarFilaSalas(sala.getId());
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Tipo de salas", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                    GuardandoSalas = false;
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar un Tipo de sala.", "Sin Tipo de sala", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("La descripcion no puede quedar vacia.", "Sin descripcion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void seleccionarFilaTDS(int codigo)
@@ -374,7 +554,7 @@ namespace Proyecto_Cine.Forms
         {
             for(int i=0; i<dgvSalas.RowCount; i++)
             {
-                if(dgvSalas.Rows[i].Cells[0].Value.ToString() == codigo.ToString())
+                if(dgvSalas.Rows[i].Cells[1].Value.ToString() == codigo.ToString())
                 {
                     dgvSalas.CurrentCell = dgvSalas.Rows[i].Cells[2];
                     dgvSalas.Rows[i].Selected = true;
