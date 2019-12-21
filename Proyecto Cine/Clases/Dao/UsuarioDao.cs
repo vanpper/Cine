@@ -260,7 +260,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<Usuario> lista = new List<Usuario>();
 
                 conexion.abrir();
-                query = "SELECT * FROM Usuarios";
+                query = "SELECT * FROM Usuarios ORDER BY Nombre_Usua + Apellido_Usua ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();

@@ -144,7 +144,6 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(181, 20);
             this.txtEmail.TabIndex = 1;
-            this.txtEmail.Enter += new System.EventHandler(this.txtEmail_Enter);
             // 
             // label4
             // 
@@ -293,7 +292,6 @@
             this.txtCP.Name = "txtCP";
             this.txtCP.Size = new System.Drawing.Size(121, 20);
             this.txtCP.TabIndex = 1;
-            this.txtCP.Enter += new System.EventHandler(this.txtCP_Enter);
             this.txtCP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCP_KeyPress);
             // 
             // txtDireccion
@@ -303,7 +301,6 @@
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(181, 20);
             this.txtDireccion.TabIndex = 1;
-            this.txtDireccion.Enter += new System.EventHandler(this.txtDireccion_Enter);
             // 
             // txtTelefono
             // 
@@ -312,7 +309,6 @@
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(181, 20);
             this.txtTelefono.TabIndex = 1;
-            this.txtTelefono.Enter += new System.EventHandler(this.txtTelefono_Enter);
             this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // txtDNI
@@ -322,7 +318,6 @@
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(181, 20);
             this.txtDNI.TabIndex = 1;
-            this.txtDNI.Enter += new System.EventHandler(this.txtDNI_Enter);
             this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress);
             // 
             // txtContraseña
@@ -332,7 +327,6 @@
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(181, 20);
             this.txtContraseña.TabIndex = 1;
-            this.txtContraseña.Enter += new System.EventHandler(this.txtContraseña_Enter);
             // 
             // txtApellido
             // 
@@ -341,7 +335,6 @@
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(181, 20);
             this.txtApellido.TabIndex = 1;
-            this.txtApellido.Enter += new System.EventHandler(this.txtApellido_Enter);
             // 
             // txtNombre
             // 
@@ -350,7 +343,6 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(181, 20);
             this.txtNombre.TabIndex = 1;
-            this.txtNombre.Enter += new System.EventHandler(this.txtNombre_Enter);
             // 
             // BoxCiudad
             // 

@@ -8,80 +8,238 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Proyecto_Cine.Clases.Entidades;
+using Proyecto_Cine.Clases.INegocio;
+using Proyecto_Cine.Clases.Negocio;
 
 namespace Proyecto_Cine.Forms
 {
     public partial class Usuarios : Form
     {
-        const int NULL = 0;
-        const int NUEVO = 1;        //CONSTANTES
-        const int MODIFICAR = 2;
+        private IUsuarioNeg usuarioNeg = new UsuarioNeg();
+        private IProvinciaNeg provinciaNeg = new ProvinciaNeg();
+        private ICiudadNeg ciudadNeg = new CiudadNeg();
+        private ITipoDeUsuarioNeg tipoNeg = new TipoDeUsuarioNeg();
+        private DataTable dtUsuarios;
+        private DataTable dtProvincias;
+        private DataTable dtCiudades;
+        private DataTable dtTiposDeUsuarios;
 
-        Conexion BD = new Conexion();
-        DataTable DTUsuarios = new DataTable();
-        DataTable DTProvincias = new DataTable();
-        DataTable DTCiudades = new DataTable();
-        DataTable DTTiposDeUsuarios = new DataTable();
-        SqlDataAdapter adaptador;
-        SqlCommand comando;
+        private const int NULL = 0;
+        private const int NUEVO = 1;
+        private const int MODIFICAR = 2;
 
-        int OperacionActual = 0; //INDICADOR DE OPERACION ACTUAL
+        private int OperacionActual = NULL;
         
         public Usuarios()
         {
             InitializeComponent();
+            IniciarDtUsuarios();
+            IniciarDtTiposDeUsuarios();
+            IniciarDtProvincias();
+            IniciarDtCiudades();
 
-            dgvUsuarios.DataSource = DTUsuarios; //LA FUENTE DE DATOS DEL DATAGRID ES EL DATATABLE USUARIOS
-            BoxProvincia.DataSource = DTProvincias; //LA FUENTE DE DATOS DEL BOX PROVINCIAS ES EL DATATABLE PROVINCIAS
-            BoxCiudad.DataSource = DTCiudades; //LA FUENTE DE DATOS DEL BOX CIUDAD ES EL DATATBLE CIUDADES
-            boxTipoDeUsuario.DataSource = DTTiposDeUsuarios; //LA FUENTE DE DATOS DEL BOX TIPO DE USUARIOS ES EL DATATABLE TIPOS DE USUARIOS
-
-            if (BD.abrir()) //SI SE PUDO ABRIR LA CONEXION CON LA BASE DATOS...
+            if (!ActualizarDgvUsuarios())
             {
-                ActualizarDgvUsuarios(); //ACTUALIZAR DATAGRID USUARIOS
-                ActualizarBoxProvincias(); //ACTUALIZAR BOX PROVINCIAS
-                ActualizarBoxCiudades(); //ACTUALIZAR BOX CIUDADES
-                ActualizarBoxTDU(); //ACTUALIZAR BOX TIPOS DE USUARIOS
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Usuarios", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            ConfigurarGrid(); //CONFIGURACION RELACIONADA CON LA APARIENCIA DEL DATAGRID
+            if (!ActualizarBoxTiposUsuario())
+            {
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Tipos de usuario", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (!ActualizarBoxProvincias())
+            {
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Provincias", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (!ActualizarBoxCiudades())
+            {
+                MessageBox.Show("Ha ocurrido un error al actualizar la lista de Ciudades", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
+            ConfigurarGrid();
         }
 
-        private void ActualizarBoxTDU()
+        private void IniciarDtUsuarios()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM TiposDeUsuarios", BD.getSqlConnection()); //TRAER TODOS LOS TIPOS DE USUARIO
-            DTTiposDeUsuarios.Clear(); //LIMPIAR DATATABLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTTiposDeUsuarios); //LLENAR DATATABLE CON LOS NUEVOS REGISTROS
-
-            DTTiposDeUsuarios.DefaultView.Sort = "Descripcion_TDU"; //ORDENAR ALAFABETICAMENTE
-
-            boxTipoDeUsuario.DisplayMember = "Descripcion_TDU"; //MOSTRAR DESCRIPCION
-            boxTipoDeUsuario.ValueMember = "CodTipoDeUsuario_TDU"; //ASIGNAR COMO VALOR EL CODIGO
+            dtUsuarios = new DataTable();
+            dtUsuarios.Columns.Add("Codigo Usuario");
+            dtUsuarios.Columns.Add("Codigo Tipo de usuario");
+            dtUsuarios.Columns.Add("Tipo de usuario");
+            dtUsuarios.Columns.Add("Nombre");
+            dtUsuarios.Columns.Add("Apellido");
+            dtUsuarios.Columns.Add("DNI");
+            dtUsuarios.Columns.Add("Cumpleaños");
+            dtUsuarios.Columns.Add("Telefono");
+            dtUsuarios.Columns.Add("Codigo Provincia");
+            dtUsuarios.Columns.Add("Provincia");
+            dtUsuarios.Columns.Add("Codigo Ciudad");
+            dtUsuarios.Columns.Add("Ciudad");
+            dtUsuarios.Columns.Add("Direccion");
+            dtUsuarios.Columns.Add("CP");
+            dtUsuarios.Columns.Add("Email");
+            dtUsuarios.Columns.Add("Contraseña");
+            dtUsuarios.Columns.Add("Estado");
+            dgvUsuarios.DataSource = dtUsuarios;
         }
 
-        private void ActualizarBoxProvincias()
+        private void IniciarDtTiposDeUsuarios()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Provincias", BD.getSqlConnection()); //TRAER TODAS LAS PROVINCIAS
-            DTProvincias.Clear(); //LIMPIAR DATATABLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTProvincias); //LLENAR DATATABLE CON LOS NUEVOS REGISTROS
-
-            DTProvincias.DefaultView.Sort = "Descripcion_Prov"; //ORDENAR ALFABETICAMENTE
-
-            BoxProvincia.DisplayMember = "Descripcion_Prov"; //MOSTRAR DESCRIPCION
-            BoxProvincia.ValueMember = "CodProvincia_Prov"; //ASIGNAR COMO VALOR EL CODIGO
+            dtTiposDeUsuarios = new DataTable();
+            dtTiposDeUsuarios.Columns.Add("Codigo");
+            dtTiposDeUsuarios.Columns.Add("Descripcion");
+            boxTipoDeUsuario.DataSource = dtTiposDeUsuarios;
         }
 
-        private void ActualizarBoxCiudades()
+        private void IniciarDtProvincias()
         {
-            adaptador = new SqlDataAdapter("SELECT * FROM Ciudades WHERE CodProvincia_Ciud = " + BoxProvincia.SelectedValue, BD.getSqlConnection()); //TRAER TODAS LAS CIUDADES
-            DTCiudades.Clear(); //LIMPIAR DATATABLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTCiudades); //LLENAR DATATABLE CON LOS NUEVOS REGISTROS
-
-            DTCiudades.DefaultView.Sort = "Descripcion_Ciud"; //ORDENAR ALFABETICAMENTE
-
-            BoxCiudad.DisplayMember = "Descripcion_Ciud"; //MOSTRAR DESCRIPCION
-            BoxCiudad.ValueMember = "CodCiudad_Ciud"; //ASIGNAR COMO VALOR EL CODIGO
+            dtProvincias = new DataTable();
+            dtProvincias.Columns.Add("Codigo");
+            dtProvincias.Columns.Add("Descripcion");
+            BoxProvincia.DataSource = dtProvincias;
         }
+
+        private void IniciarDtCiudades()
+        {
+            dtCiudades = new DataTable();
+            dtCiudades.Columns.Add("Codigo");
+            dtCiudades.Columns.Add("Descripcion");
+            BoxCiudad.DataSource = dtCiudades;
+        }
+
+        private bool ActualizarDgvUsuarios()
+        {
+            List<Usuario> lista = usuarioNeg.obtenerTodos();
+            if (lista == null) return false;
+
+            dtUsuarios.Clear();
+
+            foreach(Usuario usuario in lista)
+            {
+                DataRow row = dtUsuarios.NewRow();
+                row[0] = usuario.getId();
+                row[1] = usuario.getTipo().getId();
+                row[2] = usuario.getTipo().getDescripcion();
+                row[3] = usuario.getNombre();
+                row[4] = usuario.getApellido();
+                row[5] = usuario.getDni();
+                row[6] = usuario.getCumpleaños();
+                row[7] = usuario.getTelefono();
+                row[8] = usuario.getCiudad().getProvincia().getId();
+                row[9] = usuario.getCiudad().getProvincia().getDescripcion();
+                row[10] = usuario.getCiudad().getId();
+                row[11] = usuario.getCiudad().getDescripcion();
+                row[12] = usuario.getDireccion();
+                row[13] = usuario.getCp();
+                row[14] = usuario.getEmail();
+                row[15] = usuario.getContraseña();
+                row[16] = usuario.getEstado();
+                dtUsuarios.Rows.Add(row);
+            }
+
+            return true;
+        }
+
+        private bool ActualizarBoxTiposUsuario()
+        {
+            dtTiposDeUsuarios.Clear();
+
+            boxTipoDeUsuario.DisplayMember = "Descripcion";
+            boxTipoDeUsuario.ValueMember = "Codigo";
+
+            DataRow firstRow = dtTiposDeUsuarios.NewRow();
+            firstRow[0] = 0;
+            firstRow[1] = "--- SELECCIONE ---";
+            dtTiposDeUsuarios.Rows.Add(firstRow);
+
+            List<TipoDeUsuario> lista = tipoNeg.obtenerTodos();
+            if (lista == null) return false;
+
+            foreach(TipoDeUsuario tipo in lista)
+            {
+                DataRow row = dtTiposDeUsuarios.NewRow();
+                row[0] = tipo.getId();
+                row[1] = tipo.getDescripcion();
+                dtTiposDeUsuarios.Rows.Add(row);
+            }
+
+            return true;
+        }
+
+        private bool ActualizarBoxProvincias()
+        {
+            dtProvincias.Clear();
+
+            BoxProvincia.DisplayMember = "Descripcion";
+            BoxProvincia.ValueMember = "Codigo";
+
+            DataRow firstRow = dtProvincias.NewRow();
+            firstRow[0] = 0;
+            firstRow[1] = "--- SELECCIONE ---";
+            dtProvincias.Rows.Add(firstRow);
+
+            List<Provincia> lista = provinciaNeg.obtenerTodas();
+            if (lista == null) return false;
+
+            foreach (Provincia provincia in lista)
+            {
+                DataRow row = dtProvincias.NewRow();
+                row[0] = provincia.getId();
+                row[1] = provincia.getDescripcion();
+                dtProvincias.Rows.Add(row);
+            }
+
+            return true;
+        }
+
+        private bool ActualizarBoxCiudades()
+        {
+            dtCiudades.Clear();
+
+            BoxCiudad.DisplayMember = "Descripcion";
+            BoxCiudad.ValueMember = "Codigo";
+
+            DataRow firstRow = dtCiudades.NewRow();
+            firstRow[0] = 0;
+            firstRow[1] = "--- SELECCIONE ---";
+            dtCiudades.Rows.Add(firstRow);
+
+            List<Ciudad> lista = ciudadNeg.obtenerTodas(Int32.Parse(BoxProvincia.SelectedValue.ToString()));
+            if (lista == null) return false;
+
+            foreach (Ciudad ciudad in lista)
+            {
+                DataRow row = dtCiudades.NewRow();
+                row[0] = ciudad.getId();
+                row[1] = ciudad.getDescripcion();
+                dtCiudades.Rows.Add(row);
+            }
+
+            return true;
+        }
+
+        private void ConfigurarGrid()
+        {
+            dgvUsuarios.Height = 394;
+            dgvUsuarios.Columns[0].Visible = false;
+            dgvUsuarios.Columns[1].Visible = false;
+            dgvUsuarios.Columns[8].Visible = false;
+            dgvUsuarios.Columns[10].Visible = false;
+            dgvUsuarios.ReadOnly = true;
+            dgvUsuarios.AllowUserToAddRows = false;
+            dgvUsuarios.RowHeadersVisible = false;
+            dgvUsuarios.AllowUserToResizeColumns = false;
+            dgvUsuarios.AllowUserToResizeRows = false;
+            dgvUsuarios.MultiSelect = false;
+            dgvUsuarios.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvUsuarios.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+        
+
+       
 
         private void LimpiarContenedores()
         {
@@ -96,7 +254,7 @@ namespace Proyecto_Cine.Forms
             txtCP.Clear();
             txtEmail.Clear();
             txtContraseña.Clear();
-            dtpCumpleaños.Value = DateTime.Parse("01/01/2000");
+            dtpCumpleaños.Value = DateTime.Today;
             BoxProvincia.SelectedIndex = 0;
             BoxCiudad.SelectedIndex = 0;
             cbEstado.Checked = true;
@@ -125,13 +283,7 @@ namespace Proyecto_Cine.Forms
             catch(Exception ex) { }
         }
 
-        private void ActualizarDgvUsuarios()
-        {
-            //TRAER TODOS LOS USUARIOS
-            adaptador = new SqlDataAdapter("SELECT CodUsuario_Usua, CodTipoDeUsuario_Usua, Descripcion_TDU, Nombre_Usua, Apellido_Usua, DNI_Usua, Cumpleaños_Usua, Telefono_Usua, CodProvincia_Usua, Descripcion_Prov, CodCiudad_Usua, Descripcion_Ciud, Direccion_Usua, CodigoPostal_Usua, Email_Usua, Contraseña_Usua, Estado_Usua FROM Usuarios INNER JOIN TiposDeUsuarios ON CodTipoDeUsuario_Usua = CodTipoDeUsuario_TDU INNER JOIN Provincias ON CodProvincia_Usua = CodProvincia_Prov INNER JOIN Ciudades ON CodProvincia_Usua = CodProvincia_Ciud AND CodCiudad_Usua = CodCiudad_Ciud", BD.getSqlConnection());
-            DTUsuarios.Clear(); //LIMPIAR DATATABLE DE VIEJOS REGISTROS
-            adaptador.Fill(DTUsuarios); //LLENAR DATATABLE CON LOS NUEVOS REGISTROS
-        }
+        
 
         private void AbrirPanel()
         {
@@ -151,46 +303,7 @@ namespace Proyecto_Cine.Forms
             LimpiarContenedores(); //LIMPIAR CONTENEDORES
         }
 
-        private void ConfigurarGrid()
-        {
-            dgvUsuarios.Height = 394;
-
-            dgvUsuarios.Columns[0].HeaderText = "Codigo Usuario";
-            dgvUsuarios.Columns[1].HeaderText = "Codigo Tipo Usuario";
-            dgvUsuarios.Columns[2].HeaderText = "Tipo Usuario";
-            dgvUsuarios.Columns[3].HeaderText = "Nombre";
-            dgvUsuarios.Columns[4].HeaderText = "Apellido";
-            dgvUsuarios.Columns[5].HeaderText = "DNI";
-            dgvUsuarios.Columns[6].HeaderText = "Cumpleaños";
-            dgvUsuarios.Columns[7].HeaderText = "Telefono";
-            dgvUsuarios.Columns[8].HeaderText = "Codigo Provincia";
-            dgvUsuarios.Columns[9].HeaderText = "Provincia";
-            dgvUsuarios.Columns[10].HeaderText = "Codigo Ciudad";
-            dgvUsuarios.Columns[11].HeaderText = "Ciudad";
-            dgvUsuarios.Columns[12].HeaderText = "Direccion";
-            dgvUsuarios.Columns[13].HeaderText = "CP";
-            dgvUsuarios.Columns[14].HeaderText = "Email";
-            dgvUsuarios.Columns[15].HeaderText = "Contraseña";
-            dgvUsuarios.Columns[16].HeaderText = "Estado";
-
-            dgvUsuarios.Columns[0].Visible = false;
-            dgvUsuarios.Columns[1].Visible = false;
-            dgvUsuarios.Columns[8].Visible = false;
-            dgvUsuarios.Columns[10].Visible = false;
-
-            dgvUsuarios.ReadOnly = true;
-            dgvUsuarios.AllowUserToAddRows = false;
-            dgvUsuarios.RowHeadersVisible = false;
-            dgvUsuarios.AllowUserToResizeColumns = false;
-            dgvUsuarios.AllowUserToResizeRows = false;
-            dgvUsuarios.MultiSelect = false;
-            //dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvUsuarios.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvUsuarios.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //dgvUsuarios.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dgvUsuarios.Sort(dgvUsuarios.Columns[3], ListSortDirection.Ascending);
-        }
+        
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
@@ -225,61 +338,7 @@ namespace Proyecto_Cine.Forms
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            int enBlanco = 0; //VARIABLE QUE CUENTA LA CANTIDAD DE CONTENEDORES QUE QUEDARON VACIOS
-
-            foreach (TextBox box in panelUsuario.Controls.OfType<TextBox>()) //RECORRER TODOS LOS TEXTBOXS DEL PANEL
-            {
-                if(box.TextLength == 0) //SI EL TEXTBOX ESTA VACIO...
-                {
-                    enBlanco++; //AUMENTAR EN 1 LA VARIABLE
-                    box.BackColor = Color.Red; //CAMBIAR COLOR DE TEXTBOX
-                }
-            }
-
-            if (enBlanco == 0) //SI NO HAY NINGUN TEXTBOX VACIO...
-            {
-                if(BoxCiudad.SelectedItem != null) //SI HAY UNA CIUDAD SELECCIONADA... (YA QUE ES POSIBLE QUE UNA PROVINCIA TODAVIA NO TENGA CIUDADES CARGADAS)
-                {
-                    if (OperacionActual == NUEVO) //SI SE ESTA AGREGANDO UN NUEVO USUARIO
-                    {
-                        int NuevoCodigo = Int32.Parse(DTUsuarios.Compute("MAX(CodUsuario_Usua)", "").ToString()) + 1; //GENERAR NUEVO CODIGO OBTENIENDO EL ULTIMO REGISTRADO + 1
-                        string FechaPanel = dtpCumpleaños.Value.ToShortDateString(); //OBTENER FECHA SELECCIONADA EN EL PANEL INFERIOR
-                        string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
-
-                        //GENERAR CONSULTA
-                        comando = new SqlCommand("INSERT INTO Usuarios VALUES (" + NuevoCodigo + ", " + boxTipoDeUsuario.SelectedValue + ", '" + txtNombre.Text + "', '" + txtApellido.Text + "', '" + txtDNI.Text + "', '" + partesFechaPanel[1]+"/"+ partesFechaPanel[0]+"/"+ partesFechaPanel[2] + "', '" + txtTelefono.Text + "', " + BoxProvincia.SelectedValue + ", " + BoxCiudad.SelectedValue + ", '" + txtDireccion.Text + "', '" + txtCP.Text + "', '" + txtEmail.Text + "', '" + txtContraseña.Text + "', '" + cbEstado.Checked + "')", BD.getSqlConnection());
-                        comando.ExecuteNonQuery(); //EJECUTAR CONSULTA
-
-                        ActualizarDgvUsuarios(); //ACTUALIZAR DATAGRID
-                        seleccionarUsuario(NuevoCodigo.ToString()); //SELECCIONAR EL NUEVO USUARIO 
-                        LimpiarContenedores(); //LIMPIAR CONTENEDORES
-                    }
-
-                    if (OperacionActual == MODIFICAR) //SI SE ESTA MODIFICANDO...
-                    {
-                        String CurrentCode = dgvUsuarios.CurrentRow.Cells[0].Value.ToString(); //GUARDAR CODIGO DE USUARIO
-
-                        string FechaPanel = dtpCumpleaños.Value.ToShortDateString(); //GUARDAR FECHA SELECCIONADA EN EL PANEL INFERIOR
-                        string[] partesFechaPanel = FechaPanel.Split('/'); //DIVIDIR LA FECHA EN DIA, MES, AÑO
-
-                        //GENERAR COMANDO
-                        comando = new SqlCommand("UPDATE Usuarios SET CodTipoDeUsuario_Usua = " + boxTipoDeUsuario.SelectedValue + ", Nombre_Usua = '" + txtNombre.Text + "', Apellido_Usua = '" + txtApellido.Text + "', DNI_Usua = '" + txtDNI.Text + "', Cumpleaños_Usua = '" + partesFechaPanel[1] + "/" + partesFechaPanel[0] + "/" + partesFechaPanel[2] + "', Telefono_Usua = '" + txtTelefono.Text + "', CodProvincia_Usua = " + BoxProvincia.SelectedValue + ", CodCiudad_Usua = " + BoxCiudad.SelectedValue + ", Direccion_Usua = '" + txtDireccion.Text + "', CodigoPostal_Usua = '" + txtCP.Text + "', Email_Usua = '" + txtEmail.Text + "', Contraseña_Usua = '" + txtContraseña.Text + "', Estado_Usua = '" + cbEstado.Checked + "' WHERE CodUsuario_Usua = " + CurrentCode, BD.getSqlConnection());
-                        comando.ExecuteNonQuery(); //EJECUTAR COMANDO
-
-                        ActualizarDgvUsuarios(); //ACTUALIZAR DATAGRID
-                        seleccionarUsuario(CurrentCode); //SELECIONAR EL USUARIO MODIFICADO
-                        ActualizarContenedores(); //ACTUALIZAR CONTENEDORES CON EL USUARIO SELECCIONADO
-                    }
-                }
-                else //SI NO HAY NINGUNA CIUDAD SELECCIONADA...
-                {
-                    MessageBox.Show("La provincia seleccionada aun no posee ciudades registradas.\nPara agregar una ciudad, dirigase al menu ciudades.", "Ciudad necesaria", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else //SI QUEDO ALGUN CAMPO VACIO...
-            {
-                MessageBox.Show("Quedaron campos vacios.\nPor favor procure completar todos los campos.", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+           
         }
 
         private void seleccionarUsuario(String codigo)
@@ -293,47 +352,7 @@ namespace Proyecto_Cine.Forms
                 }
             }
         }
-
-        private void txtNombre_Enter(object sender, EventArgs e)
-        {
-            if (txtNombre.BackColor != Color.White) txtNombre.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
-        }
-
-        private void txtApellido_Enter(object sender, EventArgs e)
-        {
-            if (txtApellido.BackColor != Color.White) txtApellido.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
-        }
-
-        private void txtDNI_Enter(object sender, EventArgs e)
-        {
-            if (txtDNI.BackColor != Color.White) txtDNI.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
-        }
-
-        private void txtEmail_Enter(object sender, EventArgs e)
-        {
-            if (txtEmail.BackColor != Color.White) txtEmail.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
-        }
-
-        private void txtContraseña_Enter(object sender, EventArgs e)
-        {
-            if (txtContraseña.BackColor != Color.White) txtContraseña.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
-        }
-
-        private void txtTelefono_Enter(object sender, EventArgs e)
-        {
-            if (txtTelefono.BackColor != Color.White) txtTelefono.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
-        }
-
-        private void txtDireccion_Enter(object sender, EventArgs e)
-        {
-            if (txtDireccion.BackColor != Color.White) txtDireccion.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
-        }
-
-        private void txtCP_Enter(object sender, EventArgs e)
-        {
-            if (txtCP.BackColor != Color.White) txtCP.BackColor = Color.White; //SI EL TEXTBOX ESTA DE OTRO COLOR, VOLVER A PONER BLANCO
-        }
-
+        
         private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS

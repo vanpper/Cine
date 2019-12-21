@@ -131,7 +131,7 @@ namespace Proyecto_Cine.Clases.Dao
                 List<TipoDeUsuario> lista = new List<TipoDeUsuario>();
 
                 conexion.abrir();
-                query = "SELECT * FROM TiposDeUsuarios";
+                query = "SELECT * FROM TiposDeUsuarios ORDER BY Descripcion_TDU ASC";
 
                 comando = new SqlCommand(query, conexion.getSqlConnection());
                 reader = comando.ExecuteReader();
