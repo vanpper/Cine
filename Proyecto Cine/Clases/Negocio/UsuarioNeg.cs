@@ -49,5 +49,10 @@ namespace Proyecto_Cine.Clases.Negocio
         {
             return usuarioDao.obtenerTodos();
         }
+
+        public Usuario obtenerUltimo()
+        {
+            return usuarioDao.obtenerUltimo();
+        }
     }
 }

@@ -143,7 +143,7 @@
             this.txtEmail.MaxLength = 100;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(181, 20);
-            this.txtEmail.TabIndex = 1;
+            this.txtEmail.TabIndex = 5;
             // 
             // label4
             // 
@@ -242,14 +242,14 @@
             this.boxTipoDeUsuario.Location = new System.Drawing.Point(81, 15);
             this.boxTipoDeUsuario.Name = "boxTipoDeUsuario";
             this.boxTipoDeUsuario.Size = new System.Drawing.Size(181, 21);
-            this.boxTipoDeUsuario.TabIndex = 5;
+            this.boxTipoDeUsuario.TabIndex = 1;
             // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(594, 124);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 4;
+            this.btnGuardar.TabIndex = 14;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -259,7 +259,7 @@
             this.btnVolver.Location = new System.Drawing.Point(312, 124);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 4;
+            this.btnVolver.TabIndex = 15;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
@@ -272,7 +272,7 @@
             this.cbEstado.Location = new System.Drawing.Point(903, 19);
             this.cbEstado.Name = "cbEstado";
             this.cbEstado.Size = new System.Drawing.Size(15, 14);
-            this.cbEstado.TabIndex = 3;
+            this.cbEstado.TabIndex = 13;
             this.cbEstado.UseVisualStyleBackColor = true;
             // 
             // dtpCumpleaños
@@ -282,8 +282,8 @@
             this.dtpCumpleaños.Location = new System.Drawing.Point(694, 41);
             this.dtpCumpleaños.Name = "dtpCumpleaños";
             this.dtpCumpleaños.Size = new System.Drawing.Size(121, 20);
-            this.dtpCumpleaños.TabIndex = 2;
-            this.dtpCumpleaños.Value = new System.DateTime(2000, 1, 1, 13, 40, 0, 0);
+            this.dtpCumpleaños.TabIndex = 10;
+            this.dtpCumpleaños.Value = new System.DateTime(2019, 12, 21, 0, 0, 0, 0);
             // 
             // txtCP
             // 
@@ -291,7 +291,7 @@
             this.txtCP.MaxLength = 5;
             this.txtCP.Name = "txtCP";
             this.txtCP.Size = new System.Drawing.Size(121, 20);
-            this.txtCP.TabIndex = 1;
+            this.txtCP.TabIndex = 9;
             this.txtCP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCP_KeyPress);
             // 
             // txtDireccion
@@ -300,7 +300,7 @@
             this.txtDireccion.MaxLength = 100;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(181, 20);
-            this.txtDireccion.TabIndex = 1;
+            this.txtDireccion.TabIndex = 8;
             // 
             // txtTelefono
             // 
@@ -308,7 +308,7 @@
             this.txtTelefono.MaxLength = 20;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(181, 20);
-            this.txtTelefono.TabIndex = 1;
+            this.txtTelefono.TabIndex = 7;
             this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // txtDNI
@@ -317,7 +317,7 @@
             this.txtDNI.MaxLength = 10;
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(181, 20);
-            this.txtDNI.TabIndex = 1;
+            this.txtDNI.TabIndex = 4;
             this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress);
             // 
             // txtContraseña
@@ -326,7 +326,7 @@
             this.txtContraseña.MaxLength = 20;
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(181, 20);
-            this.txtContraseña.TabIndex = 1;
+            this.txtContraseña.TabIndex = 6;
             // 
             // txtApellido
             // 
@@ -334,7 +334,7 @@
             this.txtApellido.MaxLength = 100;
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(181, 20);
-            this.txtApellido.TabIndex = 1;
+            this.txtApellido.TabIndex = 3;
             // 
             // txtNombre
             // 
@@ -342,7 +342,7 @@
             this.txtNombre.MaxLength = 100;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(181, 20);
-            this.txtNombre.TabIndex = 1;
+            this.txtNombre.TabIndex = 2;
             // 
             // BoxCiudad
             // 
@@ -351,7 +351,7 @@
             this.BoxCiudad.Location = new System.Drawing.Point(694, 90);
             this.BoxCiudad.Name = "BoxCiudad";
             this.BoxCiudad.Size = new System.Drawing.Size(121, 21);
-            this.BoxCiudad.TabIndex = 0;
+            this.BoxCiudad.TabIndex = 12;
             // 
             // BoxProvincia
             // 
@@ -360,7 +360,7 @@
             this.BoxProvincia.Location = new System.Drawing.Point(694, 65);
             this.BoxProvincia.Name = "BoxProvincia";
             this.BoxProvincia.Size = new System.Drawing.Size(121, 21);
-            this.BoxProvincia.TabIndex = 0;
+            this.BoxProvincia.TabIndex = 11;
             this.BoxProvincia.SelectedIndexChanged += new System.EventHandler(this.BoxProvincia_SelectedIndexChanged);
             // 
             // btnNuevo

@@ -30,6 +30,7 @@ namespace Proyecto_Cine.Forms
         private const int MODIFICAR = 2;
 
         private int OperacionActual = NULL;
+        private bool Guardando = false;
         
         public Usuarios()
         {
@@ -238,13 +239,8 @@ namespace Proyecto_Cine.Forms
             dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
         
-
-       
-
         private void LimpiarContenedores()
         {
-            //LIMPIAR LOS CONTENEDORES
-
             boxTipoDeUsuario.SelectedIndex = 0;
             txtNombre.Clear();
             txtApellido.Clear();
@@ -262,9 +258,7 @@ namespace Proyecto_Cine.Forms
 
         private void ActualizarContenedores()
         {
-            //LLENAR LOS CONTENEDORES CON LOS DATOS DE LA FILA SELECCIONADA
-
-            try
+            if(OperacionActual == MODIFICAR && dgvUsuarios.CurrentRow != null && Guardando != true)
             {
                 boxTipoDeUsuario.SelectedValue = dgvUsuarios.CurrentRow.Cells[1].Value;
                 txtNombre.Text = dgvUsuarios.CurrentRow.Cells[3].Value.ToString();
@@ -280,92 +274,244 @@ namespace Proyecto_Cine.Forms
                 BoxCiudad.SelectedValue = dgvUsuarios.CurrentRow.Cells[10].Value;
                 cbEstado.Checked = bool.Parse(dgvUsuarios.CurrentRow.Cells[16].Value.ToString());
             }
-            catch(Exception ex) { }
         }
-
-        
 
         private void AbrirPanel()
         {
-            dgvUsuarios.Height = 232; //ACHICAR DATAGRID
-            panelUsuario.Visible = true; //MOSTRAR PANEL
-            btnNuevo.Visible = false; //OCULTAR BOTON "NUEVO"
-            btnModificar.Visible = false; //OCULTAR BOTON "MODIFICAR"
+            dgvUsuarios.Height = 232;
+            panelUsuario.Visible = true;
+            btnNuevo.Visible = false;
+            btnModificar.Visible = false;
         }
 
         private void CerrarPanel()
         {
-            OperacionActual = NULL; //ASIGNAR OPERACION ACTUAL COMO "NULO"
-            panelUsuario.Visible = false; //OCULTAR PANEL
-            dgvUsuarios.Height = 394; //AGRANDAR DATAGRID
-            btnNuevo.Visible = true; //MOSTRAR BOTON "NUEVO"
-            btnModificar.Visible = true; //MOSTRAR BOTON "MODIFICAR"
-            LimpiarContenedores(); //LIMPIAR CONTENEDORES
+            OperacionActual = NULL;
+            panelUsuario.Visible = false;
+            dgvUsuarios.Height = 394;
+            btnNuevo.Visible = true;
+            btnModificar.Visible = true;
+            LimpiarContenedores();
         }
-
-        
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            OperacionActual = NUEVO; //ASIGNAR OPERACION ACTUAL COMO "NUEVO"
-            AbrirPanel(); //ABRIR PANEL
+            OperacionActual = NUEVO;
+            AbrirPanel();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            OperacionActual = MODIFICAR; //ASIGNAR OPERACION ACTUAL COMO "MODIFICAR"
-            AbrirPanel(); //ABRIR PANEL
-            ActualizarContenedores(); //LLENAR LOS CONTENEDORES CON EL REGISTRO SELECCIONADO DEL DATAGRID
+            if (dgvUsuarios.CurrentRow != null)
+            {
+                OperacionActual = MODIFICAR;
+                AbrirPanel();
+                ActualizarContenedores();
+            }
+            else
+            {
+                MessageBox.Show("No hay un usuario seleccionado para modificar", "Seleccionar usuario", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            CerrarPanel(); //CERRAR EL PANEL
+            CerrarPanel();
         }
 
         private void BoxProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ActualizarBoxCiudades(); //LLENAR BOX CON LAS CIUDADES DE LA PROVINCIA SELECCIONADA
+            ActualizarBoxCiudades();
         }
 
         private void dgvUsuarios_SelectionChanged(object sender, EventArgs e)
         {
-            if(OperacionActual == MODIFICAR) //SI SE ESTA MODIFICANDO...
-            {
-                ActualizarContenedores(); //ACTUALIZAR LOS CONTENEDORES CON EL REGISTRO SELECCIONADO DEL DATAGRID
-            }
+            ActualizarContenedores();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-           
+            if(boxTipoDeUsuario.SelectedIndex != 0)
+            {
+                if(txtNombre.TextLength != 0)
+                {
+                    if(txtApellido.TextLength != 0)
+                    {
+                        if(txtDNI.TextLength != 0)
+                        {
+                            if(txtEmail.TextLength != 0)
+                            {
+                                if(txtContraseña.TextLength != 0)
+                                {
+                                    if(txtTelefono.TextLength != 0)
+                                    {
+                                        if(txtDireccion.TextLength != 0)
+                                        {
+                                            if(txtCP.TextLength != 0)
+                                            {
+                                                if(BoxProvincia.SelectedIndex != 0)
+                                                {
+                                                    if(BoxCiudad.SelectedIndex != 0)
+                                                    {
+                                                        Guardando = true;
+
+                                                        TipoDeUsuario tipo = new TipoDeUsuario();
+                                                        tipo.setId(Int32.Parse(boxTipoDeUsuario.SelectedValue.ToString()));
+
+                                                        Provincia provincia = new Provincia();
+                                                        provincia.setId(Int32.Parse(BoxProvincia.SelectedValue.ToString()));
+
+                                                        Ciudad ciudad = new Ciudad();
+                                                        ciudad.setProvincia(provincia);
+                                                        ciudad.setId(Int32.Parse(BoxCiudad.SelectedValue.ToString()));
+
+                                                        Usuario usuario = new Usuario();
+                                                        usuario.setTipo(tipo);
+                                                        usuario.setNombre(txtNombre.Text);
+                                                        usuario.setApellido(txtApellido.Text);
+                                                        usuario.setDni(txtDNI.Text);
+                                                        usuario.setEmail(txtEmail.Text);
+                                                        usuario.setContraseña(txtContraseña.Text);
+                                                        usuario.setTelefono(txtTelefono.Text);
+                                                        usuario.setDireccion(txtDireccion.Text);
+                                                        usuario.setCp(txtCP.Text);
+                                                        usuario.setCumpleaños(new Fecha(dtpCumpleaños.Text));
+                                                        usuario.setCiudad(ciudad);
+                                                        usuario.setEstado(cbEstado.Checked);
+
+                                                        if(OperacionActual == NUEVO)
+                                                        {
+                                                            if(usuarioNeg.agregar(usuario))
+                                                            {
+                                                                MessageBox.Show("Se ha agregado el usuario con exito.", "Usuario agregado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                                LimpiarContenedores();
+
+                                                                if(ActualizarDgvUsuarios())
+                                                                {
+                                                                    usuario = usuarioNeg.obtenerUltimo();
+
+                                                                    if(usuario != null)
+                                                                    {
+                                                                        seleccionarUsuario(usuario.getId());
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    MessageBox.Show("Ha ocurrido un error al actualizar la lista de Usuarios", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                            }
+                                                        }
+
+                                                        if(OperacionActual == MODIFICAR)
+                                                        {
+                                                            usuario.setId(Int32.Parse(dgvUsuarios.CurrentRow.Cells[0].Value.ToString()));
+
+                                                            if (usuarioNeg.modificar(usuario))
+                                                            {
+                                                                MessageBox.Show("Se ha modificado el usuario con exito.", "Usuario modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                                
+                                                                if (ActualizarDgvUsuarios())
+                                                                {
+                                                                    seleccionarUsuario(usuario.getId());
+                                                                }
+                                                                else
+                                                                {
+                                                                    MessageBox.Show("Ha ocurrido un error al actualizar la lista de Usuarios", "Error actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                MessageBox.Show("Ha ocurrido un error en medio de la operacion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                            }
+                                                        }
+
+                                                        Guardando = false;
+                                                    }
+                                                    else
+                                                    {
+                                                        MessageBox.Show("Debe seleccionar una ciudad", "Sin ciudad", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("Debe seleccionar una provincia", "Sin provincia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("El codigo postal no puede quedar vacio.", "Codigo postal vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("La direccion no puede quedar vacia.", "Direccion vacia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("El telefono no puede quedar vacio.", "Telefono vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("La contraseña no puede quedar vacia.", "Contraseña vacia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("El email no puede quedar vacio", "Email vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else 
+                        {
+                            MessageBox.Show("La direccion no puede quedar vacia.", "Direccion vacia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El apellido no puede quedar vacio.", "Apellido vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El nombre no puede quedar vacio.", "Nombre vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un Tipo de usuario.", "Sin Tipo de usuario", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
-        private void seleccionarUsuario(String codigo)
+        private void seleccionarUsuario(int codigo)
         {
-            for(int i=0; i<dgvUsuarios.RowCount; i++) //RECORRER TODO EL DATAGRID
+            for(int i=0; i<dgvUsuarios.RowCount; i++)
             {
-                if(dgvUsuarios.Rows[i].Cells[0].Value.ToString() == codigo) //SI EL CODIGO DE LA FILA COINCIDE CON EL CODIGO BUSCADO
+                if(dgvUsuarios.Rows[i].Cells[0].Value.ToString() == codigo.ToString())
                 {
-                    dgvUsuarios.CurrentCell = dgvUsuarios.Rows[i].Cells[3]; //SELECCIONAR REGISTRO
-                    dgvUsuarios.Rows[i].Selected = true; //SELECCIONAR EL REGISTRO
+                    dgvUsuarios.CurrentCell = dgvUsuarios.Rows[i].Cells[3];
+                    dgvUsuarios.Rows[i].Selected = true;
                 }
             }
         }
         
         private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
         private void txtCP_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar); //ACEPTAR SOLO NUMEROS
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }

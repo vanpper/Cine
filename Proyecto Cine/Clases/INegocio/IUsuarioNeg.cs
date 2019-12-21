@@ -13,6 +13,7 @@ namespace Proyecto_Cine.Clases.INegocio
         bool modificar(Usuario usuario);
         Usuario obtener(int id);
         Usuario obtener(String email);
+        Usuario obtenerUltimo();
         List<Usuario> obtenerTodos();
     }
 }
