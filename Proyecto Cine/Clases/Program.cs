@@ -21,7 +21,7 @@ namespace Proyecto_Cine
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.Usuarios());
+            Application.Run(new Forms.Principal());
 
            
         }

@@ -21,5 +21,4 @@ C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.exe
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.pdb
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Principal.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.AdminViewPrincipal.resources
-C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.RestaurarContraseña.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Ventas.resources

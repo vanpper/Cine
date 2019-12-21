@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.panelSuperior = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.panelPrincipal = new System.Windows.Forms.Panel();
             this.panelLogin = new System.Windows.Forms.Panel();
@@ -41,36 +40,21 @@
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.lbemail = new System.Windows.Forms.Label();
             this.panelSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelPrincipal.SuspendLayout();
             this.panelLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSuperior
             // 
-            this.panelSuperior.BackgroundImage = global::Proyecto_Cine.Properties.Resources.inicio_panel_superior;
-            this.panelSuperior.Controls.Add(this.pictureBox1);
             this.panelSuperior.Controls.Add(this.btnCerrarSesion);
             this.panelSuperior.Location = new System.Drawing.Point(2, 2);
             this.panelSuperior.Name = "panelSuperior";
             this.panelSuperior.Size = new System.Drawing.Size(1067, 38);
             this.panelSuperior.TabIndex = 2;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Proyecto_Cine.Properties.Resources.logito;
-            this.pictureBox1.Location = new System.Drawing.Point(3, -1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(114, 38);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // btnCerrarSesion
             // 
             this.btnCerrarSesion.BackColor = System.Drawing.Color.Maroon;
-            this.btnCerrarSesion.BackgroundImage = global::Proyecto_Cine.Properties.Resources.btncerrarSesion;
             this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCerrarSesion.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrarSesion.ForeColor = System.Drawing.SystemColors.ScrollBar;
@@ -85,7 +69,6 @@
             // 
             // panelPrincipal
             // 
-            this.panelPrincipal.BackgroundImage = global::Proyecto_Cine.Properties.Resources.inicio_panel_principal;
             this.panelPrincipal.Controls.Add(this.panelLogin);
             this.panelPrincipal.Location = new System.Drawing.Point(2, 42);
             this.panelPrincipal.Name = "panelPrincipal";
@@ -94,7 +77,7 @@
             // 
             // panelLogin
             // 
-            this.panelLogin.BackgroundImage = global::Proyecto_Cine.Properties.Resources.login2;
+            this.panelLogin.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.panelLogin.Controls.Add(this.button1);
             this.panelLogin.Controls.Add(this.btnIngresar);
             this.panelLogin.Controls.Add(this.txtEmail);
@@ -122,7 +105,6 @@
             // 
             // btnIngresar
             // 
-            this.btnIngresar.BackgroundImage = global::Proyecto_Cine.Properties.Resources.botoningresar;
             this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIngresar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIngresar.Location = new System.Drawing.Point(17, 233);
@@ -184,7 +166,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Proyecto_Cine.Properties.Resources.inicio_panel_superior;
             this.ClientSize = new System.Drawing.Size(1071, 478);
             this.Controls.Add(this.panelSuperior);
             this.Controls.Add(this.panelPrincipal);
@@ -195,7 +176,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bienvenido a Movix";
             this.panelSuperior.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelPrincipal.ResumeLayout(false);
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
@@ -215,6 +195,5 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lbcontraseña;
         private System.Windows.Forms.Label lbemail;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

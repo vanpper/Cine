@@ -97,8 +97,7 @@ namespace Proyecto_Cine.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RestaurarContraseña ventana = new RestaurarContraseña(this.Location.X, this.Location.Y);
-            ventana.Show();
+            
         }
     }
 }

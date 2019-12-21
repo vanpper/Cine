@@ -57,7 +57,6 @@
             // 
             // btnPeliculas
             // 
-            this.btnPeliculas.BackgroundImage = global::Proyecto_Cine.Properties.Resources.peliculas_unselected;
             this.btnPeliculas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnPeliculas.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPeliculas.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -73,7 +72,6 @@
             // 
             // btnCines
             // 
-            this.btnCines.BackgroundImage = global::Proyecto_Cine.Properties.Resources.cines_unselected1;
             this.btnCines.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCines.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCines.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -89,7 +87,6 @@
             // 
             // btnPrecios
             // 
-            this.btnPrecios.BackgroundImage = global::Proyecto_Cine.Properties.Resources.precios_unselected;
             this.btnPrecios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnPrecios.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPrecios.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -105,7 +102,6 @@
             // 
             // btnVentas
             // 
-            this.btnVentas.BackgroundImage = global::Proyecto_Cine.Properties.Resources.ventas_unselected;
             this.btnVentas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnVentas.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -121,7 +117,6 @@
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.BackgroundImage = global::Proyecto_Cine.Properties.Resources.usuarios_unselected;
             this.btnUsuarios.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUsuarios.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -137,7 +132,6 @@
             // 
             // btnFunciones
             // 
-            this.btnFunciones.BackgroundImage = global::Proyecto_Cine.Properties.Resources.funciones_unselected;
             this.btnFunciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnFunciones.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnFunciones.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -153,7 +147,6 @@
             // 
             // btnCiudades
             // 
-            this.btnCiudades.BackgroundImage = global::Proyecto_Cine.Properties.Resources.ciudades_unselected;
             this.btnCiudades.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCiudades.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCiudades.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -178,7 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Proyecto_Cine.Properties.Resources.fondo;
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1067, 432);
             this.Controls.Add(this.panelLateral);

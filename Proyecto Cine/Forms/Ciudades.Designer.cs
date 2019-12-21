@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvProvincias = new System.Windows.Forms.DataGridView();
             this.dgvCiudades = new System.Windows.Forms.DataGridView();
             this.btnNuevaProvincia = new System.Windows.Forms.Button();
@@ -52,34 +52,34 @@
             // 
             this.dgvProvincias.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.dgvProvincias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkOrange;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkOrange;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProvincias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkOrange;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProvincias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvProvincias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProvincias.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProvincias.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvProvincias.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.dgvProvincias.Location = new System.Drawing.Point(31, 2);
             this.dgvProvincias.Name = "dgvProvincias";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProvincias.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProvincias.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvProvincias.RowHeadersWidth = 60;
             this.dgvProvincias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProvincias.Size = new System.Drawing.Size(299, 422);
@@ -99,7 +99,6 @@
             // 
             // btnNuevaProvincia
             // 
-            this.btnNuevaProvincia.BackgroundImage = global::Proyecto_Cine.Properties.Resources.boton_agregar;
             this.btnNuevaProvincia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnNuevaProvincia.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNuevaProvincia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -112,7 +111,6 @@
             // 
             // btnNuevaCiudad
             // 
-            this.btnNuevaCiudad.BackgroundImage = global::Proyecto_Cine.Properties.Resources.boton_agregar;
             this.btnNuevaCiudad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnNuevaCiudad.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNuevaCiudad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -125,7 +123,6 @@
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = global::Proyecto_Cine.Properties.Resources.vidrio;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
@@ -178,7 +175,6 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.BackgroundImage = global::Proyecto_Cine.Properties.Resources.botoningresar;
             this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -204,7 +200,7 @@
             // 
             // btnModificarProvincia
             // 
-            this.btnModificarProvincia.BackgroundImage = global::Proyecto_Cine.Properties.Resources.boton_modificar;
+            this.btnModificarProvincia.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.btnModificarProvincia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnModificarProvincia.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModificarProvincia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -212,12 +208,11 @@
             this.btnModificarProvincia.Name = "btnModificarProvincia";
             this.btnModificarProvincia.Size = new System.Drawing.Size(28, 28);
             this.btnModificarProvincia.TabIndex = 2;
-            this.btnModificarProvincia.UseVisualStyleBackColor = true;
+            this.btnModificarProvincia.UseVisualStyleBackColor = false;
             this.btnModificarProvincia.Click += new System.EventHandler(this.btnModificarProvincia_Click);
             // 
             // btnModificarCiudad
             // 
-            this.btnModificarCiudad.BackgroundImage = global::Proyecto_Cine.Properties.Resources.boton_modificar;
             this.btnModificarCiudad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnModificarCiudad.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModificarCiudad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -232,7 +227,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Proyecto_Cine.Properties.Resources.fondo_ciudades;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(965, 430);
             this.Controls.Add(this.btnModificarCiudad);
