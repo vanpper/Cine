@@ -22,3 +22,26 @@ C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.pdb
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Principal.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.AdminViewPrincipal.resources
 C:\Users\VAN\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Ventas.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\bin\Debug\Proyecto Cine.exe.config
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\bin\Debug\Proyecto Cine.exe
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\bin\Debug\Proyecto Cine.pdb
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Cine.csprojAssemblyReference.cache
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.AdminView.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.AdminViewPrincipal.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Cines.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Ciudades.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.ClasificacionesYGeneros.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Formatos.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Funciones.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.MenuPeliculas.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Peliculas.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Precios.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Principal.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Salas.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.SalasYCines.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Usuarios.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Forms.Ventas.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto_Cine.Properties.Resources.resources
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Cine.csproj.GenerateResource.cache
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.exe
+C:\Users\Iván\Documents\GitHub\Cine\Proyecto Cine\obj\Debug\Proyecto Cine.pdb

@@ -46,6 +46,7 @@
             // 
             // panelSuperior
             // 
+            this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.panelSuperior.Controls.Add(this.btnCerrarSesion);
             this.panelSuperior.Location = new System.Drawing.Point(2, 2);
             this.panelSuperior.Name = "panelSuperior";
@@ -54,21 +55,21 @@
             // 
             // btnCerrarSesion
             // 
-            this.btnCerrarSesion.BackColor = System.Drawing.Color.Maroon;
-            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCerrarSesion.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCerrarSesion.ForeColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnCerrarSesion.Location = new System.Drawing.Point(957, 2);
+            this.btnCerrarSesion.BackColor = System.Drawing.Color.DarkRed;
+            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrarSesion.Font = new System.Drawing.Font("Corbel", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrarSesion.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnCerrarSesion.Location = new System.Drawing.Point(1001, 8);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
-            this.btnCerrarSesion.Size = new System.Drawing.Size(107, 32);
+            this.btnCerrarSesion.Size = new System.Drawing.Size(57, 24);
             this.btnCerrarSesion.TabIndex = 0;
-            this.btnCerrarSesion.Text = "Cerrar sesion";
-            this.btnCerrarSesion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCerrarSesion.Text = "Salir";
             this.btnCerrarSesion.UseVisualStyleBackColor = false;
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             // 
             // panelPrincipal
             // 
+            this.panelPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.panelPrincipal.Controls.Add(this.panelLogin);
             this.panelPrincipal.Location = new System.Drawing.Point(2, 42);
             this.panelPrincipal.Name = "panelPrincipal";
@@ -77,27 +78,29 @@
             // 
             // panelLogin
             // 
-            this.panelLogin.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panelLogin.BackColor = System.Drawing.Color.AliceBlue;
+            this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelLogin.Controls.Add(this.button1);
             this.panelLogin.Controls.Add(this.btnIngresar);
             this.panelLogin.Controls.Add(this.txtEmail);
             this.panelLogin.Controls.Add(this.lbcontraseña);
             this.panelLogin.Controls.Add(this.txtContraseña);
             this.panelLogin.Controls.Add(this.lbemail);
-            this.panelLogin.Location = new System.Drawing.Point(388, 22);
+            this.panelLogin.Location = new System.Drawing.Point(208, 19);
             this.panelLogin.Name = "panelLogin";
-            this.panelLogin.Size = new System.Drawing.Size(280, 343);
+            this.panelLogin.Size = new System.Drawing.Size(662, 343);
             this.panelLogin.TabIndex = 4;
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.BackColor = System.Drawing.Color.AliceBlue;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(17, 285);
+            this.button1.Location = new System.Drawing.Point(163, 270);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(247, 35);
+            this.button1.Size = new System.Drawing.Size(335, 35);
             this.button1.TabIndex = 4;
             this.button1.Text = "Olvidé mi clave";
             this.button1.UseVisualStyleBackColor = false;
@@ -105,58 +108,60 @@
             // 
             // btnIngresar
             // 
-            this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnIngresar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIngresar.Location = new System.Drawing.Point(17, 233);
+            this.btnIngresar.BackColor = System.Drawing.Color.Orange;
+            this.btnIngresar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIngresar.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIngresar.Location = new System.Drawing.Point(163, 218);
             this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(247, 35);
+            this.btnIngresar.Size = new System.Drawing.Size(335, 35);
             this.btnIngresar.TabIndex = 2;
             this.btnIngresar.Text = "Ingresar";
-            this.btnIngresar.UseVisualStyleBackColor = true;
+            this.btnIngresar.UseVisualStyleBackColor = false;
             this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
             // txtEmail
             // 
-            this.txtEmail.BackColor = System.Drawing.SystemColors.Control;
-            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(21, 68);
+            this.txtEmail.BackColor = System.Drawing.Color.AliceBlue;
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEmail.Font = new System.Drawing.Font("Corbel", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(167, 53);
             this.txtEmail.MaxLength = 100;
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(237, 22);
+            this.txtEmail.Size = new System.Drawing.Size(325, 31);
             this.txtEmail.TabIndex = 0;
-            this.txtEmail.Text = "admin";
+            this.txtEmail.Text = "anthonystark@live.com";
             // 
             // lbcontraseña
             // 
             this.lbcontraseña.AutoSize = true;
-            this.lbcontraseña.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbcontraseña.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbcontraseña.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbcontraseña.Location = new System.Drawing.Point(18, 127);
+            this.lbcontraseña.Location = new System.Drawing.Point(164, 112);
             this.lbcontraseña.Name = "lbcontraseña";
-            this.lbcontraseña.Size = new System.Drawing.Size(65, 15);
+            this.lbcontraseña.Size = new System.Drawing.Size(63, 15);
             this.lbcontraseña.TabIndex = 1;
             this.lbcontraseña.Text = "Password";
             // 
             // txtContraseña
             // 
-            this.txtContraseña.BackColor = System.Drawing.SystemColors.Control;
-            this.txtContraseña.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraseña.Location = new System.Drawing.Point(20, 145);
+            this.txtContraseña.BackColor = System.Drawing.Color.AliceBlue;
+            this.txtContraseña.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtContraseña.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContraseña.Location = new System.Drawing.Point(166, 130);
             this.txtContraseña.MaxLength = 20;
             this.txtContraseña.Name = "txtContraseña";
-            this.txtContraseña.Size = new System.Drawing.Size(237, 22);
+            this.txtContraseña.Size = new System.Drawing.Size(325, 29);
             this.txtContraseña.TabIndex = 1;
-            this.txtContraseña.Text = "admin";
+            this.txtContraseña.Text = "anthonystark";
             this.txtContraseña.UseSystemPasswordChar = true;
             // 
             // lbemail
             // 
             this.lbemail.AutoSize = true;
-            this.lbemail.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbemail.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbemail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbemail.Location = new System.Drawing.Point(18, 50);
+            this.lbemail.Location = new System.Drawing.Point(164, 35);
             this.lbemail.Name = "lbemail";
             this.lbemail.Size = new System.Drawing.Size(38, 15);
             this.lbemail.TabIndex = 1;
@@ -166,10 +171,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(1071, 478);
             this.Controls.Add(this.panelSuperior);
             this.Controls.Add(this.panelPrincipal);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Principal";

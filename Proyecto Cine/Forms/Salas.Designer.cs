@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PanelTDS = new System.Windows.Forms.Panel();
             this.txtDescripcionTDS = new System.Windows.Forms.TextBox();
@@ -62,6 +64,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.PanelTDS);
             this.panel1.Controls.Add(this.btnModificarTDS);
@@ -87,14 +90,16 @@
             // 
             // txtDescripcionTDS
             // 
+            this.txtDescripcionTDS.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcionTDS.Location = new System.Drawing.Point(109, 16);
             this.txtDescripcionTDS.MaxLength = 100;
             this.txtDescripcionTDS.Name = "txtDescripcionTDS";
-            this.txtDescripcionTDS.Size = new System.Drawing.Size(123, 20);
+            this.txtDescripcionTDS.Size = new System.Drawing.Size(123, 23);
             this.txtDescripcionTDS.TabIndex = 0;
             // 
             // btnGuardarTDS
             // 
+            this.btnGuardarTDS.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarTDS.Location = new System.Drawing.Point(172, 48);
             this.btnGuardarTDS.Name = "btnGuardarTDS";
             this.btnGuardarTDS.Size = new System.Drawing.Size(71, 23);
@@ -106,14 +111,17 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 19);
+            this.label4.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label4.Location = new System.Drawing.Point(30, 19);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 13);
+            this.label4.Size = new System.Drawing.Size(73, 15);
             this.label4.TabIndex = 4;
-            this.label4.Text = "DESCRIPCION";
+            this.label4.Text = "Descripcion";
             // 
             // btnVolverTDS
             // 
+            this.btnVolverTDS.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverTDS.Location = new System.Drawing.Point(8, 49);
             this.btnVolverTDS.Name = "btnVolverTDS";
             this.btnVolverTDS.Size = new System.Drawing.Size(71, 23);
@@ -124,6 +132,7 @@
             // 
             // btnModificarTDS
             // 
+            this.btnModificarTDS.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarTDS.Location = new System.Drawing.Point(187, 391);
             this.btnModificarTDS.Name = "btnModificarTDS";
             this.btnModificarTDS.Size = new System.Drawing.Size(75, 23);
@@ -134,6 +143,7 @@
             // 
             // btnNuevoTDS
             // 
+            this.btnNuevoTDS.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoTDS.Location = new System.Drawing.Point(11, 391);
             this.btnNuevoTDS.Name = "btnNuevoTDS";
             this.btnNuevoTDS.Size = new System.Drawing.Size(75, 23);
@@ -144,7 +154,16 @@
             // 
             // dgvTDS
             // 
+            this.dgvTDS.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvTDS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTDS.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTDS.Location = new System.Drawing.Point(11, 8);
             this.dgvTDS.Name = "dgvTDS";
             this.dgvTDS.Size = new System.Drawing.Size(251, 283);
@@ -153,6 +172,7 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnNuevoSalas);
             this.panel2.Controls.Add(this.btnModificarSalas);
@@ -167,6 +187,7 @@
             // 
             // btnNuevoSalas
             // 
+            this.btnNuevoSalas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoSalas.Location = new System.Drawing.Point(102, 391);
             this.btnNuevoSalas.Name = "btnNuevoSalas";
             this.btnNuevoSalas.Size = new System.Drawing.Size(75, 23);
@@ -177,6 +198,7 @@
             // 
             // btnModificarSalas
             // 
+            this.btnModificarSalas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarSalas.Location = new System.Drawing.Point(411, 391);
             this.btnModificarSalas.Name = "btnModificarSalas";
             this.btnModificarSalas.Size = new System.Drawing.Size(75, 23);
@@ -188,11 +210,13 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.AliceBlue;
             this.label5.Location = new System.Drawing.Point(201, 11);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 13);
+            this.label5.Size = new System.Drawing.Size(32, 15);
             this.label5.TabIndex = 4;
-            this.label5.Text = "CINE";
+            this.label5.Text = "Cine";
             // 
             // PanelSalas
             // 
@@ -214,29 +238,35 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(454, 15);
+            this.label3.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label3.Location = new System.Drawing.Point(456, 14);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 13);
+            this.label3.Size = new System.Drawing.Size(43, 15);
             this.label3.TabIndex = 4;
-            this.label3.Text = "ACTIVA";
+            this.label3.Text = "Activa";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(233, 15);
+            this.label2.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label2.Location = new System.Drawing.Point(234, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
+            this.label2.Size = new System.Drawing.Size(31, 15);
             this.label2.TabIndex = 4;
-            this.label2.Text = "TIPO";
+            this.label2.Text = "Tipo";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 15);
+            this.label1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label1.Location = new System.Drawing.Point(19, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.Size = new System.Drawing.Size(53, 15);
             this.label1.TabIndex = 4;
-            this.label1.Text = "NOMBRE";
+            this.label1.Text = "Nombre";
             // 
             // checkSala
             // 
@@ -253,6 +283,7 @@
             // 
             // btnGuardarSalas
             // 
+            this.btnGuardarSalas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarSalas.Location = new System.Drawing.Point(401, 49);
             this.btnGuardarSalas.Name = "btnGuardarSalas";
             this.btnGuardarSalas.Size = new System.Drawing.Size(75, 23);
@@ -263,6 +294,7 @@
             // 
             // btnVolverSalas
             // 
+            this.btnVolverSalas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverSalas.Location = new System.Drawing.Point(92, 49);
             this.btnVolverSalas.Name = "btnVolverSalas";
             this.btnVolverSalas.Size = new System.Drawing.Size(75, 23);
@@ -273,34 +305,46 @@
             // 
             // txtDescripcionSalas
             // 
+            this.txtDescripcionSalas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcionSalas.Location = new System.Drawing.Point(78, 12);
             this.txtDescripcionSalas.MaxLength = 50;
             this.txtDescripcionSalas.Name = "txtDescripcionSalas";
-            this.txtDescripcionSalas.Size = new System.Drawing.Size(121, 20);
+            this.txtDescripcionSalas.Size = new System.Drawing.Size(121, 23);
             this.txtDescripcionSalas.TabIndex = 1;
             // 
             // boxTDS
             // 
             this.boxTDS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxTDS.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxTDS.FormattingEnabled = true;
             this.boxTDS.Location = new System.Drawing.Point(271, 11);
             this.boxTDS.Name = "boxTDS";
-            this.boxTDS.Size = new System.Drawing.Size(121, 21);
+            this.boxTDS.Size = new System.Drawing.Size(132, 23);
             this.boxTDS.TabIndex = 0;
             // 
             // boxCines
             // 
             this.boxCines.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxCines.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxCines.FormattingEnabled = true;
             this.boxCines.Location = new System.Drawing.Point(239, 8);
             this.boxCines.Name = "boxCines";
-            this.boxCines.Size = new System.Drawing.Size(121, 21);
+            this.boxCines.Size = new System.Drawing.Size(133, 23);
             this.boxCines.TabIndex = 1;
             this.boxCines.SelectedIndexChanged += new System.EventHandler(this.boxCines_SelectedIndexChanged);
             // 
             // dgvSalas
             // 
+            this.dgvSalas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvSalas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSalas.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvSalas.Location = new System.Drawing.Point(9, 35);
             this.dgvSalas.Name = "dgvSalas";
             this.dgvSalas.Size = new System.Drawing.Size(577, 256);
@@ -311,6 +355,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(878, 426);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

@@ -192,11 +192,11 @@
     <Compile Include="Forms\Precios.Designer.cs">
       <DependentUpon>Precios.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Principalcs.cs">
+    <Compile Include="Forms\Principal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Principalcs.Designer.cs">
-      <DependentUpon>Principalcs.cs</DependentUpon>
+    <Compile Include="Forms\Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Salas.cs">
       <SubType>Form</SubType>
@@ -253,8 +253,8 @@
     <EmbeddedResource Include="Forms\Precios.resx">
       <DependentUpon>Precios.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Principalcs.resx">
-      <DependentUpon>Principalcs.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Salas.resx">
       <DependentUpon>Salas.cs</DependentUpon>

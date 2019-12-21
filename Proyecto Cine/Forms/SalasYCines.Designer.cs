@@ -37,32 +37,41 @@
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.btnSalas);
             this.panel1.Controls.Add(this.btnCines);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 121);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(85, 426);
+            this.panel1.Size = new System.Drawing.Size(85, 182);
             this.panel1.TabIndex = 0;
             // 
             // btnSalas
             // 
-            this.btnSalas.Location = new System.Drawing.Point(4, 302);
+            this.btnSalas.BackColor = System.Drawing.Color.Orange;
+            this.btnSalas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalas.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSalas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalas.ForeColor = System.Drawing.Color.AliceBlue;
+            this.btnSalas.Location = new System.Drawing.Point(3, 121);
             this.btnSalas.Name = "btnSalas";
-            this.btnSalas.Size = new System.Drawing.Size(75, 23);
+            this.btnSalas.Size = new System.Drawing.Size(77, 59);
             this.btnSalas.TabIndex = 0;
-            this.btnSalas.Text = "SALAS";
-            this.btnSalas.UseVisualStyleBackColor = true;
+            this.btnSalas.Text = "Salas";
+            this.btnSalas.UseVisualStyleBackColor = false;
             this.btnSalas.Click += new System.EventHandler(this.btnSalas_Click);
             // 
             // btnCines
             // 
-            this.btnCines.Location = new System.Drawing.Point(3, 113);
+            this.btnCines.BackColor = System.Drawing.Color.Orange;
+            this.btnCines.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCines.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCines.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCines.ForeColor = System.Drawing.Color.AliceBlue;
+            this.btnCines.Location = new System.Drawing.Point(4, 3);
             this.btnCines.Name = "btnCines";
-            this.btnCines.Size = new System.Drawing.Size(75, 23);
+            this.btnCines.Size = new System.Drawing.Size(77, 59);
             this.btnCines.TabIndex = 0;
-            this.btnCines.Text = "CINES";
-            this.btnCines.UseVisualStyleBackColor = true;
+            this.btnCines.Text = "Cines";
+            this.btnCines.UseVisualStyleBackColor = false;
             this.btnCines.Click += new System.EventHandler(this.btnCines_Click);
             // 
             // Panel
@@ -76,6 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(969, 426);
             this.Controls.Add(this.Panel);
             this.Controls.Add(this.panel1);
