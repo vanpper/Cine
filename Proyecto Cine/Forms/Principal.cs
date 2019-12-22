@@ -8,11 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Proyecto_Cine.Clases.Entidades;
+using Proyecto_Cine.Clases.INegocio;
+using Proyecto_Cine.Clases.Negocio;
 
 namespace Proyecto_Cine.Forms
 {
     public partial class Principal : Form
     {
+        private IUsuarioNeg usuarioNeg = new UsuarioNeg();
+
         public Principal()
         {
             InitializeComponent();
@@ -37,41 +42,17 @@ namespace Proyecto_Cine.Forms
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            Conexion BD = new Conexion();
+            Usuario usuario = usuarioNeg.obtener(txtEmail.Text);
 
-            if (BD.abrir())
+            if(usuario != null && usuario.getContraseña() == txtContraseña.Text)
             {
-                SqlCommand comando = new SqlCommand("SELECT CodTipoDeUsuario_Usua, Nombre_Usua, Apellido_Usua FROM Usuarios WHERE Email_Usua = '" + txtEmail.Text + "' AND Contraseña_Usua = '" + txtContraseña.Text + "'", BD.getSqlConnection());
-                SqlDataReader reader = comando.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    //SI LOS DATOS INGRESADOS SON DE UN ADMINISTRADOR, ACA SE ABRE EL MENU ADMINISTRADOR
-                    if (reader.GetValue(0).ToString() == "1")
-                    {
-                        //panelLogin.Visible = false;
-                        panelSuperior.Visible = true;
-                        AcoplarForm(new AdminView());
-                        
-                    }
-
-                    //SI LOS DATOS INGRESADOS SON DE UN OPERARIO, ACA SE ABRE EL MENU OPERARIO
-                    if (reader.GetValue(1).ToString() == "2")
-                    {
-
-                    }
-
-                    //SI LOS DATOS INGRESADOS SON DE UN ESPECTADOR, ACA SE ABRE EL MENU ESPECTADOR
-                    if (reader.GetValue(1).ToString() == "3")
-                    {
-
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("El email y/o contraseña son incorrectos.", "Datos no validos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtEmail.Focus();
-                }
+                panelSuperior.Visible = true;
+                AcoplarForm(new AdminView());
+                MessageBox.Show("¡Bienvenido al sistema!", "Login exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Usuario y/o contraseña incorrectos.", "Datos invalidos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -88,16 +69,6 @@ namespace Proyecto_Cine.Forms
                 txtContraseña.Clear();
                 txtEmail.Focus();
             }
-        }
-
-        private void linkRestaurarContraseña_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
         }
     }
 }

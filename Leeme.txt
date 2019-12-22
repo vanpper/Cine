@@ -1,0 +1,3 @@
+Primero: Crear la base de datos. El script se encuentra en la carpeta "Base de datos".
+Segundo: Modificar el fichero "rutaBD.txt" que se encuentra en "/Proyecto Cine/BD/rutaBD.txt"
+	 Colocar la ruta de la base de datos.
