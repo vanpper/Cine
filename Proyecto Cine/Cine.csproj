@@ -291,86 +291,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="img\inicio.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\inicio_panel_superior.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\login.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\login2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\botoningresar.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\logito.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\btncerrarSesion.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\fondo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\ciudades_unselected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\ciudades_selected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\cines_unselected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\cines_selected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\peliculas_unselected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\peliculas_selected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\funciones_unselected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\funciones_selected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\precios_unselected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\precios_selected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\usuarios_unselected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\usuarios_selected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\ventas_unselected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\ventas_selected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\ciudades\fondo_ciudades.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\ciudades\boton_agregar.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\ciudades\boton_modificar.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\ciudades\vidrio.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\kisspng-architectural-engineering-stock-photography-clip-a-work-in-progress-5b262f62215077.8632746215292291541365.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

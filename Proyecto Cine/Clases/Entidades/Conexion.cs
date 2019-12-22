@@ -22,7 +22,8 @@ namespace Proyecto_Cine
             }
             catch(Exception ex)
             {
-                MessageBox.Show("No se encontró el archivo que contiene la ruta de la base de datos", "Archivo perdido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("No se encontró el archivo que contiene la ruta de la base de datos.", "Archivo perdido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             sqlConnection = new SqlConnection();
@@ -43,7 +44,8 @@ namespace Proyecto_Cine
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ha ocurrido un error al intentar conectar con el servidor", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.Write(ex.Message);
+                MessageBox.Show("Ha ocurrido un error al intentar conectar con el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -57,6 +59,7 @@ namespace Proyecto_Cine
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 MessageBox.Show("Ha ocurrido un error al intentar conectar con el servidor", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }

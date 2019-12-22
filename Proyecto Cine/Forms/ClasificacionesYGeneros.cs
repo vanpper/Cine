@@ -263,7 +263,7 @@ namespace Proyecto_Cine.Forms
             }
             else
             {
-                MessageBox.Show("El nombre no puede quedar vacio.", "Nombre vacio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La descripcion no puede quedar vacia.", "Descripcion vacia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

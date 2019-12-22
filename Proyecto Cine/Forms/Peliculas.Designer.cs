@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
@@ -66,6 +67,7 @@
             // 
             // btnModificar
             // 
+            this.btnModificar.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificar.Location = new System.Drawing.Point(152, 387);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
@@ -76,6 +78,7 @@
             // 
             // btnNuevo
             // 
+            this.btnNuevo.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.Location = new System.Drawing.Point(13, 387);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(75, 23);
@@ -86,7 +89,16 @@
             // 
             // dgvPeliculas
             // 
+            this.dgvPeliculas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvPeliculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPeliculas.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPeliculas.Location = new System.Drawing.Point(13, 14);
             this.dgvPeliculas.Name = "dgvPeliculas";
             this.dgvPeliculas.Size = new System.Drawing.Size(214, 366);
@@ -116,6 +128,7 @@
             // 
             // btnBorrarImagen
             // 
+            this.btnBorrarImagen.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrarImagen.Location = new System.Drawing.Point(323, 43);
             this.btnBorrarImagen.Name = "btnBorrarImagen";
             this.btnBorrarImagen.Size = new System.Drawing.Size(31, 23);
@@ -127,6 +140,7 @@
             // 
             // btnVolver
             // 
+            this.btnVolver.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.Location = new System.Drawing.Point(16, 387);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
@@ -138,6 +152,7 @@
             // 
             // btnAgregarImagen
             // 
+            this.btnAgregarImagen.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarImagen.Location = new System.Drawing.Point(322, 14);
             this.btnAgregarImagen.Name = "btnAgregarImagen";
             this.btnAgregarImagen.Size = new System.Drawing.Size(32, 23);
@@ -149,6 +164,7 @@
             // 
             // btnGuardar
             // 
+            this.btnGuardar.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.Location = new System.Drawing.Point(262, 387);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
@@ -161,16 +177,18 @@
             // cbEstado
             // 
             this.cbEstado.AutoSize = true;
+            this.cbEstado.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbEstado.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.cbEstado.Location = new System.Drawing.Point(16, 158);
             this.cbEstado.Name = "cbEstado";
-            this.cbEstado.Size = new System.Drawing.Size(59, 17);
+            this.cbEstado.Size = new System.Drawing.Size(63, 19);
             this.cbEstado.TabIndex = 2;
             this.cbEstado.Text = "Estado";
             this.cbEstado.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(359, 14);
             this.pictureBox1.Name = "pictureBox1";
@@ -182,23 +200,26 @@
             // boxClasificacion
             // 
             this.boxClasificacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxClasificacion.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxClasificacion.FormattingEnabled = true;
             this.boxClasificacion.Location = new System.Drawing.Point(194, 118);
             this.boxClasificacion.Name = "boxClasificacion";
-            this.boxClasificacion.Size = new System.Drawing.Size(143, 21);
+            this.boxClasificacion.Size = new System.Drawing.Size(143, 23);
             this.boxClasificacion.TabIndex = 1;
             // 
             // boxGenero
             // 
             this.boxGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxGenero.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxGenero.FormattingEnabled = true;
             this.boxGenero.Location = new System.Drawing.Point(16, 118);
             this.boxGenero.Name = "boxGenero";
-            this.boxGenero.Size = new System.Drawing.Size(143, 21);
+            this.boxGenero.Size = new System.Drawing.Size(143, 23);
             this.boxGenero.TabIndex = 1;
             // 
             // txtDescripcion
             // 
+            this.txtDescripcion.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcion.Location = new System.Drawing.Point(16, 193);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
@@ -211,11 +232,12 @@
             // 
             // txtDirectores
             // 
+            this.txtDirectores.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDirectores.Location = new System.Drawing.Point(16, 92);
             this.txtDirectores.MaxLength = 100;
             this.txtDirectores.Name = "txtDirectores";
             this.txtDirectores.ReadOnly = true;
-            this.txtDirectores.Size = new System.Drawing.Size(272, 20);
+            this.txtDirectores.Size = new System.Drawing.Size(272, 23);
             this.txtDirectores.TabIndex = 0;
             this.txtDirectores.Text = "Directores";
             this.txtDirectores.Enter += new System.EventHandler(this.txtDirectores_Enter);
@@ -223,11 +245,12 @@
             // 
             // txtActores
             // 
+            this.txtActores.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtActores.Location = new System.Drawing.Point(16, 66);
             this.txtActores.MaxLength = 100;
             this.txtActores.Name = "txtActores";
             this.txtActores.ReadOnly = true;
-            this.txtActores.Size = new System.Drawing.Size(272, 20);
+            this.txtActores.Size = new System.Drawing.Size(272, 23);
             this.txtActores.TabIndex = 0;
             this.txtActores.Text = "Actores";
             this.txtActores.Enter += new System.EventHandler(this.txtActores_Enter);
@@ -235,11 +258,12 @@
             // 
             // txtDuracion
             // 
+            this.txtDuracion.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDuracion.Location = new System.Drawing.Point(16, 40);
             this.txtDuracion.MaxLength = 3;
             this.txtDuracion.Name = "txtDuracion";
             this.txtDuracion.ReadOnly = true;
-            this.txtDuracion.Size = new System.Drawing.Size(59, 20);
+            this.txtDuracion.Size = new System.Drawing.Size(59, 23);
             this.txtDuracion.TabIndex = 0;
             this.txtDuracion.Text = "Duracion";
             this.txtDuracion.Enter += new System.EventHandler(this.txtDuracion_Enter);
@@ -248,11 +272,12 @@
             // 
             // txtNombre
             // 
+            this.txtNombre.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(16, 14);
             this.txtNombre.MaxLength = 100;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.ReadOnly = true;
-            this.txtNombre.Size = new System.Drawing.Size(272, 20);
+            this.txtNombre.Size = new System.Drawing.Size(272, 23);
             this.txtNombre.TabIndex = 0;
             this.txtNombre.Text = "Nombre";
             this.txtNombre.Enter += new System.EventHandler(this.txtNombre_Enter);
@@ -266,6 +291,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(877, 427);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

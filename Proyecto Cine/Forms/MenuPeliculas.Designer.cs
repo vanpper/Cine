@@ -38,32 +38,47 @@
             // 
             // btnPeliculas
             // 
-            this.btnPeliculas.Location = new System.Drawing.Point(4, 72);
+            this.btnPeliculas.BackColor = System.Drawing.Color.Orange;
+            this.btnPeliculas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPeliculas.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPeliculas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPeliculas.ForeColor = System.Drawing.Color.White;
+            this.btnPeliculas.Location = new System.Drawing.Point(3, 64);
             this.btnPeliculas.Name = "btnPeliculas";
-            this.btnPeliculas.Size = new System.Drawing.Size(75, 37);
+            this.btnPeliculas.Size = new System.Drawing.Size(77, 59);
             this.btnPeliculas.TabIndex = 0;
             this.btnPeliculas.Text = "Peliculas";
-            this.btnPeliculas.UseVisualStyleBackColor = true;
+            this.btnPeliculas.UseVisualStyleBackColor = false;
             this.btnPeliculas.Click += new System.EventHandler(this.btnPeliculas_Click);
             // 
             // btnFormatos
             // 
-            this.btnFormatos.Location = new System.Drawing.Point(4, 195);
+            this.btnFormatos.BackColor = System.Drawing.Color.Orange;
+            this.btnFormatos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFormatos.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFormatos.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFormatos.ForeColor = System.Drawing.Color.White;
+            this.btnFormatos.Location = new System.Drawing.Point(3, 187);
             this.btnFormatos.Name = "btnFormatos";
-            this.btnFormatos.Size = new System.Drawing.Size(75, 37);
+            this.btnFormatos.Size = new System.Drawing.Size(77, 59);
             this.btnFormatos.TabIndex = 0;
             this.btnFormatos.Text = "Formatos";
-            this.btnFormatos.UseVisualStyleBackColor = true;
+            this.btnFormatos.UseVisualStyleBackColor = false;
             this.btnFormatos.Click += new System.EventHandler(this.btnFormatos_Click);
             // 
             // btnGYC
             // 
-            this.btnGYC.Location = new System.Drawing.Point(4, 311);
+            this.btnGYC.BackColor = System.Drawing.Color.Orange;
+            this.btnGYC.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGYC.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnGYC.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGYC.ForeColor = System.Drawing.Color.White;
+            this.btnGYC.Location = new System.Drawing.Point(3, 303);
             this.btnGYC.Name = "btnGYC";
-            this.btnGYC.Size = new System.Drawing.Size(75, 37);
+            this.btnGYC.Size = new System.Drawing.Size(77, 59);
             this.btnGYC.TabIndex = 0;
-            this.btnGYC.Text = "Generos y Clasificaciones";
-            this.btnGYC.UseVisualStyleBackColor = true;
+            this.btnGYC.Text = "Generos Clas.";
+            this.btnGYC.UseVisualStyleBackColor = false;
             this.btnGYC.Click += new System.EventHandler(this.btnGYC_Click);
             // 
             // panel1
@@ -88,6 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(975, 428);
             this.Controls.Add(this.Panel);
             this.Controls.Add(this.panel1);

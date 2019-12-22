@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnModificarTDE = new System.Windows.Forms.Button();
             this.btnNuevoTDE = new System.Windows.Forms.Button();
@@ -74,6 +76,7 @@
             // 
             // btnModificarTDE
             // 
+            this.btnModificarTDE.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarTDE.Location = new System.Drawing.Point(237, 390);
             this.btnModificarTDE.Name = "btnModificarTDE";
             this.btnModificarTDE.Size = new System.Drawing.Size(75, 23);
@@ -84,6 +87,7 @@
             // 
             // btnNuevoTDE
             // 
+            this.btnNuevoTDE.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoTDE.Location = new System.Drawing.Point(11, 390);
             this.btnNuevoTDE.Name = "btnNuevoTDE";
             this.btnNuevoTDE.Size = new System.Drawing.Size(75, 23);
@@ -108,22 +112,26 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 20);
+            this.label1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label1.Location = new System.Drawing.Point(29, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.Size = new System.Drawing.Size(73, 15);
             this.label1.TabIndex = 4;
-            this.label1.Text = "DESCRIPCION";
+            this.label1.Text = "Descripcion";
             // 
             // txtDescripcionTDE
             // 
+            this.txtDescripcionTDE.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcionTDE.Location = new System.Drawing.Point(108, 15);
             this.txtDescripcionTDE.MaxLength = 100;
             this.txtDescripcionTDE.Name = "txtDescripcionTDE";
-            this.txtDescripcionTDE.Size = new System.Drawing.Size(169, 20);
+            this.txtDescripcionTDE.Size = new System.Drawing.Size(169, 23);
             this.txtDescripcionTDE.TabIndex = 3;
             // 
             // btnGuardarTDE
             // 
+            this.btnGuardarTDE.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarTDE.Location = new System.Drawing.Point(202, 47);
             this.btnGuardarTDE.Name = "btnGuardarTDE";
             this.btnGuardarTDE.Size = new System.Drawing.Size(75, 23);
@@ -134,6 +142,7 @@
             // 
             // btnVolverTDE
             // 
+            this.btnVolverTDE.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverTDE.Location = new System.Drawing.Point(32, 47);
             this.btnVolverTDE.Name = "btnVolverTDE";
             this.btnVolverTDE.Size = new System.Drawing.Size(71, 23);
@@ -144,7 +153,16 @@
             // 
             // dgvTDE
             // 
+            this.dgvTDE.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvTDE.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTDE.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTDE.Location = new System.Drawing.Point(11, 7);
             this.dgvTDE.Name = "dgvTDE";
             this.dgvTDE.Size = new System.Drawing.Size(301, 286);
@@ -169,6 +187,7 @@
             // 
             // btnModificarPrecio
             // 
+            this.btnModificarPrecio.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarPrecio.Location = new System.Drawing.Point(453, 390);
             this.btnModificarPrecio.Name = "btnModificarPrecio";
             this.btnModificarPrecio.Size = new System.Drawing.Size(75, 23);
@@ -180,23 +199,28 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.AliceBlue;
             this.label5.Location = new System.Drawing.Point(383, 10);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.Size = new System.Drawing.Size(32, 15);
             this.label5.TabIndex = 4;
-            this.label5.Text = "SALA";
+            this.label5.Text = "Sala";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.AliceBlue;
             this.label4.Location = new System.Drawing.Point(78, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.Size = new System.Drawing.Size(32, 15);
             this.label4.TabIndex = 4;
-            this.label4.Text = "CINE";
+            this.label4.Text = "Cine";
             // 
             // btnNuevoPrecio
             // 
+            this.btnNuevoPrecio.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoPrecio.Location = new System.Drawing.Point(103, 390);
             this.btnNuevoPrecio.Name = "btnNuevoPrecio";
             this.btnNuevoPrecio.Size = new System.Drawing.Size(75, 23);
@@ -223,23 +247,28 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.AliceBlue;
             this.label3.Location = new System.Drawing.Point(404, 14);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.Size = new System.Drawing.Size(43, 15);
             this.label3.TabIndex = 4;
-            this.label3.Text = "PRECIO";
+            this.label3.Text = "Precio";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.AliceBlue;
             this.label2.Location = new System.Drawing.Point(27, 14);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
+            this.label2.Size = new System.Drawing.Size(31, 15);
             this.label2.TabIndex = 4;
-            this.label2.Text = "TIPO";
+            this.label2.Text = "Tipo";
             // 
             // btnGuardarPrecio
             // 
+            this.btnGuardarPrecio.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarPrecio.Location = new System.Drawing.Point(367, 46);
             this.btnGuardarPrecio.Name = "btnGuardarPrecio";
             this.btnGuardarPrecio.Size = new System.Drawing.Size(75, 23);
@@ -250,6 +279,7 @@
             // 
             // btnVolverPrecio
             // 
+            this.btnVolverPrecio.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverPrecio.Location = new System.Drawing.Point(164, 46);
             this.btnVolverPrecio.Name = "btnVolverPrecio";
             this.btnVolverPrecio.Size = new System.Drawing.Size(75, 23);
@@ -260,45 +290,58 @@
             // 
             // txtPrecio
             // 
+            this.txtPrecio.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecio.Location = new System.Drawing.Point(457, 11);
             this.txtPrecio.MaxLength = 15;
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecio.Size = new System.Drawing.Size(100, 23);
             this.txtPrecio.TabIndex = 1;
             this.txtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecio_KeyPress);
             // 
             // boxTDE
             // 
             this.boxTDE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxTDE.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxTDE.FormattingEnabled = true;
             this.boxTDE.Location = new System.Drawing.Point(65, 11);
             this.boxTDE.Name = "boxTDE";
-            this.boxTDE.Size = new System.Drawing.Size(276, 21);
+            this.boxTDE.Size = new System.Drawing.Size(276, 23);
             this.boxTDE.TabIndex = 0;
             // 
             // BoxTDS
             // 
             this.BoxTDS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BoxTDS.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BoxTDS.FormattingEnabled = true;
             this.BoxTDS.Location = new System.Drawing.Point(423, 7);
             this.BoxTDS.Name = "BoxTDS";
-            this.BoxTDS.Size = new System.Drawing.Size(121, 21);
+            this.BoxTDS.Size = new System.Drawing.Size(121, 23);
             this.BoxTDS.TabIndex = 1;
             this.BoxTDS.SelectedIndexChanged += new System.EventHandler(this.BoxTDS_SelectedIndexChanged);
             // 
             // BoxCines
             // 
             this.BoxCines.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BoxCines.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BoxCines.FormattingEnabled = true;
             this.BoxCines.Location = new System.Drawing.Point(116, 7);
             this.BoxCines.Name = "BoxCines";
-            this.BoxCines.Size = new System.Drawing.Size(121, 21);
+            this.BoxCines.Size = new System.Drawing.Size(121, 23);
             this.BoxCines.TabIndex = 1;
             this.BoxCines.SelectedIndexChanged += new System.EventHandler(this.BoxCines_SelectedIndexChanged);
             // 
             // dgvPrecios
             // 
+            this.dgvPrecios.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvPrecios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPrecios.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvPrecios.Location = new System.Drawing.Point(9, 34);
             this.dgvPrecios.Name = "dgvPrecios";
             this.dgvPrecios.Size = new System.Drawing.Size(622, 259);
@@ -309,6 +352,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(969, 426);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

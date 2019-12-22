@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.boxCines = new System.Windows.Forms.ComboBox();
             this.boxSalas = new System.Windows.Forms.ComboBox();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
@@ -71,49 +72,54 @@
             // boxCines
             // 
             this.boxCines.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxCines.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxCines.FormattingEnabled = true;
             this.boxCines.Location = new System.Drawing.Point(36, 6);
             this.boxCines.Name = "boxCines";
-            this.boxCines.Size = new System.Drawing.Size(121, 21);
+            this.boxCines.Size = new System.Drawing.Size(121, 23);
             this.boxCines.TabIndex = 0;
             this.boxCines.SelectedIndexChanged += new System.EventHandler(this.boxCines_SelectedIndexChanged);
             // 
             // boxSalas
             // 
             this.boxSalas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxSalas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxSalas.FormattingEnabled = true;
             this.boxSalas.Location = new System.Drawing.Point(233, 7);
             this.boxSalas.Name = "boxSalas";
-            this.boxSalas.Size = new System.Drawing.Size(121, 21);
+            this.boxSalas.Size = new System.Drawing.Size(121, 23);
             this.boxSalas.TabIndex = 1;
             this.boxSalas.SelectedIndexChanged += new System.EventHandler(this.boxSalas_SelectedIndexChanged);
             // 
             // dtpFecha
             // 
+            this.dtpFecha.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpFecha.Location = new System.Drawing.Point(435, 7);
             this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(124, 20);
+            this.dtpFecha.Size = new System.Drawing.Size(124, 23);
             this.dtpFecha.TabIndex = 2;
             this.dtpFecha.ValueChanged += new System.EventHandler(this.dtpFecha_ValueChanged);
             // 
             // boxPeliculas
             // 
             this.boxPeliculas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxPeliculas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxPeliculas.FormattingEnabled = true;
             this.boxPeliculas.Location = new System.Drawing.Point(633, 7);
             this.boxPeliculas.Name = "boxPeliculas";
-            this.boxPeliculas.Size = new System.Drawing.Size(121, 21);
+            this.boxPeliculas.Size = new System.Drawing.Size(121, 23);
             this.boxPeliculas.TabIndex = 3;
             this.boxPeliculas.SelectedIndexChanged += new System.EventHandler(this.boxPeliculas_SelectedIndexChanged);
             // 
             // boxFormatos
             // 
             this.boxFormatos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxFormatos.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxFormatos.FormattingEnabled = true;
             this.boxFormatos.Location = new System.Drawing.Point(826, 7);
             this.boxFormatos.Name = "boxFormatos";
-            this.boxFormatos.Size = new System.Drawing.Size(121, 21);
+            this.boxFormatos.Size = new System.Drawing.Size(121, 23);
             this.boxFormatos.TabIndex = 4;
             this.boxFormatos.SelectedIndexChanged += new System.EventHandler(this.boxFormatos_SelectedIndexChanged);
             // 
@@ -187,7 +193,16 @@
             // 
             // dgvFunciones
             // 
+            this.dgvFunciones.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvFunciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFunciones.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvFunciones.Location = new System.Drawing.Point(2, 45);
             this.dgvFunciones.Name = "dgvFunciones";
             this.dgvFunciones.Size = new System.Drawing.Size(965, 253);
@@ -226,94 +241,114 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.AliceBlue;
             this.label2.Location = new System.Drawing.Point(27, 37);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 13);
+            this.label2.Size = new System.Drawing.Size(32, 15);
             this.label2.TabIndex = 10;
-            this.label2.Text = "SALA";
+            this.label2.Text = "Sala";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(255, 37);
+            this.label4.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label4.Location = new System.Drawing.Point(255, 36);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.Size = new System.Drawing.Size(56, 15);
             this.label4.TabIndex = 10;
-            this.label4.Text = "FORMATO";
+            this.label4.Text = "Formato";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(612, 36);
+            this.label7.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Location = new System.Drawing.Point(615, 36);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(10, 13);
+            this.label7.Size = new System.Drawing.Size(11, 15);
             this.label7.TabIndex = 10;
             this.label7.Text = ":";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.AliceBlue;
             this.label9.Location = new System.Drawing.Point(739, 40);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(45, 13);
+            this.label9.Size = new System.Drawing.Size(43, 15);
             this.label9.TabIndex = 10;
-            this.label9.Text = "ACTIVA";
+            this.label9.Text = "Activa";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.AliceBlue;
             this.label8.Location = new System.Drawing.Point(741, 9);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.Size = new System.Drawing.Size(40, 15);
             this.label8.TabIndex = 10;
-            this.label8.Text = "STOCK";
+            this.label8.Text = "Stock";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.AliceBlue;
             this.label6.Location = new System.Drawing.Point(513, 35);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.Size = new System.Drawing.Size(35, 15);
             this.label6.TabIndex = 10;
-            this.label6.Text = "HORA";
+            this.label6.Text = "Hora";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.AliceBlue;
             this.label5.Location = new System.Drawing.Point(509, 8);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 13);
+            this.label5.Size = new System.Drawing.Size(41, 15);
             this.label5.TabIndex = 10;
-            this.label5.Text = "FECHA";
+            this.label5.Text = "Fecha";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(255, 10);
+            this.label3.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label3.Location = new System.Drawing.Point(261, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.Size = new System.Drawing.Size(50, 15);
             this.label3.TabIndex = 10;
-            this.label3.Text = "PELICULA";
+            this.label3.Text = "Pelicula";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.AliceBlue;
             this.label1.Location = new System.Drawing.Point(27, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.Size = new System.Drawing.Size(32, 15);
             this.label1.TabIndex = 10;
-            this.label1.Text = "CINE";
+            this.label1.Text = "Cine";
             // 
             // PtxtMinutos
             // 
-            this.PtxtMinutos.Location = new System.Drawing.Point(621, 33);
+            this.PtxtMinutos.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PtxtMinutos.Location = new System.Drawing.Point(628, 33);
             this.PtxtMinutos.MaxLength = 2;
             this.PtxtMinutos.Name = "PtxtMinutos";
-            this.PtxtMinutos.Size = new System.Drawing.Size(57, 20);
+            this.PtxtMinutos.Size = new System.Drawing.Size(58, 23);
             this.PtxtMinutos.TabIndex = 16;
             // 
             // btnGuardar
             // 
+            this.btnGuardar.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.Location = new System.Drawing.Point(621, 59);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
@@ -324,6 +359,7 @@
             // 
             // btnVolver
             // 
+            this.btnVolver.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.Location = new System.Drawing.Point(264, 59);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
@@ -345,68 +381,76 @@
             // 
             // PtxtStock
             // 
+            this.PtxtStock.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PtxtStock.Location = new System.Drawing.Point(790, 6);
             this.PtxtStock.Name = "PtxtStock";
-            this.PtxtStock.Size = new System.Drawing.Size(121, 20);
+            this.PtxtStock.Size = new System.Drawing.Size(121, 23);
             this.PtxtStock.TabIndex = 17;
             // 
             // PboxFormatos
             // 
             this.PboxFormatos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PboxFormatos.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PboxFormatos.FormattingEnabled = true;
             this.PboxFormatos.Location = new System.Drawing.Point(319, 33);
             this.PboxFormatos.Name = "PboxFormatos";
-            this.PboxFormatos.Size = new System.Drawing.Size(121, 21);
+            this.PboxFormatos.Size = new System.Drawing.Size(121, 23);
             this.PboxFormatos.TabIndex = 13;
             // 
             // PboxPeliculas
             // 
             this.PboxPeliculas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PboxPeliculas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PboxPeliculas.FormattingEnabled = true;
             this.PboxPeliculas.Location = new System.Drawing.Point(319, 6);
             this.PboxPeliculas.Name = "PboxPeliculas";
-            this.PboxPeliculas.Size = new System.Drawing.Size(121, 21);
+            this.PboxPeliculas.Size = new System.Drawing.Size(121, 23);
             this.PboxPeliculas.TabIndex = 12;
             this.PboxPeliculas.SelectedIndexChanged += new System.EventHandler(this.PboxPeliculas_SelectedIndexChanged);
             // 
             // PtxtHora
             // 
+            this.PtxtHora.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PtxtHora.Location = new System.Drawing.Point(557, 33);
             this.PtxtHora.MaxLength = 2;
             this.PtxtHora.Name = "PtxtHora";
-            this.PtxtHora.Size = new System.Drawing.Size(54, 20);
+            this.PtxtHora.Size = new System.Drawing.Size(54, 23);
             this.PtxtHora.TabIndex = 15;
             // 
             // PdtpFecha
             // 
             this.PdtpFecha.CustomFormat = "dd/MM/yyyy";
+            this.PdtpFecha.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PdtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.PdtpFecha.Location = new System.Drawing.Point(557, 6);
             this.PdtpFecha.Name = "PdtpFecha";
-            this.PdtpFecha.Size = new System.Drawing.Size(121, 20);
+            this.PdtpFecha.Size = new System.Drawing.Size(129, 23);
             this.PdtpFecha.TabIndex = 14;
             // 
             // PboxSalas
             // 
             this.PboxSalas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PboxSalas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PboxSalas.FormattingEnabled = true;
             this.PboxSalas.Location = new System.Drawing.Point(65, 33);
             this.PboxSalas.Name = "PboxSalas";
-            this.PboxSalas.Size = new System.Drawing.Size(121, 21);
+            this.PboxSalas.Size = new System.Drawing.Size(121, 23);
             this.PboxSalas.TabIndex = 11;
             // 
             // PboxCines
             // 
             this.PboxCines.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PboxCines.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PboxCines.FormattingEnabled = true;
             this.PboxCines.Location = new System.Drawing.Point(65, 6);
             this.PboxCines.Name = "PboxCines";
-            this.PboxCines.Size = new System.Drawing.Size(121, 21);
+            this.PboxCines.Size = new System.Drawing.Size(121, 23);
             this.PboxCines.TabIndex = 10;
             this.PboxCines.SelectedIndexChanged += new System.EventHandler(this.PboxCines_SelectedIndexChanged);
             // 
             // btnNuevo
             // 
+            this.btnNuevo.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.Location = new System.Drawing.Point(189, 399);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(75, 23);
@@ -417,6 +461,7 @@
             // 
             // btnModificar
             // 
+            this.btnModificar.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificar.Location = new System.Drawing.Point(691, 399);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
@@ -429,6 +474,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(969, 426);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnNuevo);

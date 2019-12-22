@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnModificarClasificacion = new System.Windows.Forms.Button();
             this.btnNuevoClasificacion = new System.Windows.Forms.Button();
             this.panelClasificacion = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtDescripcionClasificacion = new System.Windows.Forms.TextBox();
             this.btnGuardarClasificacion = new System.Windows.Forms.Button();
             this.btnVolverClasificacion = new System.Windows.Forms.Button();
@@ -40,12 +43,11 @@
             this.btnModificarGenero = new System.Windows.Forms.Button();
             this.btnNuevoGenero = new System.Windows.Forms.Button();
             this.panelGenero = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtDescripcionGenero = new System.Windows.Forms.TextBox();
             this.btnGuardarGenero = new System.Windows.Forms.Button();
             this.btnVolverGenero = new System.Windows.Forms.Button();
             this.dgvGeneros = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelClasificacion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClasificaciones)).BeginInit();
@@ -68,6 +70,7 @@
             // 
             // btnModificarClasificacion
             // 
+            this.btnModificarClasificacion.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarClasificacion.Location = new System.Drawing.Point(340, 391);
             this.btnModificarClasificacion.Name = "btnModificarClasificacion";
             this.btnModificarClasificacion.Size = new System.Drawing.Size(75, 23);
@@ -78,6 +81,7 @@
             // 
             // btnNuevoClasificacion
             // 
+            this.btnNuevoClasificacion.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoClasificacion.Location = new System.Drawing.Point(13, 391);
             this.btnNuevoClasificacion.Name = "btnNuevoClasificacion";
             this.btnNuevoClasificacion.Size = new System.Drawing.Size(75, 23);
@@ -99,16 +103,29 @@
             this.panelClasificacion.TabIndex = 1;
             this.panelClasificacion.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label1.Location = new System.Drawing.Point(32, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Descripcion:";
+            // 
             // txtDescripcionClasificacion
             // 
+            this.txtDescripcionClasificacion.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcionClasificacion.Location = new System.Drawing.Point(121, 19);
             this.txtDescripcionClasificacion.MaxLength = 30;
             this.txtDescripcionClasificacion.Name = "txtDescripcionClasificacion";
-            this.txtDescripcionClasificacion.Size = new System.Drawing.Size(245, 20);
+            this.txtDescripcionClasificacion.Size = new System.Drawing.Size(245, 23);
             this.txtDescripcionClasificacion.TabIndex = 0;
             // 
             // btnGuardarClasificacion
             // 
+            this.btnGuardarClasificacion.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarClasificacion.Location = new System.Drawing.Point(291, 53);
             this.btnGuardarClasificacion.Name = "btnGuardarClasificacion";
             this.btnGuardarClasificacion.Size = new System.Drawing.Size(75, 23);
@@ -119,6 +136,7 @@
             // 
             // btnVolverClasificacion
             // 
+            this.btnVolverClasificacion.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverClasificacion.Location = new System.Drawing.Point(35, 53);
             this.btnVolverClasificacion.Name = "btnVolverClasificacion";
             this.btnVolverClasificacion.Size = new System.Drawing.Size(75, 23);
@@ -129,7 +147,16 @@
             // 
             // dgvClasificaciones
             // 
+            this.dgvClasificaciones.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvClasificaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvClasificaciones.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvClasificaciones.Location = new System.Drawing.Point(13, 11);
             this.dgvClasificaciones.Name = "dgvClasificaciones";
             this.dgvClasificaciones.Size = new System.Drawing.Size(402, 277);
@@ -150,6 +177,7 @@
             // 
             // btnModificarGenero
             // 
+            this.btnModificarGenero.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarGenero.Location = new System.Drawing.Point(351, 391);
             this.btnModificarGenero.Name = "btnModificarGenero";
             this.btnModificarGenero.Size = new System.Drawing.Size(75, 23);
@@ -160,6 +188,7 @@
             // 
             // btnNuevoGenero
             // 
+            this.btnNuevoGenero.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoGenero.Location = new System.Drawing.Point(13, 391);
             this.btnNuevoGenero.Name = "btnNuevoGenero";
             this.btnNuevoGenero.Size = new System.Drawing.Size(75, 23);
@@ -181,16 +210,29 @@
             this.panelGenero.TabIndex = 1;
             this.panelGenero.Visible = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.AliceBlue;
+            this.label2.Location = new System.Drawing.Point(35, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 15);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Descripcion:";
+            // 
             // txtDescripcionGenero
             // 
+            this.txtDescripcionGenero.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcionGenero.Location = new System.Drawing.Point(119, 19);
             this.txtDescripcionGenero.MaxLength = 50;
             this.txtDescripcionGenero.Name = "txtDescripcionGenero";
-            this.txtDescripcionGenero.Size = new System.Drawing.Size(258, 20);
+            this.txtDescripcionGenero.Size = new System.Drawing.Size(258, 23);
             this.txtDescripcionGenero.TabIndex = 0;
             // 
             // btnGuardarGenero
             // 
+            this.btnGuardarGenero.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarGenero.Location = new System.Drawing.Point(302, 53);
             this.btnGuardarGenero.Name = "btnGuardarGenero";
             this.btnGuardarGenero.Size = new System.Drawing.Size(75, 23);
@@ -201,6 +243,7 @@
             // 
             // btnVolverGenero
             // 
+            this.btnVolverGenero.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverGenero.Location = new System.Drawing.Point(33, 53);
             this.btnVolverGenero.Name = "btnVolverGenero";
             this.btnVolverGenero.Size = new System.Drawing.Size(75, 23);
@@ -211,35 +254,27 @@
             // 
             // dgvGeneros
             // 
+            this.dgvGeneros.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvGeneros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvGeneros.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvGeneros.Location = new System.Drawing.Point(13, 11);
             this.dgvGeneros.Name = "dgvGeneros";
             this.dgvGeneros.Size = new System.Drawing.Size(413, 277);
             this.dgvGeneros.TabIndex = 0;
             this.dgvGeneros.SelectionChanged += new System.EventHandler(this.dgvGeneros_SelectionChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "DESCRIPCION:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "DESCRIPCION:";
-            // 
             // ClasificacionesYGeneros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(877, 427);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

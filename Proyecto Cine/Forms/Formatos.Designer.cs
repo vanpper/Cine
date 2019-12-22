@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvFormatos = new System.Windows.Forms.DataGridView();
             this.panelFormato = new System.Windows.Forms.Panel();
@@ -67,7 +69,16 @@
             // 
             // dgvFormatos
             // 
+            this.dgvFormatos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvFormatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFormatos.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvFormatos.Location = new System.Drawing.Point(14, 11);
             this.dgvFormatos.Name = "dgvFormatos";
             this.dgvFormatos.Size = new System.Drawing.Size(401, 277);
@@ -88,14 +99,16 @@
             // 
             // txtDescripcionFormato
             // 
+            this.txtDescripcionFormato.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcionFormato.Location = new System.Drawing.Point(37, 18);
             this.txtDescripcionFormato.MaxLength = 30;
             this.txtDescripcionFormato.Name = "txtDescripcionFormato";
-            this.txtDescripcionFormato.Size = new System.Drawing.Size(329, 20);
+            this.txtDescripcionFormato.Size = new System.Drawing.Size(329, 23);
             this.txtDescripcionFormato.TabIndex = 1;
             // 
             // btnGuardarFormato
             // 
+            this.btnGuardarFormato.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarFormato.Location = new System.Drawing.Point(290, 53);
             this.btnGuardarFormato.Name = "btnGuardarFormato";
             this.btnGuardarFormato.Size = new System.Drawing.Size(75, 23);
@@ -106,6 +119,7 @@
             // 
             // btnVolverFormato
             // 
+            this.btnVolverFormato.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverFormato.Location = new System.Drawing.Point(36, 53);
             this.btnVolverFormato.Name = "btnVolverFormato";
             this.btnVolverFormato.Size = new System.Drawing.Size(75, 23);
@@ -116,6 +130,7 @@
             // 
             // btnModificarFormato
             // 
+            this.btnModificarFormato.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarFormato.Location = new System.Drawing.Point(340, 391);
             this.btnModificarFormato.Name = "btnModificarFormato";
             this.btnModificarFormato.Size = new System.Drawing.Size(75, 23);
@@ -126,6 +141,7 @@
             // 
             // btnNuevoFormato
             // 
+            this.btnNuevoFormato.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoFormato.Location = new System.Drawing.Point(14, 391);
             this.btnNuevoFormato.Name = "btnNuevoFormato";
             this.btnNuevoFormato.Size = new System.Drawing.Size(75, 23);
@@ -149,6 +165,7 @@
             // 
             // btnHabilitacionPXF
             // 
+            this.btnHabilitacionPXF.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHabilitacionPXF.Location = new System.Drawing.Point(332, 391);
             this.btnHabilitacionPXF.Name = "btnHabilitacionPXF";
             this.btnHabilitacionPXF.Size = new System.Drawing.Size(94, 23);
@@ -159,6 +176,7 @@
             // 
             // btnNuevoPXF
             // 
+            this.btnNuevoPXF.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoPXF.Location = new System.Drawing.Point(14, 391);
             this.btnNuevoPXF.Name = "btnNuevoPXF";
             this.btnNuevoPXF.Size = new System.Drawing.Size(75, 23);
@@ -182,14 +200,16 @@
             // boxFormatos
             // 
             this.boxFormatos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxFormatos.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxFormatos.FormattingEnabled = true;
             this.boxFormatos.Location = new System.Drawing.Point(34, 18);
             this.boxFormatos.Name = "boxFormatos";
-            this.boxFormatos.Size = new System.Drawing.Size(343, 21);
+            this.boxFormatos.Size = new System.Drawing.Size(343, 23);
             this.boxFormatos.TabIndex = 4;
             // 
             // btnGuardarPXF
             // 
+            this.btnGuardarPXF.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarPXF.Location = new System.Drawing.Point(302, 53);
             this.btnGuardarPXF.Name = "btnGuardarPXF";
             this.btnGuardarPXF.Size = new System.Drawing.Size(75, 23);
@@ -200,6 +220,7 @@
             // 
             // btnVolverPXF
             // 
+            this.btnVolverPXF.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverPXF.Location = new System.Drawing.Point(34, 53);
             this.btnVolverPXF.Name = "btnVolverPXF";
             this.btnVolverPXF.Size = new System.Drawing.Size(75, 23);
@@ -210,7 +231,16 @@
             // 
             // dgvPXF
             // 
+            this.dgvPXF.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(60)))));
             this.dgvPXF.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPXF.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvPXF.Location = new System.Drawing.Point(14, 53);
             this.dgvPXF.Name = "dgvPXF";
             this.dgvPXF.Size = new System.Drawing.Size(412, 235);
@@ -219,10 +249,11 @@
             // boxPeliculas
             // 
             this.boxPeliculas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxPeliculas.Font = new System.Drawing.Font("Corbel", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxPeliculas.FormattingEnabled = true;
             this.boxPeliculas.Location = new System.Drawing.Point(94, 11);
             this.boxPeliculas.Name = "boxPeliculas";
-            this.boxPeliculas.Size = new System.Drawing.Size(241, 21);
+            this.boxPeliculas.Size = new System.Drawing.Size(241, 23);
             this.boxPeliculas.TabIndex = 0;
             this.boxPeliculas.SelectedIndexChanged += new System.EventHandler(this.boxPeliculas_SelectedIndexChanged);
             // 
@@ -230,6 +261,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(877, 430);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

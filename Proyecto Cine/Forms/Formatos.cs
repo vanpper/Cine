@@ -460,6 +460,5 @@ namespace Proyecto_Cine.Forms
                 }
             }
         }
-
     }
 }
